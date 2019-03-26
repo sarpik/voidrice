@@ -1,0 +1,32 @@
+# $HOME/.gitignore
+#
+# needed for $HOME/.dotfiles
+#
+# Read more about the dotfile management at https://wiki.archlinux.org/index.php/Dotfiles
+# (specifically https://wiki.archlinux.org/index.php/Dotfiles#Tracking_dotfiles_directly_with_Git )
+#
+# Note - only add comments at the beginning of the line
+# https://stackoverflow.com/a/8865895/9285308
+#
+# Kipras Melnikovas (kipras.org) <kipras@kipras.org>
+#
+# GPL-3.0
+#
+
+# ignore everything but not dotfiles
+*
+
+#!.*
+#
+## ignore history
+#.bash_history
+#.bash_eternal_history
+#
+## https://askubuntu.com/questions/300682/what-is-the-xauthority-file
+#.Xauthority
+#
+#.cache/
+#
+#.config/Code\ -\ OSS/
+
+
