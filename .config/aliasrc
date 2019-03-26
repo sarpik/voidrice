@@ -1,19 +1,48 @@
 #!/bin/sh
+
+## explanations
+#
+# config: https://wiki.archlinux.org/index.php/Dotfiles#Tracking_dotfiles_directly_with_Git
+#
+#
+
+
 alias ka="killall" \
 	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 	calcurse="calcurse -D ~/.config/calcurse" \
 	magit="nvim -c Magit" \
-	p="sudo pacman" \
+	p="pacman" \
+	sp="sudo pacman" \
 	SS="sudo systemctl" \
 	f="vifm" \
 	g="git" \
+	config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+	co="config" \
+	cs="clear && config add ~/.gitignore && config status" \
+	d="docker" \
+	r="ranger" \
 	trem="transmission-remote" \
 	e="$EDITOR" \
 	v="$EDITOR" \
+	sv="sudo $EDITOR" \
 	x="sxiv -ft *" \
 	sdn="sudo shutdown -h now" \
 	gua="git remote | xargs -L1 git push --all" \
 	ls="ls -hN --color=auto --group-directories-first" \
+	la="ls -lAs" \
+	ll="ls -l --all --size --group-directories-first --human-readable --color=auto" \
+	lc="ll -C" \
+	lsd="lsd --group-dirs first --classify --icon-theme unicode" \
+	lcd="lsd --icon-theme fancy" \
+	lad="lsd -la --icon-theme fancy" \
+	lld="lad" \
+	l1d="lsd --classic --icon never -1" \
+	quit="exit" \
+	q="exit" \
+	cls="clear" \
+	c="clear" \
+	c.="code . && exit" \
+	gpgkeys="gpg --list-secret-keys --keyid-format LONG" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
 	ccat="highlight --out-format=ansi" \
@@ -23,11 +52,57 @@ alias ka="killall" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
 	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
 	lsp="pacman -Qett --color=always | less" \
-	ffmpeg="ffmpeg -hide_banner"
+	ffmpeg="ffmpeg -hide_banner" \
+	chrome="nohup google-chrome-stable & disown" \
+	ce="chrome && exit 0" \
+	b="bright"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
 shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
 se() { du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf | xargs  -r $EDITOR ;}
-sv() { vcopy "$(du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf)" ;}
+svcp() { vcopy "$(du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf)" ;}
 vf() { fzf | xargs -r -I % $EDITOR % ;}
+
+bright() {
+	[ -z $1 ] && echo "usage: bright [brightness %]" && return 1
+	brightness="$(echo "$1 / 100" | bc -l)"
+	echo "brightness $brightness"
+	xrandr --output DP-0 --brightness $brightness ;
+}
+#drm() { docker rm $(docker ps -aq) ;}
+clip() { xclip -selection c ;}
+copy() { xclip -selection c "$1" ;}
+md() { pandoc -t markdown $1 | less ;}
+
+# Add file / folder to ~/.gitignore (dotfile management)
+gig() {
+	if [ -z "$1" ]; then
+	#	echo "$(pwd | sed 's|/home/kipras/||g; s|\s|\\ |g;')" >> "$HOME/.gitignore"
+		echo "$(pwd | sed 's|'"$HOME"'/||g; s|\s|\\ |g;')" | tee -a "$HOME/.gitignore";
+	else
+	#	echo "$(pwd | sed 's|/home/kipras/||g; s|\s|\\ |g;'`/$1" >> "$HOME/.gitignore"
+	#	echo "$(pwd | sed 's|'"$HOME"'/||g; s|\s|\\ |g;')/$1" >> "$HOME/.gitignore";
+ 		echo "$(pwd | sed 's|$|/'"$1"'|g; s|'"$HOME"'/||g; s|\s|\\ |g;')" | tee -a "$HOME/.gitignore";
+	fi
+}
+
+# examples:
+# cat file.json | pretty .json
+# pretty file.json .json
+pretty() {
+	if [ -z "$2" ]; then
+		prettier --stidin --stdin-filepath $1; # piping
+	else
+		cat $1 | prettier --stdin --stdin-filepath $2; # using directly
+	fi
+}
+
+# https://brbsix.github.io/2015/11/23/perform-tab-completion-for-aliases-in-bash/
+_completion_loader docker
+complete -F _docker d
+
+_completion_loader git
+complete -F _git config # config aka dotfile management from $HOME/.dotfiles
+complete -F _git co
+
