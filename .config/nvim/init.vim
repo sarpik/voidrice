@@ -16,14 +16,24 @@ Plug 'LukeSmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
-Plug 'vifm/vifm.vim'
+" autocompletion. the `--all` flag might be used to install all support. more info @ https://valloric.github.io/YouCompleteMe/#installation
+" https://github.com/Valloric/YouCompleteMe/
+"
+" note - this is somewhat cumbersome to setup.
+"
+"
+"
+" dos2unix /usr/share/vim/vimfiles/plugin/youcompleteme.vim
+"
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --rust-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 call plug#end()
 
 set bg=light
 set go=a
 set mouse=a
 set nohlsearch
-set clipboard=unnamedplus
+set clipboard=unnamedplus " always copies into default clipboard by default. see https://stackoverflow.com/a/11489440/9285308
 
 " Some basics:
 	nnoremap c "_c
@@ -32,6 +42,21 @@ set clipboard=unnamedplus
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
+
+" custom #sarpik
+	set tabstop=4
+	set shiftwidth=4
+	set autoindent
+	set backupdir=~/.vim/backup//	" swap files
+	set undodir=~/.vim/backup//	" undo files
+	set backspace=indent,eol,start
+
+	" https://stackoverflow.com/a/2287449
+	set ignorecase
+	set smartcase
+
+" end custom #sarpik
+
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
@@ -47,7 +72,7 @@ set clipboard=unnamedplus
 	set splitbelow splitright
 
 " Nerd tree
-	map <leader>n :NERDTreeToggle<CR>
+	map <C-n>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " vimling:
@@ -102,10 +127,10 @@ set clipboard=unnamedplus
 	autocmd BufWritePre * %s/\s\+$//e
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
-	autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts
+	autocmd BufWritePost ~/.bmdirs,~/.bmfiles !shortcuts
 
 " Run xrdb whenever Xdefaults or Xresources are updated.
-	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+	autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
 
 " Navigating with guides
 	inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
