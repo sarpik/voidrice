@@ -9,4 +9,5 @@ $(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
 - % is of single core." ;;
 esac
 
-sensors | awk '/Core 0/ {print $3}'
+# sed is used to replace floating point numbers
+sensors | awk '/Core 0/ {print $3}' | sed 's/\.[0-9]*//g'
