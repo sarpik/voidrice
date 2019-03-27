@@ -1,4 +1,4 @@
-" vim: filetype=vifm
+" vim: filetype=vim
 source ~/.config/vifm/vifmshortcuts
 
 set vicmd=$EDITOR
@@ -24,7 +24,6 @@ map <C-o> <C-w>o
 map <C-s> <C-w>s
 map <C-v> <C-w>v
 
-map R :restart<CR>
 map x :!sxiv -ft * 2>/dev/null &<CR>
 nnoremap o :file &<cr>
 map E :!$EDITOR %f<CR>
@@ -42,7 +41,6 @@ nnoremap A cw
 nnoremap ,w :set wrap!<cr>
 nmap <space> tj
 nmap q ZQ
-
 fileview */ tree %c -L 1 --dirsfirst
 fileview ../ tree %c -L 1 --dirsfirst
 fileviewer *.md,*.xml,*.css,*.py,*.c,*.h,*.sh,*.diff,*.tex,*.md,*.bib,*.sty,*.desktop highlight -O ansi %c
