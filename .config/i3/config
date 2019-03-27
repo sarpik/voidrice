@@ -1,5 +1,15 @@
 # vim: filetype=i3
-# File originally by Luke Smith <https://lukesmith.xyz>
+#  _        _    ____  ____ ____
+# | |      / \  |  _ \| __ ) ___|
+# | |     / _ \ | |_) |  _ \___ \
+# | |___ / ___ \|  _ <| |_) |__) |
+# |_____/_/   \_\_| \_\____/____/
+#
+# File originally by Luke Smith
+# Website: http://lukesmith.xyz
+# Email: luke@lukesmith.xyz
+# YouTube: https://youtube.com/c/LukeSmithxyz
+# Github: https://github.com/LukeSmithxyz
 
 # This config file will use environmental variables such as $BROWSER and $TERMINAL.
 # You can set these variables in ~/.profile or ~/.bash_profile if you have it as below:
@@ -8,6 +18,7 @@
 # export TERMINAL="st"
 
 # #---Basic Definitions---# #
+# Needed for i3-gaps
 for_window [class="^.*"] border pixel 2
 gaps inner 15
 gaps outer 15
@@ -20,6 +31,7 @@ set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 
 # #---Dropdown Windows---# #
+
 # General dropdown window traits. The order can matter.
 for_window [instance="dropdown_*"] floating enable
 for_window [instance="dropdown_*"] move scratchpad
@@ -78,7 +90,7 @@ bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec --no-startup-
 
 # Show selection:
 bindsym $mod+Insert		exec --no-startup-id showclip
-##bindsym $mod+Pause
+bindsym $mod+Pause		exec --no-startup-id xcqr
 
 # #---Letter Key Bindings---# #
 bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
@@ -148,7 +160,7 @@ bindsym $mod+Shift+z		gaps outer current minus 5
 bindsym $mod+x			exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id i3lock -e -f -c 1d2021
 bindsym $mod+Shift+x		exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
-bindsym $mod+c			exec --no-startup-id cabl
+bindsym $mod+c			exec --no-startup-id freealf
 bindsym $mod+Shift+c		exec --no-startup-id camtoggle
 
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
@@ -257,6 +269,7 @@ bindsym $mod+Shift+Up		move up
 bindsym $mod+Shift+Right 	move right
 
 # #---Media Keys---# #
+
 # Volume keys
 bindsym $mod+plus		exec --no-startup-id lmc up 5
 bindsym $mod+Shift+plus		exec --no-startup-id lmc up 15
@@ -282,6 +295,7 @@ bindsym $mod+Delete		exec $stoprec
 bindsym XF86Launch1		exec --no-startup-id xset dpms force off
 
 # #---Extra XF86 Keys---# #
+# These are the extra media keys that some keyboards have.
 bindsym XF86AudioMute		exec --no-startup-id lmc mute
 bindsym XF86AudioLowerVolume	exec --no-startup-id lmc down 5
 bindsym Shift+XF86AudioLowerVolume	exec --no-startup-id lmc down 10
@@ -363,3 +377,4 @@ bindsym XF86Documents		exec $term -e $FILE ~/Documents
 ##bindsym XF86Battery		exec
 ##bindsym XF86Bluetooth		exec
 bindsym XF86WLAN		exec $netrefresh
+exec_always --no-startup-id notify-send -i ~/.scripts/pix/larbs.png '<b>Welcome to LARBS:</b> Press Super+F1 for the manual.' -t 10000
