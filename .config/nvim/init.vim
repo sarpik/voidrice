@@ -1,3 +1,5 @@
+" init.vim
+
 let mapleader =","
 
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
