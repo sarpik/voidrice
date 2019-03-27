@@ -6,6 +6,7 @@ cfz	~/.zshrc
 cfv	~/.config/nvim/init.vim
 cfr	~/.config/ranger/rc.conf
 cfi	~/.config/i3/config
+cfib ~/.config/i3blocks/config
 cfm	~/.config/mutt/muttrc
 eb	~/Documents/LaTeX/uni.bib
 cv	~/Documents/LaTeX/cv.tex
