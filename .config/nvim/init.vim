@@ -74,7 +74,7 @@ set clipboard=unnamedplus " always copies into default clipboard by default. see
 	set splitbelow splitright
 
 " Nerd tree
-	map <C-n>n :NERDTreeToggle<CR>
+	map <C-n> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " vimling:
