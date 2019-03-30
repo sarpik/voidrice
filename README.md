@@ -1,6 +1,6 @@
-# Luke's GNU/Linux Dotfiles
+# Kipras's fork of [Luke's](https://github.com/LukeSmithxyz/voidrice) GNU/Linux Dotfiles
 
-These are my dotfiles! The name of the repo, "voidrice", came from the fact they were originally on my Void Linux machine, but these files are distro-independent. In fact, I now push changes from my X200 running Parabola or my X220 running Arch.
+These are *my* dotfiles! The name of the repo, "voidrice", came from the fact they were originally on Luke's Void Linux machine, but these files are distro-independent. In fact, Luke now pushes changes from his X200 running Parabola or his X220 running Arch.
 
 ## Programs whose configs can be found here
 
