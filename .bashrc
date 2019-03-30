@@ -2,6 +2,9 @@
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Allows you to cd into directory merely by typing the directory name.
 
+#export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
+
 # begin history cfg
 # originally from https://stackoverflow.com/a/19533853/9285308
 
@@ -23,18 +26,20 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
-#[ -f "$HOME/.config/git-completion.bash" ] && source "$HOME/.config/git-completion.bash"
-[ -f "$HOME/.config/git/git-completion.bash" ] \
-	&& source "$HOME/.config/git/git-completion.bash" \
-	&& __git_complete g __git_main \
-	&& __git_complete config __git_main
+if [ -f "$HOME/.config/git/git-completion.bash" ]; then
+	source "$HOME/.config/git/git-completion.bash" &&
+	__git_complete g __git_main &&
+	__git_complete config __git_main &&
+	__git_complete co __git_main
 	# enables git completion for git's alias 'g' as defined in ~/.config/aliasrc
+fi
+
+# https://github.com/github/hub/
+if [ -f "$HOME/.config/git/hub.bash_completion" ]; then
+	source "$HOME/.config/git/hub.bash_completion"
+fi
 
 [ -f "$HOME/.config/git/git-prompt.sh" ] && source "$HOME/.config/git/git-prompt.sh"
-
-#export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
-export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
-export FORCE_COLOR="true"
 
 # More info @ ~/.config/git-prompt.sh & ~/.config/git-completion.bash
 export GIT_PS1_SHOWCOLORHINTS=1
