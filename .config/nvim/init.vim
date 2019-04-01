@@ -134,6 +134,9 @@ set clipboard=unnamedplus " always copies into default clipboard by default. see
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
 
+" Recompile suckless programs automatically:
+	autocmd BufWritePost ~/builds/st/config.h,~/builds/st/config.def.h !sudo make install
+
 " Navigating with guides
 	inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 	vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
