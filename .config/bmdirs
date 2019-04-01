@@ -9,3 +9,5 @@ vv	~/Videos
 cf	~/.config
 sc	~/.scripts
 mn	/mnt
+ds ~/dotfiles
+dds ~/.dotfiles

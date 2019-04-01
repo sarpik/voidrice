@@ -4,8 +4,8 @@
 #
 # config: https://wiki.archlinux.org/index.php/Dotfiles#Tracking_dotfiles_directly_with_Git
 #
+# git=hub https://github.com/github/hub
 #
-
 
 alias ka="killall" \
 	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
@@ -15,8 +15,9 @@ alias ka="killall" \
 	sp="sudo pacman" \
 	SS="sudo systemctl" \
 	f="vifm" \
+	git="hub" \
 	g="git" \
-	config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+	config='/usr/bin/hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
 	co="config" \
 	cs="clear && config add ~/.gitignore && config status" \
 	d="docker" \
@@ -55,7 +56,8 @@ alias ka="killall" \
 	ffmpeg="ffmpeg -hide_banner" \
 	chrome="nohup google-chrome-stable & disown" \
 	ce="chrome && exit 0" \
-	b="bright"
+	b="bright" \
+	queota="printf \"want some?\n\""
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 

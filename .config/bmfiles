@@ -16,3 +16,4 @@ cfn	~/.config/newsboat/config
 cfmb	~/.config/ncmpcpp/bindings
 cfmc	~/.config/ncmpcpp/config
 er	~/Documents/referbib
+docs ~/.local/share/larbs/readme.mom
