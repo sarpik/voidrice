@@ -18,7 +18,7 @@ export HISTTIMEFORMAT="[%F %T] "
 export HISTFILE="$HOME/.bash_eternal_history"
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Don't add to history if prefixed with a space
 export HISTCONTROL="ignorespace"
 
