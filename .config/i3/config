@@ -189,11 +189,14 @@ bindsym $mod+XF86Back		workspace prev
 bindsym $mod+Shift+XF86Back	move container to workspace prev
 bindsym $mod+XF86Forward	workspace next
 bindsym $mod+Shift+XF86Forward	move container to workspace next
-bindsym $mod+semicolon		workspace next
-bindsym $mod+apostrophe		split horizontal ;; exec $term
+bindsym $mod+semicolon		workspace prev
+bindsym $mod+apostrophe		workspace next
+#bindsym $mod+semicolon		workspace next
+#bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 bindsym $mod+Shift+slash	kill
-bindsym $mod+backslash		workspace back_and_forth
+bindsym $mod+backslash		split horizontal ;; exec $term
+#bindsym $mod+backslash		workspace back_and_forth
 
 set $ws1 "1"
 set $ws2 "2"
