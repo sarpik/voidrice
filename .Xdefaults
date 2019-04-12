@@ -1,0 +1,2 @@
+#*.font:	Liberation Mono:pixelsize=22:antialias=true:autohint=true;
+*.font: FuraCode Nerd Font Mono:pixelsize=20,style=Retina,Regular;
