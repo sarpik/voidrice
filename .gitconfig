@@ -9,6 +9,7 @@
 	autocrlf = input # `auto` for Windows, `input` for *nix.
 					 # Read more @ https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
+	pager = less -R
 [color]
 	branch = auto
 	diff = auto
@@ -40,6 +41,7 @@
 	a = add
 	b = branch
 	c = commit -S -s
+	ca = c --amend
 	cl = clone
 	co = checkout
 	cfg = config --global --edit
@@ -48,6 +50,7 @@
 	df = diff FETCH_HEAD
 	#e =
 	f = fetch
+	fa = fetch --all
 	#g =
 	#h =
 	#i =
@@ -64,9 +67,13 @@
 	#q =
 	#r =
 	s = status
+	sl = !git -c color.status=always status | less -R # https://stackoverflow.com/a/18304605
+			# /\ the -c option is explained by `man git` @ 47
+			# > Pass a configuration parameter to the command. The value given will override values from configuration files.
 	sb = show-branch
 	stash-unapply = !git stash show -p | git apply -Rc
 	#t =
+	test = !echo
 	#u =
 	#v =
 	#w =
