@@ -11,3 +11,4 @@ sc	~/.scripts
 mn	/mnt
 ds ~/dotfiles
 dds ~/.dotfiles
+lr ~/larbs
