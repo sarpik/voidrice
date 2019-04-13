@@ -28,6 +28,7 @@ numlockx &
 
 # automatic screen brightness adjustment, blue light filtering and more
 # https://wiki.archlinux.org/index.php/Redshift
-[ redshift -h >/dev/null 2>&1 ] && nohup redshift &
+#[ redshift -h >/dev/null 2>&1 ] && nohup redshift &
+nohup redshift &
 
 exec i3
