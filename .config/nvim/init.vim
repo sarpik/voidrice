@@ -2,6 +2,10 @@
 
 let mapleader =","
 
+"if ! [ -d "~/.vim/backup/" ]
+"	mkdir -pv ~/.vim/backup && echo "Created directory for backup and swap files" || echo "Error! Failed to create directory for backups & wrap files. Create one yourself in ~/.vim/backup"
+"endif
+
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ~/.config/nvim/autoload/
@@ -27,7 +31,7 @@ Plug 'tpope/vim-commentary'
 "
 " dos2unix /usr/share/vim/vimfiles/plugin/youcompleteme.vim
 "
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --rust-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --rust-completer --ts-completer' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 call plug#end()
 
