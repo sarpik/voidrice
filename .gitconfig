@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Kipras Melnikovas
-	email = sarpixo@gmail.com
+	email = kipras@kipras.org
 	signingkey = AA505BC1C6D8AD90
 [core]
 	#editor = '/usr/bin/code' --new-window --wait
