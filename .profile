@@ -42,3 +42,20 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc
 sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 
 export GPG_TTY=$(tty)
+
+# git checkout -- <file/path> limitation / protection
+git() {
+	if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
+		printf "WARNING\nRegex matched this as a 'git checkout -- <foo>'\nThis will OVERRIDE the file(s) PERMANENTLY!\nAre you SURE you want to continue?\n==> [y/N]: "
+		read choice
+		if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+			printf "I sure hope you know what you are doing."
+			command git "$@"
+		else
+			printf "==> Aborting\n" && return 1
+		fi
+	else
+		command git "$@"
+	fi
+}
+
