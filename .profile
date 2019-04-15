@@ -43,13 +43,29 @@ sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 
 export GPG_TTY=$(tty)
 
-# git checkout -- <file/path> limitation / protection
+# this is somewhat of a 'pre-checkout' hook
+# I wish that git implemented it by default
+# this one protects from `git checkout -- <foo>` and/or `git checkout -- .`
+[ "$(command -v git)" = "alias git='hub'" ] && gitWrapper="hub" || gitWrapper="git"
+
+if [ "$gitWrapper" = "git" ]; then
 git() {
 	if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
-		printf "WARNING\nRegex matched this as a 'git checkout -- <foo>'\nThis will OVERRIDE the file(s) PERMANENTLY!\nAre you SURE you want to continue?\n==> [y/N]: "
+		printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+
+		if [ "$3" = "." ]; then
+			printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+		else
+			printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+		fi
+
+		printf "\n\n==> Are you SURE you want to continue? [y/N]: "
 		read choice
 		if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
-			printf "I sure hope you know what you are doing."
+			printf "\n==> I sure hope you know what you are doing...\n"
+			git stash -u && \
+			printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
+			git stash apply >/dev/null 2>&1 && \
 			command git "$@"
 		else
 			printf "==> Aborting\n" && return 1
@@ -59,3 +75,31 @@ git() {
 	fi
 }
 
+elif [ "$gitWrapper" = "hub" ]; then
+
+hub() {
+	if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
+		printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+
+		if [ "$3" = "." ]; then
+			printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+		else
+			printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+		fi
+
+		printf "\n\n==> Are you SURE you want to continue? [y/N]: "
+		read choice
+		if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+			printf "\n==> I sure hope you know what you are doing...\n"
+			hub stash -u && \
+			printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
+			hub stash apply >/dev/null 2>&1 && \
+			command hub "$@"
+		else
+			printf "==> Aborting\n" && return 1
+		fi
+	else
+		command hub "$@"
+	fi
+}
+fi
