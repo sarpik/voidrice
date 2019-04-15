@@ -46,6 +46,37 @@ export GPG_TTY=$(tty)
 # this is somewhat of a 'pre-checkout' hook
 # I wish that git implemented it by default
 # this one protects from `git checkout -- <foo>` and/or `git checkout -- .`
+#
+# single quote (') escaping in sed credit: https://stackoverflow.com/a/18274451
+#
+
+# check if git exists
+$(git --help >/dev/null 2>&1) && gitExists="true" || gitExists="false"
+printf "\ngitExists $gitExists\n"
+
+# if it doesn't exist, we should skip our next steps.
+
+# get git's command
+gitCmd="$(command -v git)"
+printf "$gitCmd" | grep -i "alias git=" && gitIsAliased=true || gitIsAliased=false
+
+if [ "$gitIsAliased" = "true" ]; then
+	#printf "$gitCmd" | sed 's|alias git='\(.*\)'|\1|g'; '
+	trueGit="$(printf "$gitCmd" | sed 's|alias git='\''\(.*\)'\''|\1|g;')"
+
+elif [ "$gitIsAliased" = "false" ]; then
+	# might be /usr/bin/git etc. or not available
+	trueGit="git"
+fi
+
+printf "\ntrueGit $trueGit\n"
+
+### TODO figure out a way to declare a function from a variable
+
+### ---
+
+
+# this is currently a temporary work-around, only support git & hub.
 [ "$(command -v git)" = "alias git='hub'" ] && gitWrapper="hub" || gitWrapper="git"
 
 if [ "$gitWrapper" = "git" ]; then
