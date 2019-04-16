@@ -88,71 +88,69 @@ if [ "$gitExists" = "true" ]; then
 	# this is currently a temporary work-around, only support git & hub.
 	[ "$(command -v git)" = "alias git='hub'" ] && gitWrapper="hub" || gitWrapper="git"
 
+	printf "gitWrapper $gitWrapper \n"
+
 	if [ "$gitWrapper" = "git" ]; then
-	git() {
-		if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
-			printf "WARNING\n==> Regex matched this as a 'git checkout -- "
-
-			if [ "$3" = "." ]; then
-				printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
-			else
-				printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
-			fi
-
-			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
-			read choice
-			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
-				printf "\n==> I sure hope you know what you are doing...\n"
-				git stash -u && \
-				printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
-				git stash apply >/dev/null 2>&1 && \
-				command git "$@"
-			else
-				printf "==> Aborting\n" && return 1
-			fi
-		else
-			command git "$@"
-		fi
-	}
+		printf "git is currently not protected from checkout\n"
+### TODO REWRITE THIS TOO
+#	git() {
+#		if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
+#			printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+#
+#			if [ "$3" = "." ]; then
+#				printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+#			else
+#				printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+#			fi
+#
+#			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
+#			read choice
+#			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+#				printf "\n==> I sure hope you know what you are doing...\n"
+#				git stash -u && \
+#				printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
+#				git stash apply >/dev/null 2>&1 && \
+#				command git "$@"
+#			else
+#				printf "==> Aborting\n" && return 1
+#			fi
+#		else
+#			command git "$@"
+#		fi
+#	}
 
 	elif [ "$gitWrapper" = "hub" ]; then
-
 	hub() {
-
-		# argv checking [3]
-		if [[ " $@ " =~ " checkout -- . " ]]; then
-			# VERY dangerous (whole directory)
-			printf "has checkout -- .\n"
-
-		elif [[ " $@ " =~ " checkout -- " ]]; then
-			# Quite dangerous (will override, but not whole directory)
-			printf "has checkout \n"
-		fi
-
-
-		if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
-			printf "WARNING\n==> Regex matched this as a 'git checkout -- "
-
-			if [ "$3" = "." ]; then
-				printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+		if [[ " $@ " =~ " checkout -- " ]]; then
+			if [[ " $@ " =~ " checkout -- . " ]]; then
+				# VERY dangerous (whole directory)
+				printf "==> Detected 'checkout -- .'\n"
+				printf " :: This will OVERRIDE **ALL** changes PERMANENTLY!!!"
 			else
-				printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+				# Quite dangerous (will override, but not whole directory)
+				printf "==> Detected 'checkout --'\n"
+				printf " :: This will OVERRIDE the file(s) PERMANENTLY!"
 			fi
+
+			#printf "WARNING\n==> Regex matched this as a 'git checkout -- "
 
 			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
 			read choice
+
 			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
 				printf "\n==> I sure hope you know what you are doing...\n"
 				hub stash -u && \
-				printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
+				printf "\n :: Created a backup stash & probably saved yo butt.\n" && \
 				hub stash apply >/dev/null 2>&1 && \
 				command hub "$@"
 			else
 				printf "==> Aborting\n" && return 1
 			fi
 		else
-			command hub "$@"
+			# default case - we did NOT match `checkout --` nor `checkout -- .`
+			# pass the command back to git
+			command git "$@"
 		fi
-	}
-	fi
-fi
+	}	# end hub()
+fi	# end $gitWrapper check
+fi # end $gitExists check
