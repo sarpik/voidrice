@@ -43,94 +43,116 @@ sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 
 export GPG_TTY=$(tty)
 
-# this is somewhat of a 'pre-checkout' hook
+#
+# this is somewhat of a git's 'pre-checkout' hook
 # I wish that git implemented it by default
 # this one protects from `git checkout -- <foo>` and/or `git checkout -- .`
 #
-# single quote (') escaping in sed credit: https://stackoverflow.com/a/18274451
+# Credits:
+# [1] check if something is an alias: https://stackoverflow.com/a/9783627/9285308
+# [2] single quote (') escaping in sed: https://stackoverflow.com/a/18274451
+# [3] checking if argv contains a specific command: https://stackoverflow.com/a/47789975/9285308
 #
 
 # check if git exists
 $(git --help >/dev/null 2>&1) && gitExists="true" || gitExists="false"
-printf "\ngitExists $gitExists\n"
+printf "gitExists $gitExists\n"
 
-# if it doesn't exist, we should skip our next steps.
+if [ "$gitExists" = "true" ]; then
+	# Get git's command. Might be aliased
+	gitCmd="$(command -v git)"
 
-# get git's command
-gitCmd="$(command -v git)"
-printf "$gitCmd" | grep -i "alias git=" && gitIsAliased=true || gitIsAliased=false
+	# Check if git is aliased [1]
+	$(alias git 2>/dev/null >/dev/null) && gitIsAliased="true" || gitIsAliased="false"
+	printf "gitIsAliased $gitIsAliased \n"
 
-if [ "$gitIsAliased" = "true" ]; then
-	#printf "$gitCmd" | sed 's|alias git='\(.*\)'|\1|g'; '
-	trueGit="$(printf "$gitCmd" | sed 's|alias git='\''\(.*\)'\''|\1|g;')"
+	if [ "$gitIsAliased" = "true" ]; then
+		# extract the alias [2]. E.g.: alias git='hub' => hub
+		trueGit="$(printf "$gitCmd" | sed 's|alias git='\''\(.*\)'\''|\1|g;')"
 
-elif [ "$gitIsAliased" = "false" ]; then
-	# might be /usr/bin/git etc. or not available
-	trueGit="git"
-fi
+	elif [ "$gitIsAliased" = "false" ]; then
+		# might be /usr/bin/git etc.
+		trueGit="$gitCmd"
+	fi
 
-printf "\ntrueGit $trueGit\n"
+	printf "trueGit = $trueGit\n"
 
-### TODO figure out a way to declare a function from a variable
+	### TODO figure out a way to declare a function from a variable
 
-### ---
+	### ---
 
 
-# this is currently a temporary work-around, only support git & hub.
-[ "$(command -v git)" = "alias git='hub'" ] && gitWrapper="hub" || gitWrapper="git"
 
-if [ "$gitWrapper" = "git" ]; then
-git() {
-	if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
-		printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+	### ---
 
-		if [ "$3" = "." ]; then
-			printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+	# this is currently a temporary work-around, only support git & hub.
+	[ "$(command -v git)" = "alias git='hub'" ] && gitWrapper="hub" || gitWrapper="git"
+
+	if [ "$gitWrapper" = "git" ]; then
+	git() {
+		if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
+			printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+
+			if [ "$3" = "." ]; then
+				printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+			else
+				printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+			fi
+
+			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
+			read choice
+			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+				printf "\n==> I sure hope you know what you are doing...\n"
+				git stash -u && \
+				printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
+				git stash apply >/dev/null 2>&1 && \
+				command git "$@"
+			else
+				printf "==> Aborting\n" && return 1
+			fi
 		else
-			printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
-		fi
-
-		printf "\n\n==> Are you SURE you want to continue? [y/N]: "
-		read choice
-		if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
-			printf "\n==> I sure hope you know what you are doing...\n"
-			git stash -u && \
-			printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
-			git stash apply >/dev/null 2>&1 && \
 			command git "$@"
-		else
-			printf "==> Aborting\n" && return 1
 		fi
-	else
-		command git "$@"
-	fi
-}
+	}
 
-elif [ "$gitWrapper" = "hub" ]; then
+	elif [ "$gitWrapper" = "hub" ]; then
 
-hub() {
-	if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
-		printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+	hub() {
 
-		if [ "$3" = "." ]; then
-			printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
-		else
-			printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+		# argv checking [3]
+		if [[ " $@ " =~ " checkout -- . " ]]; then
+			# VERY dangerous (whole directory)
+			printf "has checkout -- .\n"
+
+		elif [[ " $@ " =~ " checkout -- " ]]; then
+			# Quite dangerous (will override, but not whole directory)
+			printf "has checkout \n"
 		fi
 
-		printf "\n\n==> Are you SURE you want to continue? [y/N]: "
-		read choice
-		if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
-			printf "\n==> I sure hope you know what you are doing...\n"
-			hub stash -u && \
-			printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
-			hub stash apply >/dev/null 2>&1 && \
+
+		if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
+			printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+
+			if [ "$3" = "." ]; then
+				printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
+			else
+				printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
+			fi
+
+			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
+			read choice
+			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+				printf "\n==> I sure hope you know what you are doing...\n"
+				hub stash -u && \
+				printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
+				hub stash apply >/dev/null 2>&1 && \
+				command hub "$@"
+			else
+				printf "==> Aborting\n" && return 1
+			fi
+		else
 			command hub "$@"
-		else
-			printf "==> Aborting\n" && return 1
 		fi
-	else
-		command hub "$@"
+	}
 	fi
-}
 fi
