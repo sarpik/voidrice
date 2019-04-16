@@ -53,14 +53,32 @@ set clipboard=unnamedplus " always copies into default clipboard by default. see
 	set tabstop=4
 	set shiftwidth=4
 	set autoindent
-	set backupdir=~/.vim/backup//	" swap files
-	set undodir=~/.vim/backup//	" undo files
 	set backspace=indent,eol,start
-
 	" https://stackoverflow.com/a/2287449
 	set ignorecase
 	set smartcase
 
+	" Create necessary directories:
+	if !isdirectory("~/.vim/backup")
+   		silent !mkdir -p ~/.vim/backup
+	endif
+
+	if !isdirectory("~/.vim/swap")
+		silent !mkdir -p ~/.vim/swap
+	endif
+
+	if !isdirectory("~/.vim/undo")
+		silent !mkdir -p ~/.vim/undo
+	endif
+
+	set backup
+	set backupdir=~/.vim/backup//	" ~
+
+	set swapfile
+	set directory=~/.vim/swap//		" .swp
+
+	set undofile
+	set undodir=~/.vim/undo//		" undo files
 " end custom #sarpik
 
 " Enable autocompletion:
