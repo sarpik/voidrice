@@ -44,6 +44,8 @@
 	ca = c --amend
 	cl = clone
 	co = checkout
+	#co = !git stash -u && git checkout
+	#checkout = !git stash -u && command git "$@"
 	cfg = config --global --edit
 	d = diff
 	ds = diff --staged

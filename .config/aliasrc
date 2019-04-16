@@ -6,6 +6,8 @@
 #
 # git=hub https://github.com/github/hub
 #
+# config='/usr/bin/hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+
 
 alias ka="killall" \
 	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
@@ -17,7 +19,7 @@ alias ka="killall" \
 	f="vifm" \
 	git="hub" \
 	g="git" \
-	config='/usr/bin/hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+	config="hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
 	co="config" \
 	cs="clear && config add ~/.gitignore && config status" \
 	d="docker" \
