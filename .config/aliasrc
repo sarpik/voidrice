@@ -133,7 +133,7 @@ complete -F _git co
 # check if git exists
 # TODO improve this checking
 $(git --help >/dev/null 2>&1) && gitExists="true" || gitExists="false"
-printf "gitExists $gitExists\n"
+#printf "gitExists $gitExists\n"
 
 if [ "$gitExists" = "true" ]; then
 	# Get git's command. Might be aliased
@@ -141,7 +141,7 @@ if [ "$gitExists" = "true" ]; then
 
 	# Check if git is aliased [1]
 	$(alias git 2>/dev/null >/dev/null) && gitIsAliased="true" || gitIsAliased="false"
-	printf "gitIsAliased $gitIsAliased \n"
+	#printf "gitIsAliased $gitIsAliased \n"
 
 	if [ "$gitIsAliased" = "true" ]; then
 		# extract the alias [2]. E.g.: alias git='hub' => hub
@@ -152,7 +152,7 @@ if [ "$gitExists" = "true" ]; then
 		trueGit="$gitCmd"
 	fi
 
-	printf "trueGit = $trueGit\n"
+	#printf "trueGit = $trueGit\n"
 
 	### ---
 
@@ -212,7 +212,18 @@ if [ "$gitExists" = "true" ]; then
 		hub() {
 			gitWrapper "$@"
 		}
+
+	### add any other potential
+	### git's commands that could be aliased
+	### here
+
+	#	elif [ "$trueGit" = "yetAnotherAlias" ]; then
+	#		yetAnotherAlias() {
+	#			gitWrapper "$@"
+	#		}
+
 	fi # end #trueGit check
+
 fi # end $gitExists check
 
 
