@@ -92,37 +92,17 @@ if [ "$gitExists" = "true" ]; then
 
 	if [ "$gitWrapper" = "git" ]; then
 		printf "git is currently not protected from checkout\n"
-### TODO REWRITE THIS TOO
-#	git() {
-#		if [[ "$1" =~ [checkout]+ ]] && [ "$2" = "--" ]; then
-#			printf "WARNING\n==> Regex matched this as a 'git checkout -- "
-#
-#			if [ "$3" = "." ]; then
-#				printf ".'\n%4sThis will OVERRIDE **ALL** changes PERMANENTLY!!!"
-#			else
-#				printf "<foo>'\n%4sThis will OVERRIDE the file(s) PERMANENTLY!"
-#			fi
-#
-#			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
-#			read choice
-#			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
-#				printf "\n==> I sure hope you know what you are doing...\n"
-#				git stash -u && \
-#				printf "\n==> Created a backup stash & probably saved yo butt.\n" && \
-#				git stash apply >/dev/null 2>&1 && \
-#				command git "$@"
-#			else
-#				printf "==> Aborting\n" && return 1
-#			fi
-#		else
-#			command git "$@"
-#		fi
-#	}
 
 	elif [ "$gitWrapper" = "hub" ]; then
 	hub() {
-		if [[ " $@ " =~ " checkout -- " ]]; then
-			if [[ " $@ " =~ " checkout -- . " ]]; then
+		#matchingPat="[[:space:]][checkout]+[[:space:]]--"
+		### matchingPat="[checkout]+ --" #WARNING CAUSES BUGS WITH READ - read reads everytime even if function is not accessed
+		#[[ " $@ " =~ $matchingPat ]] && echo "matchinPat matched" || echo "matchinPat not matched"
+
+		## Add another case for every alias you have in your ~/.gitconfig for `checkout`
+
+		if [[ " $@ " =~ " checkout -- " ]] || [[ " $@ " =~ " co -- " ]] ; then
+			if [[ " $@ " = " checkout -- . " ]] || [[ " $@ " =~ " co -- . " ]]; then
 				# VERY dangerous (whole directory)
 				printf "==> Detected 'checkout -- .'\n"
 				printf " :: This will OVERRIDE **ALL** changes PERMANENTLY!!!"
@@ -135,6 +115,7 @@ if [ "$gitExists" = "true" ]; then
 			#printf "WARNING\n==> Regex matched this as a 'git checkout -- "
 
 			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
+
 			read choice
 
 			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
@@ -149,8 +130,11 @@ if [ "$gitExists" = "true" ]; then
 		else
 			# default case - we did NOT match `checkout --` nor `checkout -- .`
 			# pass the command back to git
-			command git "$@"
+			command hub "$@"
 		fi
-	}	# end hub()
-fi	# end $gitWrapper check
+	} # end hub()
+
+	fi # end #gitWrapper check
 fi # end $gitExists check
+
+
