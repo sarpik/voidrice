@@ -55,6 +55,7 @@ export GPG_TTY=$(tty)
 #
 
 # check if git exists
+# TODO improve this checking
 $(git --help >/dev/null 2>&1) && gitExists="true" || gitExists="false"
 printf "gitExists $gitExists\n"
 
@@ -77,64 +78,80 @@ if [ "$gitExists" = "true" ]; then
 
 	printf "trueGit = $trueGit\n"
 
+	### ---
+
+	gitWrapper() {
+	## Add another case for every `git checkout` alias you have in your .gitconfig
+
+	if [[ " $@ " =~ " checkout -- " ]] || [[ " $@ " =~ " co -- " ]] ; then
+		if [[ " $@ " = " checkout -- . " ]] || [[ " $@ " =~ " co -- . " ]]; then
+			# VERY dangerous (whole directory)
+			printf "==> Detected 'checkout -- .'\n"
+			printf " :: This will OVERRIDE **ALL** changes PERMANENTLY!!!"
+		else
+			# Quite dangerous (will override, but not whole directory)
+			printf "==> Detected 'checkout --'\n"
+			printf " :: This will OVERRIDE the file(s) PERMANENTLY!"
+		fi
+
+		#printf "WARNING\n==> Regex matched this as a 'git checkout -- "
+
+		printf "\n\n==> Are you SURE you want to continue? [y/N]: "
+
+		read choice
+
+		if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+			printf "\n==> I sure hope you know what you are doing...\n"
+			"$trueGit" stash -u && \
+			printf "\n :: Created a backup stash & probably saved yo butt.\n" && \
+			"$trueGit" stash apply >/dev/null 2>&1 && \
+			command "$trueGit" "$@"
+		else
+			printf "==> Aborting\n" && return 1
+		fi
+	else
+		# default case - we did NOT match `checkout --` nor `checkout -- .`
+		# pass the command back to git
+		command "$trueGit" "$@"
+	fi
+	} # end gitWrapper()
+
+	### ---
+
 	### TODO figure out a way to declare a function from a variable
 
+	### EDIT - we should NOT do that.
+	### See https://stackoverflow.com/a/48054874/9285308
+
 	### ---
 
+	if [ "$trueGit" = "git" ]; then
+		git() {
+			gitWrapper "$@"
+		}
 
-
-	### ---
-
-	# this is currently a temporary work-around, only support git & hub.
-	[ "$(command -v git)" = "alias git='hub'" ] && gitWrapper="hub" || gitWrapper="git"
-
-	printf "gitWrapper $gitWrapper \n"
-
-	if [ "$gitWrapper" = "git" ]; then
-		printf "git is currently not protected from checkout\n"
-
-	elif [ "$gitWrapper" = "hub" ]; then
-	hub() {
-		#matchingPat="[[:space:]][checkout]+[[:space:]]--"
-		### matchingPat="[checkout]+ --" #WARNING CAUSES BUGS WITH READ - read reads everytime even if function is not accessed
-		#[[ " $@ " =~ $matchingPat ]] && echo "matchinPat matched" || echo "matchinPat not matched"
-
-		## Add another case for every alias you have in your ~/.gitconfig for `checkout`
-
-		if [[ " $@ " =~ " checkout -- " ]] || [[ " $@ " =~ " co -- " ]] ; then
-			if [[ " $@ " = " checkout -- . " ]] || [[ " $@ " =~ " co -- . " ]]; then
-				# VERY dangerous (whole directory)
-				printf "==> Detected 'checkout -- .'\n"
-				printf " :: This will OVERRIDE **ALL** changes PERMANENTLY!!!"
-			else
-				# Quite dangerous (will override, but not whole directory)
-				printf "==> Detected 'checkout --'\n"
-				printf " :: This will OVERRIDE the file(s) PERMANENTLY!"
-			fi
-
-			#printf "WARNING\n==> Regex matched this as a 'git checkout -- "
-
-			printf "\n\n==> Are you SURE you want to continue? [y/N]: "
-
-			read choice
-
-			if [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
-				printf "\n==> I sure hope you know what you are doing...\n"
-				hub stash -u && \
-				printf "\n :: Created a backup stash & probably saved yo butt.\n" && \
-				hub stash apply >/dev/null 2>&1 && \
-				command hub "$@"
-			else
-				printf "==> Aborting\n" && return 1
-			fi
-		else
-			# default case - we did NOT match `checkout --` nor `checkout -- .`
-			# pass the command back to git
-			command hub "$@"
-		fi
-	} # end hub()
-
-	fi # end #gitWrapper check
+	elif [ "$trueGit" = "hub" ]; then
+		hub() {
+			gitWrapper "$@"
+		}
+	fi # end #trueGit check
 fi # end $gitExists check
+
+
+
+	###
+	#
+	# Your git aliases here
+	# (if they don't point to the same parent alias)
+	#
+	###
+
+#	gitWrapperList=( hub )
+#
+#	for wrapper in gitWrapperList; do
+#		"$wrapper"() {
+#			command "$wrapper" "$@"
+#		}
+#	done;
 
 
