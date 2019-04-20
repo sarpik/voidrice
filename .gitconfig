@@ -39,7 +39,7 @@
 
 [alias]
 	a = add
-	b = branch
+	b = branch --all
 	c = commit -S -s
 	ca = c --amend
 	cl = clone
