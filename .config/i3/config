@@ -19,9 +19,14 @@
 
 # #---Basic Definitions---# #
 # Needed for i3-gaps
-for_window [class="^.*"] border pixel 2
-gaps inner 15
-gaps outer 15
+set $border_width 2
+# do NOT change these 2 (or test them out with `i3-msg restart` before commiting)
+set $gaps_inner 15
+set $gaps_outer 15
+#for_window [class="^.*"] border pixel $border_width
+for_window [class="^.*"] border none
+gaps inner $gaps_inner
+gaps outer $gaps_outer
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
 set $stoprec --no-startup-id dmenurecord kill
@@ -110,7 +115,7 @@ bindsym $mod+r 			exec $term -e $FILE
 bindsym $mod+Shift+r		exec --no-startup-id winresize
 
 bindsym $mod+t			split toggle
-bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
+bindsym $mod+Shift+t		gaps inner current set $gaps_inner; gaps outer current set $gaps_outer
 
 bindsym $mod+y			exec $term -e calcurse -D ~/.config/calcurse
 bindsym $mod+Shift+y		exec --no-startup-id i3resize left
