@@ -138,6 +138,14 @@ bindsym $mod+Shift+a		exec $term -e pulsemixer
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
+bindsym $mod+Shift+grave exec --no-startup-id "if [ `i3-msg -t get_tree | grep -Po \
+    '.*(},|\[)\K{.*?focused\\":true.*?}(?=(,{|\]))' | grep -Po \
+    'current_border_width\\":\K[0-9]+'` -eq 0 ]; then \
+        i3-msg border pixel $border_width; \
+    else \
+        i3-msg border none; \
+    fi"
+
 bindsym $mod+d			exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
