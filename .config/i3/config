@@ -77,7 +77,7 @@ bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space		focus mode_toggle
 
 bindsym $mod+Escape		workspace prev
-bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
+bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "$HOME/.scripts/tools/ecryptfs-unmount && i3-msg exit"
 
 # bindsym $mod+BackSpace
 bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$reboot"
@@ -94,7 +94,11 @@ bindsym $mod+Pause		exec --no-startup-id xcqr
 
 # #---Letter Key Bindings---# #
 bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+#bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+
+# kill all processes (waits before killing), encrypt the $HOME directory, exit i3 (& auto log off)
+#bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
+bindsym $mod+Shift+q		exec cd /; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
 
 bindsym $mod+w			exec $term -e nmtui
 bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
@@ -157,7 +161,17 @@ bindsym $mod+Shift+l		move right 30
 bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
-bindsym $mod+x			exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id i3lock -e -f -c 1d2021
+bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id i3lock -e -f -c 1d2021
+
+### this doesn't work because of a `ecryptfs` bug I've submitted.
+### https://bugs.launchpad.net/ecryptfs/+bug/1825728
+### If it gets fixed, this script will:
+### stop stuff, encrypt $HOME directory, use i3lock to lock the screen; after unlock will decrypt the $HOME directory
+
+#bindsym $mod+x			exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec cd /; exec --no-startup-id $HOME/.scripts/tools/ecryptfs-unmount; exec --no-startup-id i3lock -e -f -c 1d2021 --nofork; exec --no-startup-id ecryptfs-mount-private
+
+##exec fuser -km $HOME;
+
 bindsym $mod+Shift+x		exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
 bindsym $mod+c			exec --no-startup-id freealf
