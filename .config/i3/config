@@ -418,3 +418,7 @@ bindsym XF86Documents		exec $term -e $FILE ~/Documents
 ##bindsym XF86Bluetooth		exec
 bindsym XF86WLAN		exec $netrefresh
 exec_always --no-startup-id notify-send -i ~/.scripts/pix/larbs.png '<b>Welcome to LARBS:</b> Press Super+F1 for the manual.' -t 10000
+
+# shows borders only if there's more than one window in a workspace.
+# requires 'i3ipc-gjs': https://github.com/acrisci/i3ipc-gjs
+exec_always --no-startup-id $HOME/.scripts/i3cmds/borders-only-if-more-than-one-window.js
