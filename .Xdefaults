@@ -1,8 +1,9 @@
 ### ST ###
 
 st.font: FuraCode Nerd Font Mono:pixelsize=20,style=Retina,Regular;
+#*.alpha: 165;
 
-### URXVT ###
+## URXVT ###
 
 *foreground: #00cc00
 *foreground_bold: #a8a19f
