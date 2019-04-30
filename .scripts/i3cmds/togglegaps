@@ -1,0 +1,20 @@
+#!/bin/sh
+# togglegaps
+#
+# credit: https://www.reddit.com/r/i3wm/comments/5qyspk/toggle_borders_and_gaps_with_a_single_key_binding/
+#
+# want to ensure full-screen/gaps no matter what current gaps are set to?
+# just provide gaps_inner & gaps_outer
+#
+
+[ -z "$gaps_inner" ] && gaps_inner=15 || force_custom_size="true"
+[ -z "$gaps_outer" ] && gaps_outer=15 || force_custom_size="true"
+
+if [ "$(i3-msg -t get_tree | grep -Po \
+	'.*"gaps":{"inner":\K(-|)[0-9]+(?=.*"focused":true)')" -ne 0 ] || [ "$force_custom_size" -eq "true" ]; then
+	i3-msg gaps inner current set $gaps_inner;
+	i3-msg gaps outer current set $gaps_outer;
+else
+	i3-msg gaps inner current set 0;
+	i3-msg gaps outer current set 0;
+fi
