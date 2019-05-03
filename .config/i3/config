@@ -105,7 +105,8 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 #bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
 bindsym $mod+Shift+q		exec cd /; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
 
-bindsym $mod+w			exec $term -e nmtui
+#bindsym $mod+w			exec $term -e nmtui
+bindsym $mod+w			exec --no-startup-id chrome-profile.js
 bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
 
 bindsym $mod+e			exec $term -e neomutt && pkill -RTMIN+12 i3blocks
