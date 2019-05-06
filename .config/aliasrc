@@ -10,6 +10,7 @@
 
 
 alias ka="killall" \
+	Q="cd / && $HOME/.scripts/tools/ecryptfs-unmount && i3-msg exit" \
 	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 	calcurse="calcurse -D ~/.config/calcurse" \
 	magit="nvim -c Magit" \
@@ -19,11 +20,12 @@ alias ka="killall" \
 	f="vifm" \
 	git="hub" \
 	g="git" \
-	config="hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
+	config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
 	co="config" \
 	cs="clear && config add ~/.gitignore && config status" \
 	d="docker" \
 	r="ranger" \
+	k="kanban" \
 	trem="transmission-remote" \
 	e="$EDITOR" \
 	v="$EDITOR" \
@@ -99,7 +101,7 @@ gig() {
 # pretty file.json .json
 pretty() {
 	if [ -z "$2" ]; then
-		prettier --stidin --stdin-filepath $1; # piping
+		prettier --stdin --stdin-filepath $1; # piping
 	else
 		cat $1 | prettier --stdin --stdin-filepath $2; # using directly
 	fi
