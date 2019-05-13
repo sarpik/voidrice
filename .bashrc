@@ -28,6 +28,8 @@ export HISTCONTROL="ignorespace"
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
+# bash-completion is automatically loaded (installed via AUR)
+
 if [ -f "$HOME/.config/git/git-completion.bash" ]; then
 	source "$HOME/.config/git/git-completion.bash" &&
 	__git_complete g __git_main &&
@@ -42,6 +44,8 @@ if [ -f "$HOME/.config/git/hub.bash_completion" ]; then
 fi
 
 [ -f "$HOME/.config/git/git-prompt.sh" ] && source "$HOME/.config/git/git-prompt.sh"
+
+[ -f "$HOME/.config/kubernetes/kubectl-completion.bash" ] && source "$HOME/.config/kubernetes/kubectl-completion.bash"
 
 # More info @ ~/.config/git-prompt.sh & ~/.config/git-completion.bash
 export GIT_PS1_SHOWCOLORHINTS=1
