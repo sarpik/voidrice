@@ -25,7 +25,7 @@ alias ka="killall" \
 	cs="clear && config add ~/.gitignore && config status" \
 	d="docker" \
 	r="ranger" \
-	k="kanban" \
+	k="kubectl" \
 	trem="transmission-remote" \
 	e="$EDITOR" \
 	v="$EDITOR" \
@@ -61,7 +61,9 @@ alias ka="killall" \
 	chrome="nohup google-chrome-stable & disown" \
 	ce="chrome && exit 0" \
 	b="bright" \
-	queota="printf \"want some?\n\""
+	queota="printf \"want some?\n\"" \
+	scim="sc-im" \
+	das="sc-im ~/Documents/darbo-valandu-logas.csv"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
