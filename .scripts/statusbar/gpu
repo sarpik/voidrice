@@ -1,0 +1,4 @@
+#!/bin/sh
+# gpu
+
+nvidia-smi -a | grep Gpu | awk '{ str=$3"%" } { print str }'
