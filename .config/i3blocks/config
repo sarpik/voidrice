@@ -35,9 +35,13 @@ label=📬
 interval=180
 signal=12
 
-# [memory]
-# interval=30
-# label=🧠
+[gpu]
+interval=30
+label=💳
+
+[memory]
+interval=30
+label=🧠
 
 [cpu]
 interval=30

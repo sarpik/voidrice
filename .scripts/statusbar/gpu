@@ -1,4 +1,15 @@
 #!/bin/sh
 # gpu
 
+case $BLOCK_BUTTON in
+	1) notify-send "<b>💳 GPU hogs:</b>
+todo " ;;
+	3) notify-send "<b>💳 GPU module:</b>
+- Shows GPU utilization
+- (TODO) Click to show intensive processes." ;;
+esac
+
+#$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
+
 nvidia-smi -a | grep Gpu | awk '{ str=$3"%" } { print str }'
+
