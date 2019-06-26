@@ -1,0 +1,9 @@
+#!/bin/sh
+# wifi-restart
+
+printf "using nmcli radio wifi off|on \n"
+nmcli radio wifi off && sleep 3 && nmcli radio wifi on
+
+deviceName="wlo1"
+prinf "using ifconfig $deviceName down|up"
+sudo ifconfig wlo1 down && sleep 3 && sudo ifconfig wlo1 up
