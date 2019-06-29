@@ -1,15 +1,24 @@
 !! Transparency (0-255):
-st.alpha: 240
-#st.alpha: 165
+!st.alpha: 240
+!st.alpha: 165
+!st.alpha: 220
+st.alpha: 0.86
 
 !! Set a default font and font size as below:
 st.font: Monospace-13;
-#*.font:	Liberation Mono:pixelsize=12:antialias=true:autohint=true;
+!*.font:	Liberation Mono:pixelsize=12:antialias=true:autohint=true;
+
+! st.termname: st-256color
+! st.borderpx: 2
 
 ### this makes st crash when emojis are seen ###
-#st.font: FuraCode Nerd Font Mono:pixelsize=20,style=Retina,Regular;
+!st.font: FuraCode Nerd Font Mono:pixelsize=20,style=Retina,Regular;
 
 /* !! from the good'ol urxvt: */
+*.background: #282828
+*.foreground: white
+*.cursorColor: white
+
 !! black
 *.color0: #1b1918
 *.color8: #766e6b
@@ -149,15 +158,15 @@ st.font: Monospace-13;
 
 ### rofi? ###
 
-rofi.color-enabled:	true
-rofi.color-window:	#000, #000, #000
-rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
-rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
-rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
-
-rofi.fake-transparency:	true
-rofi.lines:		3
-rofi.bw:		0
-rofi.opacity:		"10"
-rofi.hide-scrollbar:	true
-rofi.width:		30
+!rofi.color-enabled:	true
+!rofi.color-window:	#000, #000, #000
+!rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
+!rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
+!rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
+!
+!rofi.fake-transparency:	true
+!rofi.lines:		3
+!rofi.bw:		0
+!rofi.opacity:		"10"
+!rofi.hide-scrollbar:	true
+!rofi.width:		30
