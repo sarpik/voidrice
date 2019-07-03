@@ -68,7 +68,7 @@ exec_always --no-startup-id podentr
 # Enable compton
 exec --no-startup-id compton --config ~/.config/i3/compton.conf
 # Auto lock
-exec --no-startup-id xautolock -time 5 -locker i3lock -e -f -c 1d2021 -i "$HOME/Pictures/arch-logo-circle-cropped.png" -n
+exec --no-startup-id xautolock -time 5 -locker i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" -n
 
 bar {
 	font pango:mono 10
@@ -189,7 +189,9 @@ bindsym $mod+Shift+l		move right 30
 bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
-bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id i3lock -e -f -c 1d2021
+bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/Pictures/arch-logo-circle-cropped.png" -n;
+#bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id matrixlock;
+#exec transset-dl -a 0.5
 
 ### this doesn't work because of a `ecryptfs` bug I've submitted.
 ### https://bugs.launchpad.net/ecryptfs/+bug/1825728
