@@ -65,6 +65,10 @@ exec --no-startup-id unclutter
 exec_always --no-startup-id mpdupdate
 # Podboat automatic queue and download
 exec_always --no-startup-id podentr
+# Enable compton
+exec --no-startup-id compton --config ~/.config/i3/compton.conf
+# Auto lock
+exec --no-startup-id xautolock -time 5 -locker i3lock -e -f -c 1d2021 -i "$HOME/Pictures/arch-logo-circle-cropped.png" -n
 
 bar {
 	font pango:mono 10
