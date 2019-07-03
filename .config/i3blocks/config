@@ -72,3 +72,7 @@ interval=10
 
 [help]
 interval=once
+
+[flameshot]
+command=flameshot
+interval=once
