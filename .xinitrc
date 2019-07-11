@@ -26,9 +26,17 @@ xrdb "$HOME/.Xdefaults"
 #[ numlockx --help >/dev/null 2>&1 ] && numlockx &
 numlockx &
 
+# keyboard remaps (called by i3)
+#. ~/.scripts/tools/remaps
+
 # automatic screen brightness adjustment, blue light filtering and more
 # https://wiki.archlinux.org/index.php/Redshift
 #[ redshift -h >/dev/null 2>&1 ] && nohup redshift &
 nohup redshift &
+
+# https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method
+# dbus-update-activation-environment --systemd DISPLAY
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
 
 exec i3

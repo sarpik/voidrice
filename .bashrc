@@ -23,6 +23,8 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 export HISTCONTROL="ignorespace"
 
 # end history cfg
+# https://wiki.archlinux.org/index.php/SSH_keys#SSH_agents
+eval $(keychain --eval --quiet --confhost --noask id_ed25519 id_rsa ~/.keys/my_custom_key)
 
 # load stuff
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases

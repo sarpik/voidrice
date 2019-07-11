@@ -7,6 +7,8 @@
 # git=hub https://github.com/github/hub
 #
 # config='/usr/bin/hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
+#
+# `cl` / `cliboard` => `npm i -g clipboard-cli`
 
 
 alias ka="killall" \
@@ -17,15 +19,19 @@ alias ka="killall" \
 	p="pacman" \
 	sp="sudo pacman" \
 	SS="sudo systemctl" \
+	sd="shutdown" \
+	sad="shutdown 0" \
 	f="vifm" \
 	git="hub" \
 	g="git" \
 	config="hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
 	co="config" \
 	cs="clear && config add ~/.gitignore && config status" \
+	cl="clipboard" \
 	d="docker" \
 	r="ranger" \
 	k="kubectl" \
+	h="grep -Hr" \
 	trem="transmission-remote" \
 	e="$EDITOR" \
 	v="$EDITOR" \
@@ -36,6 +42,7 @@ alias ka="killall" \
 	ls="ls -hN --color=auto --group-directories-first" \
 	la="ls -lAs" \
 	ll="ls -l --all --size --group-directories-first --human-readable --color=auto" \
+	l="ll" \
 	lc="ll -C" \
 	lsd="lsd --group-dirs first --classify --icon-theme unicode" \
 	lcd="lsd --icon-theme fancy" \

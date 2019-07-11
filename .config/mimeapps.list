@@ -13,3 +13,6 @@ image/png=img.desktop;
 image/jpeg=img.desktop;
 image/gif=img.desktop;
 application/rss+xml=rss.desktop
+x-scheme-handler/webcal=google-chrome.desktop
+text/x-arduino=arduino-arduinoide.desktop
+x-scheme-handler/postman=Postman.desktop

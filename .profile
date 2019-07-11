@@ -3,15 +3,18 @@
 
 # Adds `~/.scripts` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.scripts/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.cargo/bin:$HOME/go/bin"
+export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
+
 export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="google-chrome-stable"
 export READER="zathura"
 export FILE="ranger"
+export XDG_CONFIG_HOME="$HOME/.config"
+export WAKATIME_HOME="$HOME/.config/wakatime"
 export BIB="$HOME/Documents/LaTeX/uni.bib"
-export REFER="$HOME/Documents/referbib"
-export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
+export REFER="$HOME/Documents/referbib" export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 
@@ -43,3 +46,13 @@ sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 
 export GPG_TTY=$(tty)
 
+# react-native
+# https://facebook.github.io/react-native/docs/getting-started#3-configure-the-android_home-environment-variable
+export ANDROID_HOME="$HOME"/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# xampp
+export PATH="$PATH:/opt/lampp"

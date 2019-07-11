@@ -2,10 +2,6 @@
 
 let mapleader =","
 
-"if ! [ -d "~/.vim/backup/" ]
-"	mkdir -pv ~/.vim/backup && echo "Created directory for backup and swap files" || echo "Error! Failed to create directory for backups & wrap files. Create one yourself in ~/.vim/backup"
-"endif
-
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ~/.config/nvim/autoload/
@@ -33,6 +29,10 @@ Plug 'tpope/vim-commentary'
 "
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --rust-completer --ts-completer' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+Plug 'https://github.com/jalvesaq/nvim-r.git'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 set bg=light
@@ -45,6 +45,7 @@ set clipboard=unnamedplus " always copies into default clipboard by default. see
 	nnoremap c "_c
 	set nocompatible
 	filetype plugin on
+	filetype on
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
@@ -127,6 +128,10 @@ set clipboard=unnamedplus " always copies into default clipboard by default. see
 
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
+
+" https://raw.githubusercontent.com/jalvesaq/Nvim-R/master/doc/Nvim-R.txt
+" nvim-r
+	nmap <LocalLeader>: :RSend<return>
 
 " Runs a script that cleans out tex build files whenever I close out of a .tex file.
 	autocmd VimLeave *.tex !texclear %

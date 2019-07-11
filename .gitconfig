@@ -1,4 +1,11 @@
 # This is Git's per-user configuration file.
+#
+#	Author:
+#	Kipras Melnikovas (kipras.org) <kipras@kipras.org>
+#
+#   Repository:
+#	https://github.com/sarpik/voidrice
+#
 [user]
 	name = Kipras Melnikovas
 	email = kipras@kipras.org
@@ -21,10 +28,13 @@
 	gpgSign = true
 [pull]
 	rebase = true
+	ff = yes
+[merge]
+	ff = no
 [hub]
 	protocol = ssh
 [help]
-	autoCorrect = 1
+	#autoCorrect = 1
 [diff]
 	tool = default-difftool
 [difftool "default-difftool"]
@@ -39,28 +49,39 @@
 
 [alias]
 	a = add
-	b = branch --all
+	ad = add .
+	adc = !git add . && git c
+	ap = add --patch
+	b = branch
+	ba = branch --all
 	c = commit -S -s
 	ca = c --amend
 	cl = clone
 	co = checkout
 	#co = !git stash -u && git checkout
+	cod = checkout dev
+	com = checkout master
 	#checkout = !git stash -u && command git "$@"
 	cfg = config --global --edit
 	d = diff
 	ds = diff --staged
 	df = diff FETCH_HEAD
 	#e =
+	fl = flow
 	f = fetch
 	fa = fetch --all
 	#g =
+	gpu = push -u origin master
 	#h =
 	#i =
 	#j =
 	#k =
 	#l =
-	lg=log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	#m =
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lp = log --patch
+	#m = merge
+	mf = merge --no-ff
+	mnff = merge --no-ff
 	#n =
 	#o =
 	p = push
@@ -69,13 +90,16 @@
 	#q =
 	#r =
 	s = status
+	sa = status --untracked-files=all
+	sb = show-branch
+	si = status --ignored=traditional
 	sl = !git -c color.status=always status | less -R # https://stackoverflow.com/a/18304605
 			# /\ the -c option is explained by `man git` @ 47
 			# > Pass a configuration parameter to the command. The value given will override values from configuration files.
-	sb = show-branch
+	so = show
+	sil = !git -c color.status=always status --ignored=traditional | less -R
 	stash-unapply = !git stash show -p | git apply -Rc
 	#t =
-	test = !echo
 	#u =
 	#v =
 	#w =
