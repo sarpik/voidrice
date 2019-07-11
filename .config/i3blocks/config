@@ -73,6 +73,20 @@ interval=10
 [help]
 interval=once
 
+# bluetooth
+[blueman-applet]
+command=blueman-applet
+interval=once
+
+[keepassxc]
+command=keepassxc
+interval=once
+
+[slack]
+command=slack --startup
+interval=once
+
 [flameshot]
 command=flameshot
 interval=once
+
