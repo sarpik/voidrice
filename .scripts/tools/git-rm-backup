@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# git-rm-backup
+
+list-backups() {
+	# get current username (if it's set), or get the first name of `user.name`
+	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
+	backupBranchPrefix="$currentUsername-backup--"
+
+	git branch | grep "$backupBranchPrefix"
+}
+
+git-rm-backup() {
+#	backups="$(list-backups)"
+#	numOfBackups="$(list-backups | wc -l)"
+	#printf "$backups \n$numOfBackups\n"
+
+	# the backup reading & stdin reading at the same time magic yoo
+	# credits @ https://stackoverflow.com/a/6887593/9285308
+
+	{ list-backups |
+		while
+			read -r backupBranch
+		do
+			printf "\n$backupBranch\n"
+			printf "  rm? [Y/n]: "
+			read -u 3 choice
+
+			#read choice
+
+			if [ -z "$choice" ] || [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
+				# delete locally
+				git branch -d "$backupBranch"
+
+				# delete remotely
+				git push origin :"$backupBranch"
+			fi
+		done
+	} 3<&0
+
+	printf "\n"
+}
+
+git-rm-backup "$@" && exit 0 || exit 1
+
