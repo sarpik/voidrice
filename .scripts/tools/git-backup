@@ -25,9 +25,22 @@ Usage:
 $ git-backup [OPTION]...
 
 Options:
-    -h    help
+    -r [remote name]
+          change to which remote to push the backup branch to
+          [default=origin]
+
+    -l    local mode. Will NOT push the generated branch to remote
+          [default=false]
 
     -q    quite mode. Will only print the backup branches' name
+          [default=false]
+
+    -h    help
+
+Examples:
+	$ git-backup
+	$ git-backup -l -q
+	$ git-backup -r upstream
 "
 
 printUsage() {
@@ -36,11 +49,20 @@ printUsage() {
 
 # create function
 git-backup() {
-	exec 6>&1 # saves stdout
+	# setup
+
+	exec 6>&1 # saves stdout (see -q)
 
 	# -q => quiet mode (return only generated branch name)
-	while getopts ":hq" opt; do
+	while getopts ":hr:lq" opt; do
 		case "${opt}" in
+			r)
+				remoteRepoName="${OPTARG}"
+				;;
+			l)
+				shouldPushBranchToRemote="false"
+				shift # forward argv by one option
+				;;
 			q)
 				exec > /dev/null  # redirect stdout to /dev/null
 				shift # forward argv by one option
@@ -50,7 +72,7 @@ git-backup() {
 				exit
 				;;
 			*)
-				printf "invalid option $opt ($OPTARG)"
+				printUsage
 				exit
 				;;
 		esac
