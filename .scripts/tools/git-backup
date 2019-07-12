@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 # git-backup
 #
+#	@originalAuthor		Kipras Melnikovas (kipras.org) <kipras@kipras.org>
+#	@license			GPL-3.0
+#
+#	@usage
+# 1) use this script directly or
+# 2) set a git alias for it:
+#
+# ``` ~/.gitconfig:
+# [alias]
+#	backup = !git-backup
+# ```
+#
+#	@description
 # 'exec' is used for 'silent' mode
 #
 # 'silent' mode can be useful if you only want to get
 # the generated branches' name
-# (for example, 'git-backup -q | git checkout -' to switch to the branch)
 #
 
 usage="\
