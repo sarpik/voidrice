@@ -80,11 +80,34 @@ git-backup() {
 
 	printf "==> git-backup:\n"
 
-	git remote -v >/dev/null 2>&1 && shouldPushBranchToRemote="true" || shouldPushBranchToRemote="false"
+	# make sure git repo exists
+	git status >/dev/null 2>&1 || {
+		# restore stdout EARLY to allow the printing of the error
+		exec 1>&6 6>&-
 
-	# get the name of the remote to which we'll push the backup branch
-	remoteRepoName="$1"
+		printf " -> error! Git repository NOT found!\n"
+		return 1
+	}
+
+	# -r
 	[ -z "$remoteRepoName" ] && remoteRepoName="origin"
+
+	# -l
+	[ -z "$shouldPushBranchToRemote" ] && shouldPushBranchToRemote="true"
+
+	if [ "$shouldPushBranchToRemote" = "true" ]; then
+		# make sure the remote is present
+
+		git remote -v | grep "$remoteRepoName" >/dev/null 2>&1 && {
+			shouldPushBranchToRemote="true"
+			printf " -> remote ($remoteRepoName) found!\n"
+		} || {
+			shouldPushBranchToRemote="false"
+			printf " -> remote ($remoteRepoName) NOT found!\n"
+		}
+	else
+		printf " -> remote ignored.\n"
+	fi
 
 	## get current branch
 	#currentBranch="$(git rev-parse --abbrev-ref HEAD)" && \
