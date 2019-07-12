@@ -1,20 +1,23 @@
-# This is Git's per-user configuration file.
+# ~/.gitconfig
 #
-#	Author:
-#	Kipras Melnikovas (kipras.org) <kipras@kipras.org>
+#	@author:	Kipras Melnikovas (kipras.org) <kipras@kipras.org>
+#	@dotfiles:	https://github.com/sarpik/voidrice
+#	@license:	GPL-3.0
 #
-#   Repository:
-#	https://github.com/sarpik/voidrice
+#	@description:
+#	This is Git's per-user configuration file.
 #
+
 [user]
+	# @param username - custom, used for some aliases / scripts (& also my github/bitbucket username)
+	username = sarpik
 	name = Kipras Melnikovas
 	email = kipras@kipras.org
 	signingkey = AA505BC1C6D8AD90
 [core]
-	#editor = '/usr/bin/code' --new-window --wait
+	#editor = '/usr/bin/env code' --new-window --wait
 	editor = $EDITOR
-	autocrlf = input # `auto` for Windows, `input` for *nix.
-					 # Read more @ https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
+	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
 	pager = less -R
 [color]
@@ -34,7 +37,7 @@
 [hub]
 	protocol = ssh
 [help]
-	#autoCorrect = 1
+	autoCorrect = 0
 [diff]
 	tool = default-difftool
 [difftool "default-difftool"]
