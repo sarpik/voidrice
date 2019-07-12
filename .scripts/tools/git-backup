@@ -115,7 +115,11 @@ git-backup() {
 	# get current username (if it's set), or get the first name of `user.name`
 	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
 
-	git stash --include-untracked && \
+	# END setup
+
+	# BEGIN action!
+
+	git stash --include-untracked >/dev/null 2>&1 && \
 
 	# --format: '%f' => "sanitized subject line, suitable for a filename" (GIT-LOG(1))
 	# contains '<authorDate (UNIX timestamp)>--<stashCommitId>--WIP-on-<branchName>-<stashCommitHash>-<parentCommitTitle>'
@@ -128,7 +132,7 @@ git-backup() {
 	git branch "$backupBranchName" && \
 
 	# get your changes back
-	git stash pop && \
+	git stash pop --quiet && \
 
 	# push to remote repo
 	if [ "$shouldPushBranchToRemote" = "true" ]; then
@@ -152,6 +156,8 @@ git-backup() {
 		printf " -> Something failed!\n" && \
 		return 1
 	}
+
+	# END action!
 };
 
 # call the function
