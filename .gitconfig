@@ -54,6 +54,8 @@
 	ap = add --patch
 	b = branch
 	ba = branch --all
+	bp = backup
+	backup = !git-backup # remote script, availabe @ dotfiles/.scripts/tools/git-backup
 	c = commit -S -s
 	ca = c --amend
 	cl = clone
