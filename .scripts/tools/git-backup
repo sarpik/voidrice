@@ -1,26 +1,71 @@
 #!/usr/bin/env bash
 # git-backup
+#
+# 'exec' is used for 'silent' mode
+#
+# 'silent' mode can be useful if you only want to get
+# the generated branches' name
+# (for example, 'git-backup -q | git checkout -' to switch to the branch)
+#
+
+usage="\
+Usage:
+$ git-backup [OPTION]...
+
+Options:
+    -h    help
+
+    -q    quite mode. Will only print the backup branches' name
+"
+
+printUsage() {
+	printf "$usage\n"
+}
 
 # create function
 git-backup() {
+	exec 6>&1 # saves stdout
+
+	# -q => quiet mode (return only generated branch name)
+	while getopts ":hq" opt; do
+		case "${opt}" in
+			q)
+				exec > /dev/null  # redirect stdout to /dev/null
+				shift # forward argv by one option
+				;;
+			h)
+				printUsage
+				exit
+				;;
+			*)
+				printf "invalid option $opt ($OPTARG)"
+				exit
+				;;
+		esac
+	done
+
 	printf "==> git-backup:\n"
+
+	git remote -v >/dev/null 2>&1 && shouldPushBranchToRemote="true" || shouldPushBranchToRemote="false"
 
 	# get the name of the remote to which we'll push the backup branch
 	remoteRepoName="$1"
-	[ -z "remoteRepoName" ] && remoteRepoName="origin"
+	[ -z "$remoteRepoName" ] && remoteRepoName="origin"
 
-	# get current branch
-	currentBranch="$(git rev-parse --abbrev-ref HEAD)" && \
+	## get current branch
+	#currentBranch="$(git rev-parse --abbrev-ref HEAD)" && \
 
 	# get current username (if it's set), or get the first name of `user.name`
 	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
 
 	git stash --include-untracked && \
 
-	stashCommitHash="$(g stash list --pretty=format:'%h' | head -n 1)" && \
+	# --format: '%f' => "sanitized subject line, suitable for a filename" (GIT-LOG(1))
+	# contains '<authorDate (UNIX timestamp)>--<stashCommitId>--WIP-on-<branchName>-<stashCommitHash>-<parentCommitTitle>'
+	subjectLine="$(git stash list --format='%at--%h--%f' | head -n 1)" && \
 
 	# generate backup branch name
-	backupBranchName="$currentUsername-backup--$stashCommitHash--$currentBranch" && \
+	backupBranchName="$currentUsername-backup--$subjectLine" && \
 
 	# create the backup branch
 	git branch "$backupBranchName" && \
@@ -29,17 +74,29 @@ git-backup() {
 	git stash pop && \
 
 	# push to remote repo
-	printf "==> Pushing to remote repo ($remoteRepoName)\n" && \
-	git push "$remoteRepoName" "$backupBranchName" && \
+	if [ "$shouldPushBranchToRemote" = "true" ]; then
+		printf "==> Pushing to remote repo ($remoteRepoName)\n" && \
+		git push "$remoteRepoName" "$backupBranchName" >/dev/null 2>&1 || {
+			printf " -> Failed 'git push'.\n"
+			return 1
+		}
+	fi && \
 
-	printf " -> Successfully backed up current changes" && \
+	printf " -> Successfully backed up current changes\n" && \
+	printf " -> Backup branch (use -q to print only it): \n" && \
 
-	return 0 || {
+	# restore stdout (does NOT print it though (good))
+	exec 1>&6 6>&- && \
+
+	{
+		printf "$backupBranchName\n"
+		return 0
+	} || {
 		printf " -> Something failed!\n" && \
 		return 1
 	}
 };
 
 # call the function
-git-backup && exit 0 || exit 1
+git-backup "$@" && exit 0 || exit 1
 
