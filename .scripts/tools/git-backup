@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# git-backup
+
+# create function
+git-backup() {
+	printf "==> git-backup:\n"
+
+	# get the name of the remote to which we'll push the backup branch
+	remoteRepoName="$1"
+	[ -z "remoteRepoName" ] && remoteRepoName="origin"
+
+	# get current branch
+	currentBranch="$(git rev-parse --abbrev-ref HEAD)" && \
+
+	# get current username (if it's set), or get the first name of `user.name`
+	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
+
+	git stash --include-untracked && \
+
+	stashCommitHash="$(g stash list --pretty=format:'%h' | head -n 1)" && \
+
+	# generate backup branch name
+	backupBranchName="$currentUsername-backup--$stashCommitHash--$currentBranch" && \
+
+	# create the backup branch
+	git branch "$backupBranchName" && \
+
+	# get your changes back
+	git stash pop && \
+
+	# push to remote repo
+	printf "==> Pushing to remote repo ($remoteRepoName)\n" && \
+	git push "$remoteRepoName" "$backupBranchName" && \
+
+	printf " -> Successfully backed up current changes" && \
+
+	return 0 || {
+		printf " -> Something failed!\n" && \
+		return 1
+	}
+};
+
+# call the function
+git-backup && exit 0 || exit 1
+
