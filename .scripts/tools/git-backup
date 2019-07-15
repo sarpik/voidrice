@@ -112,8 +112,9 @@ git-backup() {
 	## get current branch
 	#currentBranch="$(git rev-parse --abbrev-ref HEAD)" && \
 
-	# get current username (if it's set), or get the first name of `user.name`
-	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
+	# get current username (if it's set), or get the user.name
+	# and sanitize the selected one (replace spaces with dashes and make letters lowercase)
+	currentUsername="$(printf "$(git config user.username || git config user.name)" | sed 's/\s/-/g' | awk '{ print tolower($0) }')" && \
 
 	# END setup
 
