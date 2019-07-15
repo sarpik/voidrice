@@ -7,6 +7,7 @@ export PATH="$PATH:$HOME/.cargo/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 
 export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="google-chrome-stable"
 export READER="zathura"

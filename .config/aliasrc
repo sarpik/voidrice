@@ -9,6 +9,9 @@
 # config='/usr/bin/hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
 #
 # `cl` / `cliboard` => `npm i -g clipboard-cli`
+#
+# `sv` => `sudoedit` instead of `sudo nvim`:
+# read https://wiki.archlinux.org/index.php/Security#Editing_files_using_sudo
 
 
 alias ka="killall" \
@@ -35,7 +38,7 @@ alias ka="killall" \
 	trem="transmission-remote" \
 	e="$EDITOR" \
 	v="$EDITOR" \
-	sv="sudo $EDITOR" \
+	sv="sudoedit" \
 	x="sxiv -ft *" \
 	sdn="sudo shutdown -h now" \
 	gua="git remote | xargs -L1 git push --all" \
