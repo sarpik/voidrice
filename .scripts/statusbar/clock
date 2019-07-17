@@ -1,7 +1,47 @@
 #!/bin/sh
 
 #date '+%Y %b %d (%a) %I:%M%p'	# 12h AM/PM
-date '+%Y %b %d (%a) %H:%M'		# 24h
+#date '+%Y %b %d (%a) %H:%M'		# 24h
+#date '+%Y %m %d -- %H:%M -- %B, %a (%u)' # 24h, more stuff (bloated lmao)
+
+dateLabel=📅
+
+# hour label generation:
+
+# 01..12
+currentHour="$(date '+%I')"
+
+# 00..59
+currentMinute="$(date '+%M')"
+
+# boolean (1 or 0)
+past30Mins=$( (( "$currentMinute" >= 30 )) )
+
+case $currentHour in
+	01) [ "$past30Mins" -eq 0 ] && clockLabel="🕐" || clockLabel="🕜" ;;
+	02) [ "$past30Mins" -eq 0 ] && clockLabel="🕐" || clockLabel="🕝" ;;
+	03) [ "$past30Mins" -eq 0 ] && clockLabel="🕒" || clockLabel="🕞" ;;
+	04) [ "$past30Mins" -eq 0 ] && clockLabel="🕓" || clockLabel="🕟" ;;
+	05) [ "$past30Mins" -eq 0 ] && clockLabel="🕔" || clockLabel="🕠" ;;
+	06) [ "$past30Mins" -eq 0 ] && clockLabel="🕕" || clockLabel="🕡" ;;
+	07) [ "$past30Mins" -eq 0 ] && clockLabel="🕖" || clockLabel="🕢" ;;
+	08) [ "$past30Mins" -eq 0 ] && clockLabel="🕗" || clockLabel="🕣" ;;
+	09) [ "$past30Mins" -eq 0 ] && clockLabel="🕘" || clockLabel="🕤" ;;
+	10) [ $past30Mins -eq 0 ] && clockLabel="🕙" || clockLabel="🕥" ;;
+	11) [ "$past30Mins" -eq 0 ] && clockLabel="🕚" || clockLabel="🕦" ;;
+	12) [ "$past30Mins" -eq 0 ] && clockLabel="🕛" || clockLabel="🕧" ;;
+	*)  clockLabel="⏰" ;;
+esac
+
+# select which one to display
+dateFormat="$dateLabel %Y %m %d"
+timeFormat="$clockLabel %H:%M"
+[ "$1" = "date" ] && format="+$dateFormat"
+[ "$1" = "time" ] && format="+$timeFormat"
+[ "$1" = "both" ] || [ -z "$1" ] && format="+$dateFormat $timeFormat" # 24h, less stuff
+
+# display the date
+date "$format"
 
 case $BLOCK_BUTTON in
 	1) pgrep -x dunst >/dev/null && notify-send "$(cal --color=always --monday | sed "s/..7m/<b><span color=\"red\">/;s/..27m/<\/span><\/b>/")" && notify-send "$(calcurse -d3)" ;;
