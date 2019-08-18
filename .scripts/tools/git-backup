@@ -22,7 +22,7 @@
 
 usage="\
 Usage:
-$ git-backup [OPTION]...
+$ git-backup [OPTION [ARGUMENT]]...
 
 Options:
     -r [remote name]
@@ -34,6 +34,10 @@ Options:
 
     -q    quite mode. Will only print the backup branches' name
           [default=false]
+
+    -s [branch name size]
+          size of branch name in chars
+		  [default=255]
 
     -h    help
 
@@ -54,7 +58,7 @@ git-backup() {
 	exec 6>&1 # saves stdout (see -q)
 
 	# -q => quiet mode (return only generated branch name)
-	while getopts ":hr:lq" opt; do
+	while getopts ":r:lqs:h" opt; do
 		case "${opt}" in
 			r)
 				remoteRepoName="${OPTARG}"
@@ -65,6 +69,10 @@ git-backup() {
 				;;
 			q)
 				exec > /dev/null  # redirect stdout to /dev/null
+				shift # forward argv by one option
+				;;
+			s)
+				branchNameSize="${OPTARG}"
 				shift # forward argv by one option
 				;;
 			h)
@@ -95,6 +103,9 @@ git-backup() {
 	# -l
 	[ -z "$shouldPushBranchToRemote" ] && shouldPushBranchToRemote="true"
 
+	# -s
+	[ -z "$branchNameSize" ] && branchNameSize="255"
+
 	if [ "$shouldPushBranchToRemote" = "true" ]; then
 		# make sure the remote is present
 
@@ -122,6 +133,9 @@ git-backup() {
 
 	git stash --include-untracked >/dev/null 2>&1 && \
 
+	# mark that we stashed so that if something fails, we pop the stash back
+	stashed="true" && \
+
 	# --format: '%f' => "sanitized subject line, suitable for a filename" (GIT-LOG(1))
 	# contains '<authorDate (UNIX timestamp)>--<stashCommitId>--WIP-on-<branchName>-<stashCommitHash>-<parentCommitTitle>'
 	subjectLine="$(git stash list --format='%at--%h--%f' | head -n 1)" && \
@@ -129,11 +143,18 @@ git-backup() {
 	# generate backup branch name
 	backupBranchName="$currentUsername-backup--$subjectLine" && \
 
+	# limit branch name to 250 chars
+	# (.lock adds the last 5 to filename when git creates it)
+	### TODO - still not done - git still fails
+	### TODO - figure out max length
+	backupBranchName="${backupBranchName:0:$branchNameSize}" && \
+
 	# create the backup branch
 	git branch "$backupBranchName" && \
 
 	# get your changes back
 	git stash pop --quiet && \
+	stashed="false" && \
 
 	# push to remote repo
 	if [ "$shouldPushBranchToRemote" = "true" ]; then
@@ -148,13 +169,18 @@ git-backup() {
 	printf " -> Backup branch (use -q to print only it): \n" && \
 
 	# restore stdout (does NOT print it though (good))
-	exec 1>&6 6>&- && \
-
-	{
+	exec 1>&6 6>&- && {
 		printf "$backupBranchName\n"
 		return 0
 	} || {
+		# handle errors if something failed
 		printf " -> Something failed!\n" && \
+
+		[ "$stashed" = "true" ] && {
+			printf " -> popping stash back (git stash pop)\n"
+			git stash pop | grep "Dropped.*stash.*\(.*\)" && \
+			stashed="false"
+		} && \
 		return 1
 	}
 
