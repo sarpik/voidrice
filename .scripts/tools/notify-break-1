@@ -1,0 +1,7 @@
+#!/bin/sh
+# notify-break
+
+/usr/bin/notify-send "\
+🧁 Break in 1 minute!
+" --expire-time=5000
+
