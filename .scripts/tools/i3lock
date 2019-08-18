@@ -1,0 +1,13 @@
+#!/bin/sh
+# i3lock
+
+mpc pause
+pauseallmpv
+pkill -USR1 --euid "$(id -u)" --exact dunst
+#loginctl lock-sessions
+
+# this exact command is enabled via "visudo" to avoid the asking of a password
+/usr/bin/i3lock --ignore-empty-password --show-failed-attempts --image=/home/kipras/.config/break.png --nofork #sarpik
+
+pkill -USR2 --euid "$(id -u)" --exact dunst
+
