@@ -67,8 +67,9 @@
     per_monitor_dpi = false
 
 [shortcuts]
-    # close = control+space
-    close = shift+space
+    # close = control+space # intellisense
+    # close = shift+space # typing sucks
+	#close = alt+space
     close_all = ctrl+shift+space
 	#history = ctrl+grave
     context = ctrl+shift+period
