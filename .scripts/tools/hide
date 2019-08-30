@@ -1,0 +1,34 @@
+#!/bin/bash
+# hide
+#
+# an opposite script, "unhide", is available
+#
+
+MY_GPG_EMAIL="kipras@kipras.org"
+
+hide() {
+	DIR="$1"
+
+	# remove the last "/" just in case I provide it by mistake
+	DIR="$(printf "$DIR" | sed 's|/$||g')"
+
+	TARRED_DIR="$DIR.tar.gz"
+
+	# turn directory into a file
+	tar czf "$TARRED_DIR" "$DIR"
+
+	# encrypt for yourself
+	# gpg -aser
+	gpg --encrypt --sign --armor --recipient "$MY_GPG_EMAIL" "$TARRED_DIR"
+
+	# remove unencrypted
+	shred -v "$TARRED_DIR"
+	rm -rf "$TARRED_DIR"
+
+	# shred DIR to pieces
+	find "$DIR" -type f -exec shred {} \;
+	rm -rf "$DIR"
+}
+
+hide "$@" && exit 0 || exit 1
+

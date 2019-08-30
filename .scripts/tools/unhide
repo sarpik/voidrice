@@ -1,0 +1,31 @@
+#!/bin/bash
+# unhide
+#
+# an opposite script, "hide", is available
+#
+
+MY_GPG_EMAIL="kipras@kipras.org"
+
+unhide() {
+	TARRED_ENCRYPTED_DIR="$1"
+
+	TARRED_DIR="$TARRED_ENCRYPTED_DIR.unhide"
+
+	# decrypt
+	gpg --output "$TARRED_DIR" --decrypt "$TARRED_ENCRYPTED_DIR"
+
+	shred "$TARRED_ENCRYPTED_DIR"
+	rm -rf "$TARRED_ENCRYPTED_DIR"
+
+	# unzip (removes '.tar.gz.unhide' from filename)
+	tar xzf "$TARRED_DIR"
+
+	# shred tarred directory to pieces and remove
+	find "$TARRED_DIR" -type f -exec shred {} \;
+	rm -rf "$TARRED_DIR"
+
+	return 0
+}
+
+unhide "$@" && exit 0 || exit 1
+
