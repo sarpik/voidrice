@@ -1,5 +1,4 @@
 # ~/.gitconfig
-#
 #	@author:	Kipras Melnikovas (kipras.org) <kipras@kipras.org>
 #	@dotfiles:	https://github.com/sarpik/voidrice
 #	@license:	GPL-3.0
@@ -16,10 +15,11 @@
 	signingkey = AA505BC1C6D8AD90
 [core]
 	#editor = '/usr/bin/env code' --new-window --wait
-	editor = $EDITOR
+	editor = "$EDITOR"
 	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
 	pager = less -R
+	longpaths = true
 [color]
 	branch = auto
 	diff = auto
@@ -29,11 +29,13 @@
 [commit]
 	verbose = true
 	gpgSign = true
+[merge]
+	ff = no
+[rebase]
+	missingCommitsCheck = warn
 [pull]
 	rebase = true
 	ff = yes
-[merge]
-	ff = no
 [hub]
 	protocol = ssh
 [help]
@@ -68,7 +70,10 @@
 	com = checkout master
 	#checkout = !git stash -u && command git "$@"
 	cfg = config --global --edit
+	cs = !clear && git status
+	csl = !clear && git sl
 	d = diff
+	d = diff .
 	ds = diff --staged
 	df = diff FETCH_HEAD
 	#e =
@@ -83,25 +88,30 @@
 	#k =
 	#l =
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lp = log --patch
+	lp = log --patch --follow
 	#m = merge
-	mf = merge --no-ff
-	mnff = merge --no-ff
+	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
 	#n =
 	#o =
 	p = push
 	pl = pull
+	pt = push --tags
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	#r =
+	rmbp = rmbackup
+	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 	s = status
 	sa = status --untracked-files=all
 	sb = show-branch
+	sh = show HEAD
+	shc = !git show HEAD | wc
 	si = status --ignored=traditional
 	sl = !git -c color.status=always status | less -R # https://stackoverflow.com/a/18304605
 			# /\ the -c option is explained by `man git` @ 47
 			# > Pass a configuration parameter to the command. The value given will override values from configuration files.
 	so = show
+	ss = show
 	sil = !git -c color.status=always status --ignored=traditional | less -R
 	stash-unapply = !git stash show -p | git apply -Rc
 	#t =
