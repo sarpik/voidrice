@@ -15,26 +15,28 @@ currentHour="$(date '+%I')"
 currentMinute="$(date '+%M')"
 
 # boolean (1 or 0)
-past30Mins=$( (( "$currentMinute" >= 30 )) )
+(( "$currentMinute" >= 30 )) && past30Mins="1" || past30Mins="0"
+
+#echo "'$past30Mins' past30Mins"
 
 case $currentHour in
-	01) [ "$past30Mins" -eq 0 ] && clockLabel="🕐" || clockLabel="🕜" ;;
-	02) [ "$past30Mins" -eq 0 ] && clockLabel="🕐" || clockLabel="🕝" ;;
-	03) [ "$past30Mins" -eq 0 ] && clockLabel="🕒" || clockLabel="🕞" ;;
-	04) [ "$past30Mins" -eq 0 ] && clockLabel="🕓" || clockLabel="🕟" ;;
-	05) [ "$past30Mins" -eq 0 ] && clockLabel="🕔" || clockLabel="🕠" ;;
-	06) [ "$past30Mins" -eq 0 ] && clockLabel="🕕" || clockLabel="🕡" ;;
-	07) [ "$past30Mins" -eq 0 ] && clockLabel="🕖" || clockLabel="🕢" ;;
-	08) [ "$past30Mins" -eq 0 ] && clockLabel="🕗" || clockLabel="🕣" ;;
-	09) [ "$past30Mins" -eq 0 ] && clockLabel="🕘" || clockLabel="🕤" ;;
-	10) [ $past30Mins -eq 0 ] && clockLabel="🕙" || clockLabel="🕥" ;;
-	11) [ "$past30Mins" -eq 0 ] && clockLabel="🕚" || clockLabel="🕦" ;;
-	12) [ "$past30Mins" -eq 0 ] && clockLabel="🕛" || clockLabel="🕧" ;;
+	01) [ "$past30Mins" = 0 ] && clockLabel="🕐" || clockLabel="🕜" ;;
+	02) [ "$past30Mins" = 0 ] && clockLabel="🕐" || clockLabel="🕝" ;;
+	03) [ "$past30Mins" = 0 ] && clockLabel="🕒" || clockLabel="🕞" ;;
+	04) [ "$past30Mins" = 0 ] && clockLabel="🕓" || clockLabel="🕟" ;;
+	05) [ "$past30Mins" = 0 ] && clockLabel="🕔" || clockLabel="🕠" ;;
+	06) [ "$past30Mins" = 0 ] && clockLabel="🕕" || clockLabel="🕡" ;;
+	07) [ "$past30Mins" = 0 ] && clockLabel="🕖" || clockLabel="🕢" ;;
+	08) [ "$past30Mins" = 0 ] && clockLabel="🕗" || clockLabel="🕣" ;;
+	09) [ "$past30Mins" = 0 ] && clockLabel="🕘" || clockLabel="🕤" ;;
+	10) [ "$past30Mins" = 0 ] && clockLabel="🕙" || clockLabel="🕥" ;;
+	11) [ "$past30Mins" = 0 ] && clockLabel="🕚" || clockLabel="🕦" ;;
+	12) [ "$past30Mins" = 0 ] && clockLabel="🕛" || clockLabel="🕧" ;;
 	*)  clockLabel="⏰" ;;
 esac
 
 # select which one to display
-dateFormat="$dateLabel %Y %m %d"
+dateFormat="$dateLabel %Y %m %d (%u)"
 timeFormat="$clockLabel %H:%M"
 [ "$1" = "date" ] && format="+$dateFormat"
 [ "$1" = "time" ] && format="+$timeFormat"
