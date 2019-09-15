@@ -29,7 +29,7 @@ git-rm-backup() {
 
 			if [ -z "$choice" ] || [ "$choice" = "y" ] || [ "$choice" = "Y" ] || [ "$choice" = "yes" ] || [ "$choice" = "Yes" ]; then
 				# delete locally
-				git branch -d "$backupBranch"
+				git branch -D "$backupBranch"
 
 				# delete remotely
 				git push origin :"$backupBranch"
