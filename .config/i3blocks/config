@@ -12,6 +12,14 @@ label=🎼
 interval=once
 signal=11
 
+[disk]
+interval=60
+command=disk / 🥢
+
+#[disk]
+#interval=60
+#command=disk /home 🏠
+
 [news]
 label=📰
 interval=once
@@ -51,20 +59,21 @@ label=💻
 interval=once
 signal=10
 
-#[disk]
-#interval=60
-#command=disk /
-
-#[disk]
-#interval=60
-#command=disk /home 🏠
-
 [battery]
 command=battery BAT0
 interval=5
 
-[clock]
-label=📅
+#[clock]
+#label=📅
+#interval=30
+
+[date]
+command=clock date
+interval=30
+
+[time]
+command=clock time
+#label=
 interval=30
 
 [internet]
@@ -76,6 +85,11 @@ interval=once
 # bluetooth
 [blueman-applet]
 command=blueman-applet
+interval=once
+
+# redshift
+[redshift-gtk]
+command=redshift-gtk
 interval=once
 
 [keepassxc]
