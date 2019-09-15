@@ -33,6 +33,13 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-comp
 Plug 'https://github.com/jalvesaq/nvim-r.git'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'wakatime/vim-wakatime'
+
+" dependencies for 'JumpToLastOccurrence'
+Plug 'https://github.com/vim-scripts/ingo-library'
+Plug 'https://github.com/tpope/vim-repeat'
+Plug 'https://github.com/vim-scripts/JumpToLastOccurrence'
+
+Plug 'https://github.com/tpope/vim-abolish'
 call plug#end()
 
 set bg=light
@@ -88,7 +95,7 @@ set clipboard=unnamedplus " always copies into default clipboard by default. see
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Goyo plugin makes text more readable when writing prose:
-	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+	map <leader>g :Goyo \| set bg=light \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
