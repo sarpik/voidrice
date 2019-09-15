@@ -1,15 +1,5 @@
 # vim: filetype=i3
-#  _        _    ____  ____ ____
-# | |      / \  |  _ \| __ ) ___|
-# | |     / _ \ | |_) |  _ \___ \
-# | |___ / ___ \|  _ <| |_) |__) |
-# |_____/_/   \_\_| \_\____/____/
-#
-# File originally by Luke Smith
-# Website: http://lukesmith.xyz
-# Email: luke@lukesmith.xyz
-# YouTube: https://youtube.com/c/LukeSmithxyz
-# Github: https://github.com/LukeSmithxyz
+# File originally by Luke Smith <https://lukesmith.xyz>
 
 # This config file will use environmental variables such as $BROWSER and $TERMINAL.
 # You can set these variables in ~/.profile or ~/.bash_profile if you have it as below:
@@ -29,14 +19,8 @@ gaps inner $gaps_inner
 gaps outer $gaps_outer
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
-set $stoprec --no-startup-id dmenurecord kill
-set $shutdown sudo -A shutdown -h now
-set $reboot sudo -A reboot
-set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
-set $hibernate sudo -A systemctl suspend
 
 # #---Dropdown Windows---# #
-
 # General dropdown window traits. The order can matter.
 for_window [instance="dropdown_*"] floating enable
 for_window [instance="dropdown_*"] move scratchpad
@@ -86,7 +70,7 @@ bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space		focus mode_toggle
 
 bindsym $mod+Escape		workspace prev
-bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "$HOME/.scripts/tools/ecryptfs-unmount && i3-msg exit"
+bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "$HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit"
 
 bindsym $mod+BackSpace 		exec --no-startup-id keepassxc
 bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$reboot"
@@ -103,11 +87,13 @@ bindsym $mod+Pause		exec --no-startup-id xcqr
 
 # #---Letter Key Bindings---# #
 bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-#bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+###bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+### TODO #merge
+bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 # kill all processes (waits before killing), encrypt the $HOME directory, exit i3 (& auto log off)
-#bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
-#bindsym $mod+Shift+q		exec cd /; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
+#bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.local/bin/tools/ecryptfs-unmount; exec i3-msg exit
+#bindsym $mod+Shift+q		exec cd /; exec $HOME/.local/bin/tools/ecryptfs-unmount; exec i3-msg exit
 
 #bindsym $mod+w			exec $term -e nmtui
 bindsym $mod+w			exec --no-startup-id chrome-profile.js
@@ -128,17 +114,12 @@ bindsym $mod+Shift+y		exec --no-startup-id i3resize left
 bindsym $mod+u			exec --no-startup-id ddspawn tmuxdd
 bindsym $mod+Shift+u		exec --no-startup-id i3resize down
 
-bindsym $mod+i 			exec $term -e htop
 bindsym $mod+Shift+i		exec --no-startup-id i3resize up
 
 bindsym $mod+o			sticky toggle
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 
-bindsym $mod+p			exec --no-startup-id lmc toggle
-bindsym $mod+Shift+p		exec --no-startup-id lmc pause
-
 bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
-bindsym $mod+Shift+a		exec $term -e pulsemixer
 
 bindsym $mod+s			exec --no-startup-id slack
 #bindsym $mod+s			gaps inner current plus 5
@@ -173,25 +154,27 @@ bindsym $mod+f exec --no-startup-id "if [ `i3-msg -t get_tree | grep -Po \
 bindsym $mod+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "<b>Distraction-free mode activated.</b> Press Super+Shift+f to return."
 
 bindsym $mod+g			workspace prev
-bindsym $mod+Shift+g		exec --no-startup-id gimp; workspace $ws5
 
 bindsym $mod+h			focus left
 bindsym $mod+Shift+h		move left 30
+bindsym $mod+Ctrl+h		move workspace to output left
 
 bindsym $mod+j			focus down
 bindsym $mod+Shift+j		move down 30
+bindsym $mod+Ctrl+j		move workspace to output down
 
 bindsym $mod+k			focus up
 bindsym $mod+Shift+k		move up 30
+bindsym $mod+Ctrl+k		move workspace to output up
 
 bindsym $mod+l			focus right
 bindsym $mod+Shift+l		move right 30
+bindsym $mod+Ctrl+l		move workspace to output right
 
 bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
 bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst;
-
 
 #bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id notify-send "Disabling"; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst; exec --no-startup-id notify-send "testing notifs after"
 
@@ -203,20 +186,26 @@ bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup
 ### If it gets fixed, this script will:
 ### stop stuff, encrypt $HOME directory, use i3lock to lock the screen; after unlock will decrypt the $HOME directory
 
-#bindsym $mod+x			exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec cd /; exec --no-startup-id $HOME/.scripts/tools/ecryptfs-unmount; exec --no-startup-id i3lock -e -f -c 1d2021 --nofork; exec --no-startup-id ecryptfs-mount-private
+#bindsym $mod+x			exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec cd /; exec --no-startup-id $HOME/.local/bin/tools/ecryptfs-unmount; exec --no-startup-id i3lock -e -f -c 1d2021 --nofork; exec --no-startup-id ecryptfs-mount-private
 
 ##exec fuser -km $HOME;
 
 bindsym $mod+Shift+x		exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
+### TODO #merge (luke's)
+###bindsym $mod+c			exec --no-startup-id cabl
+
 bindsym $mod+c			exec --no-startup-id freealf
 bindsym $mod+Shift+c		exec --no-startup-id camtoggle
+
+### TOODO #merge (luke's)
+###bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
 
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
 #bindsym $mod+Shift+v
 
 bindsym $mod+b			bar mode toggle
-bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id bottomleft
+bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
 
 bindsym $mod+n			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id bottomright
@@ -319,13 +308,19 @@ bindsym $mod+F12	exec $term -e nmtui
 
 # #---Arrow Keys---# #
 bindsym $mod+Left		focus left
+bindsym $mod+Ctrl+Left		move workspace to output left
 bindsym $mod+Down		focus down
+bindsym $mod+Ctrl+Down		move workspace to output down
 bindsym $mod+Up			focus up
+bindsym $mod+Ctrl+Up		move workspace to output up
 bindsym $mod+Right 		focus right
+bindsym $mod+Ctrl+Right		move workspace to output right
 bindsym $mod+Shift+Left		move left
 bindsym $mod+Shift+Down		move down
 bindsym $mod+Shift+Up		move up
 bindsym $mod+Shift+Right 	move right
+
+### BEGIN TODO #merge (Everything was removed on luke's)
 
 # #---Media Keys---# #
 
@@ -438,8 +433,10 @@ bindsym XF86Documents		exec $term -e $FILE ~/Documents
 ##bindsym XF86Battery		exec
 ##bindsym XF86Bluetooth		exec
 bindsym XF86WLAN		exec $netrefresh
-exec_always --no-startup-id notify-send -i ~/.scripts/pix/larbs.png '<b>Welcome to LARBS:</b> Press Super+F1 for the manual.' -t 10000
+exec_always --no-startup-id notify-send -i ~/.local/bin/pix/larbs.png '<b>Welcome to LARBS:</b> Press Super+F1 for the manual.' -t 10000
 
 # shows borders only if there's more than one window in a workspace.
 # requires 'i3ipc-gjs': https://github.com/acrisci/i3ipc-gjs
-exec_always --no-startup-id $HOME/.scripts/i3cmds/borders-only-if-more-than-one-window.js
+exec_always --no-startup-id $HOME/.local/bin/i3cmds/borders-only-if-more-than-one-window.js
+
+### END TODO #merge

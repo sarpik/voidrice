@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 ## explanations
 #
@@ -13,14 +13,16 @@
 # `sv` => `sudoedit` instead of `sudo nvim`:
 # read https://wiki.archlinux.org/index.php/Security#Editing_files_using_sudo
 
-
 alias ka="killall" \
-	Q="cd / && $HOME/.scripts/tools/ecryptfs-unmount && i3-msg exit" \
+	Q="cd / && $HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit" \
+	mkd="mkdir -pv" \
 	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 	calcurse="calcurse -D ~/.config/calcurse" \
-	magit="nvim -c Magit" \
+	magit="nvim -c MagitOnly" \
+	f="$FILE" \
 	p="pacman" \
 	sp="sudo pacman" \
+	S="systemctl" \
 	SS="sudo systemctl" \
 	sd="shutdown" \
 	sad="shutdown 0" \
@@ -75,14 +77,41 @@ alias ka="killall" \
 	ce="chrome && exit 0" \
 	b="bright" \
 	queota="printf \"want some?\n\"" \
-	scim="sc-im" \
-	das="sc-im ~/Documents/darbo-valandu-logas.csv"
+	scim="sc-im"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
+# --- #
+
+# auto-completions
+
+# https://brbsix.github.io/2015/11/23/perform-tab-completion-for-aliases-in-bash/
+_completion_loader docker
+complete -F _docker d
+
+_completion_loader git
+complete -F _git config # config aka dotfile management from $HOME/.dotfiles
+complete -F _git co
+
+_completion_loader systemctl
+complete -F _systemctl S
+
+_completion_loader systemctl
+complete -F _systemctl SS
+
+_completion_loader pacman
+complete -F _pacman p
+
+_completion_loader pacman
+complete -F _pacman sp
+
+# --- #
+
+vf() { fzf | xargs -r -I % $EDITOR % ;}
+
 shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
-se() { du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf | xargs  -r $EDITOR ;}
-svcp() { vcopy "$(du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf)" ;}
+se() { du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf | xargs  -r $EDITOR ;}
+svcp() { vcopy "$(du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf)" ;}
 vf() { fzf | xargs -r -I % $EDITOR % ;}
 
 bright() {
@@ -121,17 +150,6 @@ pretty() {
 		cat $1 | prettier --stdin --stdin-filepath $2; # using directly
 	fi
 }
-
-# https://brbsix.github.io/2015/11/23/perform-tab-completion-for-aliases-in-bash/
-_completion_loader docker
-complete -F _docker d
-
-_completion_loader git
-complete -F _git config # config aka dotfile management from $HOME/.dotfiles
-complete -F _git co
-
-#_completion_loader sh
-#complete -F SS systemctl
 
 #
 # gitWrapper

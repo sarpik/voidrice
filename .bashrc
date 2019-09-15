@@ -1,4 +1,5 @@
 #!/bin/bash
+#!/usr/bin/env bash
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Allows you to cd into directory merely by typing the directory name.
 
@@ -89,4 +90,8 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export GPG_TTY="$(tty)"
 export PASSWORD_STORE_DIR="$HOME/.password-store"
+
+# TODO
+[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 

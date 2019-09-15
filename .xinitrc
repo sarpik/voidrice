@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 # $HOME/.xinitrc
 #
 # also take a look at
@@ -50,5 +51,6 @@ source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 # allow `screenlockuser` to do stuff with my screen (TODO -see project "screenlock")
 xhost +SI:localuser:screenlockuser
 
+[ -f "$HOME/.xprofile" ] && . ~/.xprofile
 
 exec i3

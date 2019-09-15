@@ -20,5 +20,4 @@ cfmb	~/.config/ncmpcpp/bindings
 cfmc	~/.config/ncmpcpp/config
 er	~/Documents/referbib
 docs ~/.local/share/larbs/readme.mom
-da ~/Documents/darbo-valandu-logas.csv
-
+cfk	~/.config/sxhkd/sxhkdrc
