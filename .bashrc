@@ -2,6 +2,9 @@
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Allows you to cd into directory merely by typing the directory name.
 
+set -o physical # Cd into symlink as if you cd'd into the actual directory
+# see more @ https://unix.stackexchange.com/a/55715/332452
+
 #export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
 export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
 
@@ -23,8 +26,24 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 export HISTCONTROL="ignorespace"
 
 # end history cfg
+
+#
+# store gpg & ssh keys across logins
+#
 # https://wiki.archlinux.org/index.php/SSH_keys#SSH_agents
-eval $(keychain --eval --quiet --confhost --noask id_ed25519 id_rsa ~/.keys/my_custom_key)
+# https://wiki.archlinux.org/index.php/GnuPG#Reload_the_agent
+# https://wiki.archlinux.org/index.php/GnuPG#Cache_passwords
+# https://wiki.archlinux.org/index.php/GnuPG#Configuration_2
+# "gpg-preset-passphrase: caching passphrase failed: Not supported"
+# https://wiki.gnupg.org/TroubleShooting#Passphrase_on_the_command_line
+#
+# https://gnupg.org/documentation/manuals/gnupg/gpg_002dpreset_002dpassphrase.html
+# https://gnupg.org/documentation/manuals/gnupg/Invoking-gpg_002dpreset_002dpassphrase.html#Invoking-gpg_002dpreset_002dpassphrase
+# https://www.funtoo.org/Keychain
+# keychain fails to store gpg keys arch linux
+#
+#eval $(keychain --eval --quiet --confhost --noask id_ed25519 id_rsa ~/.keys/my_custom_key --agents "gpg,ssh")
+eval $(keychain --eval --quiet --confhost --noask id_rsa id_rsa --agents "gpg,ssh")
 
 # load stuff
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
@@ -62,3 +81,12 @@ export GIT_PS1_DESCRIBE_STYLE="default"
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
 source /usr/share/nvm/install-nvm-exec
+
+# https://github.com/rupa/z
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export GPG_TTY="$(tty)"
+export PASSWORD_STORE_DIR="$HOME/.password-store"
+
