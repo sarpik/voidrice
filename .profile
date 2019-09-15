@@ -19,8 +19,6 @@ export REFER="$HOME/Documents/referbib" export SUDO_ASKPASS="$HOME/.scripts/tool
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 
-export GPG_TTY=$(tty)
-
 # less/man colors
 export LESS=-R
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
@@ -57,3 +55,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # xampp
 export PATH="$PATH:/opt/lampp"
+export PATH="$PATH:$HOME/.local/bin"
+
+# nosqlclient (for mongo)
+export MONGO_URL="/usr/bin/mongo"

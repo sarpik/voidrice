@@ -1,4 +1,3 @@
-#!/bin/sh
 # $HOME/.xinitrc
 #
 # also take a look at
@@ -38,5 +37,18 @@ nohup redshift &
 # dbus-update-activation-environment --systemd DISPLAY
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
+
+#
+# The fix: https://unix.stackexchange.com/a/295652
+#
+# Also related:
+# https://bbs.archlinux.org/viewtopic.php?id=231006
+#
+mkdir -p "$HOME"/.local/share/keyrings
+source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+
+# allow `screenlockuser` to do stuff with my screen (TODO -see project "screenlock")
+xhost +SI:localuser:screenlockuser
+
 
 exec i3
