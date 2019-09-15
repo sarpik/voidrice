@@ -1,6 +1,6 @@
 [Default Applications]
 x-scheme-handler/magnet=torrent.desktop;
-x-scheme-handler/mailto=mail.desktop;
+x-scheme-handler/mailto=google-chrome.desktop
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
 x-scheme-handler/about=google-chrome.desktop
@@ -16,3 +16,4 @@ application/rss+xml=rss.desktop
 x-scheme-handler/webcal=google-chrome.desktop
 text/x-arduino=arduino-arduinoide.desktop
 x-scheme-handler/postman=Postman.desktop
+x-scheme-handler/ssh=ktelnetservice5.desktop
