@@ -107,7 +107,7 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 
 # kill all processes (waits before killing), encrypt the $HOME directory, exit i3 (& auto log off)
 #bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
-bindsym $mod+Shift+q		exec cd /; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
+#bindsym $mod+Shift+q		exec cd /; exec $HOME/.scripts/tools/ecryptfs-unmount; exec i3-msg exit
 
 #bindsym $mod+w			exec $term -e nmtui
 bindsym $mod+w			exec --no-startup-id chrome-profile.js
@@ -190,7 +190,11 @@ bindsym $mod+Shift+l		move right 30
 bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
-bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" -n;
+bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst;
+
+
+#bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id notify-send "Disabling"; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst; exec --no-startup-id notify-send "testing notifs after"
+
 #bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id matrixlock;
 #exec transset-dl -a 0.5
 
@@ -344,8 +348,8 @@ bindsym $mod+Shift+bracketright exec --no-startup-id lmc forward 120
 # For screenshots and recording
 bindsym Print 			exec --no-startup-id maim pic-full-"$(date '+%y%m%d-%H%M-%S').png"
 # `End` is on the `Print` key for me, otherwise I would just use the `Print` binding
-bindsym $mod+End 		exec --no-startup-id "flameshot"
-bindsym Shift+Print 		exec --no-startup-id maimpick
+bindsym $mod+End 		exec --no-startup-id "flameshot gui"
+bindsym $mod+Shift+End 		exec --no-startup-id maimpick
 bindsym $mod+Print		exec --no-startup-id dmenurecord
 bindsym $mod+Scroll_Lock	exec --no-startup-id "killall screenkey || screenkey"
 bindsym $mod+Delete		exec $stoprec
