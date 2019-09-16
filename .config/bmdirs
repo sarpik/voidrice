@@ -1,10 +1,29 @@
 # You can add comments to these files with #
 h	~/
-d	~/Documents
-D	~/Downloads
+D	~/Documents
+dl	~/Downloads
 m	~/Music
-pp	~/Pictures
+tt  ~/time-track
+pp	~/projects
+pw 	~/projects/personal-website
+fp 	~/forkprojects
+lp	~/learnprojects
+tp ~/testprojects
+prp ~/privateprojects
+pri ~/privateprojects/interactio
+prip ~/privateprojects/interactio/panel
+sw ~/privateprojects/sioko-cpp/
+pc	~/Pictures
+sa ~/screenshots
 vv	~/Videos
 cf	~/.config
 sc	~/.local/bin
 mn	/mnt
+ds ~/dotfiles
+dds ~/.dotfiles
+lr ~/larbs
+sr ~/.local/share
+te ~/projects/teaching
+
+lampp /opt/lampp
+ho /opt/lampp/htdocs
