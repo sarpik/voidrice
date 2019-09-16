@@ -2,10 +2,10 @@
 # gpu
 
 case $BLOCK_BUTTON in
-	1) notify-send "<b>💳 GPU hogs:</b>
-todo " ;;
-	3) notify-send "<b>💳 GPU module:</b>
-- Shows GPU utilization
+	1) notify-send "💳 GPU hogs" \
+"todo " ;;
+	3) notify-send "💳 GPU module" \
+"\- Shows GPU utilization
 - (TODO) Click to show intensive processes." ;;
 esac
 
