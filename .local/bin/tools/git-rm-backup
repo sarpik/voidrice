@@ -4,7 +4,7 @@
 list-backups() {
 	# get current username (if it's set), or get the first name of `user.name`
 	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
-	backupBranchPrefix="$currentUsername-backup--"
+	backupBranchPrefix="zzz__git-backup/$currentUsername/"
 
 	git branch | grep "$backupBranchPrefix"
 }
