@@ -46,10 +46,6 @@ export HISTCONTROL="ignorespace"
 #eval $(keychain --eval --quiet --confhost --noask id_ed25519 id_rsa ~/.keys/my_custom_key --agents "gpg,ssh")
 eval $(keychain --eval --quiet --confhost --noask id_rsa id_rsa --agents "gpg,ssh")
 
-# load stuff
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
 # bash-completion is automatically loaded (installed via AUR)
 
 if [ -f "$HOME/.config/git/git-completion.bash" ]; then
@@ -91,7 +87,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export GPG_TTY="$(tty)"
 export PASSWORD_STORE_DIR="$HOME/.password-store"
 
-# TODO
+# load stuff
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
