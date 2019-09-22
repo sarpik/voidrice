@@ -14,8 +14,8 @@
 	email = kipras@kipras.org
 	signingkey = AA505BC1C6D8AD90
 [core]
-	#editor = '/usr/bin/env code' --new-window --wait
-	editor = "$EDITOR"
+	### editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
+	# editor = '/usr/bin/env code' --new-window --wait
 	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
 	pager = less -R
@@ -60,7 +60,9 @@
 	b = branch
 	ba = branch --all
 	bp = backup
-	backup = !git-backup # remote script, availabe @ dotfiles/.scripts/tools/git-backup
+	backup = !git-backup # remote script, availabe @ github.com/sarpik/dotfiles/.local/bin/tools/git-backup
+	# how many commits you're behind some other branch
+	behind = !git-behind # remote script, available @ github.com/sarpik/dotfiles/.local/bin/tools/git-behind
 	c = commit -S -s
 	ca = c --amend
 	cl = clone
@@ -81,7 +83,7 @@
 	f = fetch
 	fa = fetch --all
 	#g =
-	gpu = push -u origin master
+	pu = push -u origin master
 	#h =
 	#i =
 	#j =

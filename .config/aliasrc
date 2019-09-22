@@ -36,6 +36,7 @@ alias ka="killall" \
 	d="docker" \
 	r="ranger" \
 	k="kubectl" \
+	le="lerna" \
 	compass="mongodb-compass" \
 	h="grep -Hr" \
 	trem="transmission-remote" \

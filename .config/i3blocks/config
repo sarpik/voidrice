@@ -7,11 +7,12 @@ command=cat /tmp/recordingicon
 interval=once
 signal=9
 
-[music]
-label=🎼
-interval=once
-signal=11
+#[music]
+#label=🎼
+#interval=once
+#signal=11
 
+# apparently broken atm
 [disk]
 interval=60
 command=disk / 🥢
@@ -33,9 +34,13 @@ label=📦
 interval=once
 signal=8
 
-[torrent]
-interval=20
-signal=7
+[behind-remote]
+label=🏃
+interval=1800
+
+#[torrent]
+#interval=20
+#signal=7
 
 [weather]
 interval=3600
