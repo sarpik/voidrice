@@ -1,10 +1,16 @@
 # The following lines were added by compinstall
 
-zstyle ':completion:*' menu select completer _expand _complete _ignored _correct _approximate rehash true
+# bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
+autoload -U +X bashcompinit && bashcompinit
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' completer _expand _complete _ignored _correct _approximate rehash true
 zstyle :compinstall filename '/home/kipras/.zshrc'
+zstyle ':completion:*' menu select
 
 autoload -Uz compinit promptinit
 compinit
+_comp_options+=(globdots)		# Include hidden files.
+
 promptinit
 
 prompt redhat
@@ -18,7 +24,7 @@ prompt redhat
 # history #
 # see https://unix.stackexchange.com/a/273863
 
-HISTFILE="$HOME/.config/zsh/history"
+HISTFILE="$HOME/.cache/zsh/history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -37,13 +43,55 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 ###
 
-setopt appendhistory autocd extendedglob nomatch notify COMPLETE_ALIASES
+setopt appendhistory autocd extendedglob nomatch notify
+### do NOT set COMPLETE_ALIASES! See https://stackoverflow.com/a/20643204
 unsetopt beep
 bindkey -v
 export KEYTIMEOUT=1
 
+### Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+
+#echo -ne '\e[5 q' # Use beam shape cursor on startup.
+#preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+
+precmd_functions+=(_fix_cursor)
+
+###
+
+### Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+###
+
 # set -o physical (cd into symlinks like into the real values (see https://unix.stackexchange.com/a/371147/332452))
 setopt CHASE_LINKS
+
+# Case INsensitive autocompletions
+setopt MENU_COMPLETE
+
+#
+#setopt nomenucomplete noautomenu
 
 [ -f "$HOME/.config/git/git-prompt.sh" ] && source "$HOME/.config/git/git-prompt.sh"
 setopt PROMPT_SUBST
@@ -64,16 +112,14 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 #export GIT_PS1_SHOWUPSTREAM="auto verbose name"
-GIT_PS1_SHOWUPSTREAM="auto verbose"
+#GIT_PS1_SHOWUPSTREAM="auto verbose"
+GIT_PS1_SHOWUPSTREAM="verbose"
 GIT_PS1_DESCRIBE_STYLE="default"
 
 
 #export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
 
 source "$HOME/.config/aliasrc"
-
-# syntax highlighting. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ### ARCH ###
 
@@ -149,4 +195,54 @@ export PASSWORD_STORE_DIR="$HOME/.password-store"
 # load stuff
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+
+### vi mode improved!
+
+autoload -U select-quoted; zle -N select-quoted
+for m in visual viopp; do
+    for c in {a,i}{\',\",\`}; do
+        bindkey -M $m $c select-quoted
+    done
+done
+
+
+autoload -U select-bracketed; zle -N select-bracketed
+for m in visual viopp; do
+    for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $m $c select-bracketed
+    done
+done
+
+
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
+
+###
+
+### block cursor
+
+
+
+###
+
+### add missing vim hotkeys
+# http://zshwiki.org/home/zle/vi-mode
+bindkey -a u undo
+bindkey -a '^R' redo
+bindkey '^?' backward-delete-char  #backspace
+
+### history search in vim mode
+# http://zshwiki.org./home/zle/bindkeys#why_isn_t_control-r_working_anymore
+# ctrl+r to search history
+bindkey -M viins '^t' history-incremental-search-backward
+bindkey -M vicmd '^t' history-incremental-search-backward
+
+# Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
