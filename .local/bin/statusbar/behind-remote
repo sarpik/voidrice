@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# behind-upstream
+#
+# how many commits you're behind upstream
+# note - requires configuration
+# AND requires that your ssh passphrase is cached (TODO tokens)
+#
+
+### TODO
+
+### i3blocks module for pacman upgrades.
+### Displays number of upgradeable packages.
+### For this to work, have a `pacman -Sy` command run in the background as a
+### cronjob every so often as root. This script will then read those packages.
+### When clicked, it will run an upgrade via pacman.
+
+### TODO - this is bad, apparently it starts looping and the pc freezes
+#case $BLOCK_BUTTON in
+#	1) behind-remote ;;
+#	2) notify-send "$()" ;;
+#	3) pgrep -x dunst >/dev/null && notify-send "Upgrade module" "📦: number of upgradable packages
+#- Left click to upgrade packages
+#- Middle click to show upgradable packages" ;;
+#esac
+
+#
+# configure yourself!
+#
+# I'm using the git bare repo approach,
+# as explained in the arch-wiki
+# @ https://wiki.archlinux.org/index.php/Dotfiles#Tracking_dotfiles_directly_with_Git
+#
+
+gitCmd="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+
+passName="bin--behind-remote"
+token="$(pass "$passName")"
+
+upstreamName="upstream"
+upstreamBranchName="archi3"
+upstream="$upstreamName/$upstreamBranchName"
+
+behind-remote() {
+	#notify-send "behind-remote"
+	# 1: fetch from upstream
+	$gitCmd fetch "$upstreamName"
+
+	# 2: count how many commits we're behind
+	# git             <upstream>/<branch>  wc -l
+	$gitCmd rev-list "$upstream" ^HEAD | wc --lines
+}
+
+behind-remote
+
