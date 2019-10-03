@@ -90,6 +90,10 @@ setopt CHASE_LINKS
 # Case INsensitive autocompletions
 setopt MENU_COMPLETE
 
+# allow comments in command-line commands
+# see https://stackoverflow.com/a/11873793
+setopt interactivecomments
+
 #
 #setopt nomenucomplete noautomenu
 
