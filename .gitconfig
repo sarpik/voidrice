@@ -11,7 +11,7 @@
 	# @param username - custom, used for some aliases / scripts (& also my github/bitbucket username)
 	username = sarpik
 	name = Kipras Melnikovas
-	email = dev@kipras.org
+	email = kipras@kipras.org
 	signingkey = AA505BC1C6D8AD90
 [core]
 	### editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
