@@ -62,3 +62,4 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # nosqlclient (for mongo)
 export MONGO_URL="/usr/bin/mongo"
+
