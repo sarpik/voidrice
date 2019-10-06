@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# yt-playlist
+
+command -v youtube-dl || exit 1
+
+#url="$(echo $1 | sed 's|?v=.*&||g')"
+url="$(printf "$1" | sed 's/?v=[^&]*&/?/g')"
+echo "url $url"
+
+#youtube-dl -i --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" "$url"
+youtube-dl -i --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" "$url"
+

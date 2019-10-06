@@ -1,0 +1,8 @@
+#!/bin/sh
+# vim: filetype=sh
+
+notify-send "hello"
+
+ls "$HOME/.config/google-chrome" | grep -E "Profile\s[0-9]+|Default" | dmenu
+#grep -iE "profile\s[0-9]+" "$HOME/.config/google-chrome"
+

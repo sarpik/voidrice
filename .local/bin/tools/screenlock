@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# screenlock
+
+userId="$1" # expected to be as '1000', since that's the only command that's allowed on 'visudo'
+[ -z "$userId" ] && userId="1000"
+
+export DISPLAY=":0"
+
+screenlock() {
+	mpc pause
+	#"$HOME/.scripts/pauseallmpv"
+	sudo pkill -USR1 --exact dunst --euid "$userId" && \
+	sudo loginctl lock-sessions && \
+	i3lock -e -f -c 1d2021 -i "$HOME/Pictures/fuck-outta-here-lockscreen.jpeg" --nofork && \
+	sudo pkill -USR2 --exact dunst --euid "$userId" && \
+	printf "==> screenlock:\n" && \
+	{
+		printf " -> success\n"
+		return 0;
+	} || {
+		printf " -> failure\n"
+		return 1;
+	}
+}
+
+screenlock && exit 0 || exit 1
+

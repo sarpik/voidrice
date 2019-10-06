@@ -1,0 +1,20 @@
+#!/bin/sh
+
+$(which ecryptfs-umount-private) || exit 1
+
+# make sure $HOME is NOT used
+cd /
+
+count=0
+
+while
+	count=$(($count + 1))
+	notify-send "mounting count $count"
+	$(ecryptfs-umount-private)
+	do
+		continue
+		# same as
+		# :
+	done
+
+exit 0
