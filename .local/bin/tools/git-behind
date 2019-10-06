@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# git-behind
+#
+# print how many commits you're behind a specific branch
+#
+#
+
+#behind = "!f() { branch=\"$1\" && git rev-list --left-right --boundary @{\"$branch\"}... | grep '^-' | wc -l; }; f";
+
+usage="\
+Usage:
+
+$ git-behind <branchName>
+
+"
+
+printUsage() {
+	printf "$usage"
+}
+
+git-behind() {
+	branch="$1";
+
+	[ -z "$branch" ] && printUsage && return 1;
+
+	git rev-list --left-right --boundary @{"$branch"}... | grep '^-' | wc -l && return 0;
+}
+
+git-behind "$@" && exit 0 || exit 1
+
