@@ -154,3 +154,9 @@ pretty() {
 	fi
 }
 
+# kill workspace (i3)
+kw() {
+	workspace="$1"
+	i3-msg "[workspace=$workspace] kill"
+}
+
