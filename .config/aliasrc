@@ -46,7 +46,7 @@ alias ka="killall" \
 	x="sxiv -ft *" \
 	sdn="sudo shutdown -h now" \
 	gua="git remote | xargs -L1 git push --all" \
-	ls="ls -hN --color=auto --group-directories-first" \
+	ls="LC_COLLATE=C ls -hN --color=auto --group-directories-first" \
 	la="ls -lAFs" \
 	ll="ls -l --all --size --group-directories-first --human-readable --classify --color=auto" \
 	l="ll" \
