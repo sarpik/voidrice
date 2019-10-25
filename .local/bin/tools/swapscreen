@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ -f "/etc/X11/xorg.conf" ]; then
+	printf "sudo mv /etc/X11/xorg.conf /etc/X11/xorg.conf.disabled\n"
+	sudo mv /etc/X11/xorg.conf /etc/X11/xorg.conf.disabled
+elif [ -f "/etc/X11/xorg.conf.disabled" ]; then
+	printf "sudo mv /etc/X11/xorg.conf.disabled /etc/X11/xorg.conf\n"
+	sudo mv /etc/X11/xorg.conf.disabled /etc/X11/xorg.conf
+else
+	printf "/etc/X11/(xorg.conf|xorg.conf.disabled) not found!"
+	exit 1
+fi
+
+exit 0
+
