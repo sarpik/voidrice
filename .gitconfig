@@ -33,6 +33,8 @@
 	smtpServerPort = 587
 [stash]
 	usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
+[gpg]
+	program = gpg2
 [color]
 	branch = auto
 	diff = auto
@@ -44,8 +46,10 @@
 	gpgSign = true
 [merge]
 	ff = no
+	tool = code
 [rebase]
 	missingCommitsCheck = warn
+	autostash = true
 [pull]
 	rebase = true
 	ff = yes
@@ -66,8 +70,9 @@
 	recentlySeenVersion = 2.21.0.windows.1
 
 [alias]
+	fn = "!f() { echo \"hi\"; }; f;"
 	a = add
-	ad = add .
+	ad = add
 	adc = !git add . && git c
 	ap = add --patch
 	b = branch
@@ -88,15 +93,12 @@
 	cs = !clear && git status
 	csl = !clear && git sl
 	d = diff
-	d = diff .
 	ds = diff --staged
 	df = diff FETCH_HEAD
 	#e =
-	fl = flow
 	f = fetch
 	fa = fetch --all
 	#g =
-	pu = push -u origin master
 	#h =
 	#i =
 	#j =
@@ -120,6 +122,7 @@
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	#r =
+	riom = rebase -i origin/master
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 	s = status
