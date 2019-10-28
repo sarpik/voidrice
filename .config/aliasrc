@@ -78,9 +78,13 @@ alias ka="killall" \
 	ce="chrome && exit 0" \
 	b="bright" \
 	queota="printf \"want some?\n\"" \
-	scim="sc-im"
+	scim="sc-im" \
+	py="python"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
+
+# https://github.com/nvbn/thefuck
+eval $(thefuck --alias)
 
 # --- #
 
@@ -158,5 +162,9 @@ pretty() {
 kw() {
 	workspace="$1"
 	i3-msg "[workspace=$workspace] kill"
+}
+
+fork() {
+	nohup "$@" &
 }
 
