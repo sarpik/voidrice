@@ -110,6 +110,12 @@
 	#o =
 	p = push
 	pl = pull
+	# git push -u origin master -> g pp
+	pp = "!f() { \
+		remote=\"${1:-origin}\"; \
+		currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
+		git push --set-upstream \"$remote\" \"$currentBranch\"; }; \
+	f; "
 	pt = push --tags
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
