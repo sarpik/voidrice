@@ -20,6 +20,19 @@
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
 	pager = less -R
 	longpaths = true
+[imap]
+	host = mail.kipras.org
+	user = kipras@kipras.org # todo - kipras@kipras.org
+	port = 993
+	sslverify = false
+	folder = Drafts
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = mail.kipras.org
+	smtpUser = dev@kipras.org
+	smtpServerPort = 587
+[stash]
+	usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
 [color]
 	branch = auto
 	diff = auto
