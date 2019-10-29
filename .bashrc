@@ -19,7 +19,7 @@ export HISTFILESIZE=
 export HISTTIMEFORMAT="[%F %T] "
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
-export HISTFILE="$HOME/.bash_eternal_history"
+export HISTFILE="$HOME/.cache/bash/history"
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
@@ -73,11 +73,6 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 #export GIT_PS1_SHOWUPSTREAM="auto verbose name"
 export GIT_PS1_SHOWUPSTREAM="auto verbose"
 export GIT_PS1_DESCRIBE_STYLE="default"
-
-[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.config/nvm"
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/bash_completion
-source /usr/share/nvm/install-nvm-exec
 
 # https://github.com/rupa/z
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh

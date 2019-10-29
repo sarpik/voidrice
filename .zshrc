@@ -96,6 +96,7 @@ setopt interactivecomments
 
 #
 #setopt nomenucomplete noautomenu
+setopt nomenucomplete
 
 [ -f "$HOME/.config/git/git-prompt.sh" ] && source "$HOME/.config/git/git-prompt.sh"
 setopt PROMPT_SUBST
@@ -122,8 +123,6 @@ GIT_PS1_DESCRIBE_STYLE="default"
 
 
 #export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
-
-source "$HOME/.config/aliasrc"
 
 ### ARCH ###
 

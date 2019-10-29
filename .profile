@@ -13,6 +13,8 @@ export BROWSER="google-chrome-stable"
 export READER="zathura"
 export FILE="vifm"
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
 export WAKATIME_HOME="$HOME/.config/wakatime"
 export BIB="$HOME/Documents/LaTeX/uni.bib"
 export REFER="$HOME/Documents/referbib"
@@ -22,6 +24,7 @@ export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 
 # less/man colors
 export LESS=-R
+export LESSHISTFILE="$HOME/.cache/less/history"
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
 export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
 export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
@@ -46,7 +49,15 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.local/bin/ttymaps.kmap 2>/dev/null
 
+# https://bbs.archlinux.org/viewtopic.php?pid=1490821#p1490821
 export GPG_TTY=$(tty)
+export GPG_AGENT_INFO=""
+
+#eval $(keychain --eval -Q --quiet id_rsa)
+
+# see https://wiki.archlinux.org/index.php/GnuPG#Configure_pinentry_to_use_the_correct_TTY
+# questionable if I need this
+gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # react-native
 # https://facebook.github.io/react-native/docs/getting-started#3-configure-the-android_home-environment-variable

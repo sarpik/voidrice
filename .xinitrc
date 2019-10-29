@@ -54,3 +54,4 @@ xhost +SI:localuser:screenlockuser
 [ -f "$HOME/.xprofile" ] && . ~/.xprofile
 
 exec i3
+
