@@ -18,3 +18,4 @@ x-scheme-handler/webcal=google-chrome.desktop
 text/x-arduino=arduino-arduinoide.desktop
 x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/ssh=ktelnetservice5.desktop
+x-scheme-handler/devhub=devhub.desktop

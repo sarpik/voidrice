@@ -104,9 +104,17 @@ interval=once
 command=keepassxc
 interval=once
 
+[syncthingtray]
+command=syncthingtray
+interval=once
+
 [slack]
 command=slack --startup
 interval=once
+
+#[devhub]
+#command=devhub
+#interval=once
 
 [flameshot]
 command=flameshot

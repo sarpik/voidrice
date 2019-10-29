@@ -51,6 +51,7 @@ set mouse=a
 set nohlsearch
 """ TODO #merge ('=' changed to '+=' - does this solve all my problems? :D)
 set clipboard+=unnamedplus " always copies into default clipboard by default. see https://stackoverflow.com/a/11489440/9285308
+set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see https://stackoverflow.com/a/6286925 & https://github.com/neovim/neovim/issues/3469#issuecomment-148900742
 
 " Some basics:
 	nnoremap c "_c
