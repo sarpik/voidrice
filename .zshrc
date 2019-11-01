@@ -3,9 +3,13 @@
 # bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
 autoload -U +X bashcompinit && bashcompinit
 
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' completer _expand _complete _ignored _correct _approximate rehash true
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate rehash true
+zstyle ':completion:*' menu select completer _expand _complete _ignored _correct _approximate rehash true
+
 zstyle :compinstall filename '/home/kipras/.zshrc'
-zstyle ':completion:*' menu select
+
+setopt autolist
 
 autoload -Uz compinit promptinit
 compinit
