@@ -20,6 +20,11 @@ prompt redhat
 ###HISTSIZE=1000			# current session
 ###SAVEHIST=999999999999	# history file
 
+# hub.zsh_completion
+# https://github.com/github/hub/tree/master/etc
+fpath=(~/.config/zsh/completions $fpath)
+autoload -U compinit && compinit
+
 ###
 # history #
 # see https://unix.stackexchange.com/a/273863
@@ -98,8 +103,9 @@ setopt interactivecomments
 #setopt nomenucomplete noautomenu
 setopt nomenucomplete
 
-[ -f "$HOME/.config/git/git-prompt.sh" ] && source "$HOME/.config/git/git-prompt.sh"
-setopt PROMPT_SUBST
+# "shopt -s expand_aliases" in bash equivalent.
+# see https://stackoverflow.com/a/23259088/9285308
+setopt aliases
 
 # Enable colors and change prompt:
 autoload -U colors && colors
@@ -107,8 +113,29 @@ autoload -U colors && colors
 #export PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 # with __git_prompt
 #export PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~ %c$(__git_ps1 " (%s)")%{$fg[red]%}]%{$reset_color%}$%b '
-export PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%1~%{$reset_color%}$(__git_ps1 " (%s)")%{$fg[red]%}]%{$reset_color%}$%b '
+#export PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%1~%{$reset_color%}$(__git_ps1 " (%s)")%{$fg[red]%}]%{$reset_color%}$%b '
 #PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
+
+#PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+
+#export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
+
+# add the git prompt to precmd, as recommended in
+# https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+# (this is the faster version and it also allows colors!)
+[ -f "$HOME/.config/git/git-prompt.sh" ] && source "$HOME/.config/git/git-prompt.sh"
+precmd () {
+	# the __git_ps1
+	# pre
+	# git's status
+	# post
+	# wrap git's status
+
+	__git_ps1 \
+	"%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%1~%{$reset_color%}" \
+	"%{$fg[red]%}]%{$reset_color%}$%b " \
+	" (%s)" \
+}
 
 # git-prompt.sh configs
 # More info @ ~/.config/git-prompt.sh & ~/.config/git-completion.bash
@@ -120,9 +147,6 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 #GIT_PS1_SHOWUPSTREAM="auto verbose"
 GIT_PS1_SHOWUPSTREAM="verbose"
 GIT_PS1_DESCRIBE_STYLE="default"
-
-
-#export PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 15)\]\[$(__git_ps1 " (%s)")\]\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
 
 ### ARCH ###
 
@@ -185,11 +209,6 @@ zle -N down-line-or-beginning-search
 
 # ported from .bashrc #
 
-# https://github.com/github/hub/
-if [ -f "$HOME/.config/git/hub.bash_completion" ]; then
-	source "$HOME/.config/git/hub.bash_completion"
-fi
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export GPG_TTY="$(tty)"
@@ -248,4 +267,3 @@ bindkey -M vicmd '^t' history-incremental-search-backward
 
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-
