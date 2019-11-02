@@ -53,6 +53,8 @@
 [pull]
 	rebase = true
 	ff = yes
+[push]
+	followTags = true # see https://stackoverflow.com/a/26438076/9285308
 [hub]
 	protocol = ssh
 [help]
@@ -111,6 +113,7 @@
 	#n =
 	#o =
 	p = push
+	# pa = push --all # meh
 	pl = pull
 	# git push -u origin master -> g pp
 	pp = "!f() { \
@@ -118,7 +121,7 @@
 		currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
 		git push --set-upstream \"$remote\" \"$currentBranch\"; }; \
 	f; "
-	pt = push --tags
+	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	#r =
