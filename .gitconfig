@@ -97,7 +97,12 @@
 	d = diff
 	ds = diff --staged
 	df = diff FETCH_HEAD
-	#e =
+	e = exec
+	exec = "!exec " # execute a script at the root of the repository!
+	# this is super useful, for example,
+	# `git exec sudo make install`!
+	# See https://github.com/sarpik/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
+	#
 	f = fetch
 	fa = fetch --all
 	#g =
