@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+# wifi-check
+
+sleepTime=1
+
+until (ping -c1 kipras.org); do sleep $sleepTime; done
+
