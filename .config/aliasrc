@@ -60,7 +60,7 @@ alias ka="killall" \
 	q="exit" \
 	cls="clear" \
 	c="clear" \
-	c.="code . && exit" \
+	c.="vscodium . && exit" \
 	gpgkeys="gpg --list-secret-keys --keyid-format LONG" \
 	gpgreload="gpg-connect-agent reloadagent /bye" \
 	grep="grep --color=auto" \

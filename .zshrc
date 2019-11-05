@@ -52,6 +52,10 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 ###
 
+# Do not insert a space after a completion / stop eating spaces where it shouldn't.
+# See https://superuser.com/a/613817/1012390
+ZLE_REMOVE_SUFFIX_CHARS=""
+
 setopt appendhistory autocd extendedglob nomatch notify
 ### do NOT set COMPLETE_ALIASES! See https://stackoverflow.com/a/20643204
 unsetopt beep
