@@ -3,7 +3,12 @@
 
 sleepTime=1
 
-until (ping -c1 kipras.org); do sleep $sleepTime; done
+numberOfTries=0
 
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus; export DISPLAY=:0; . $HOME/.profile;  notify-send "♨ wifi-check" "Internet available again!"
+until (ping -c1 kipras.org); do sleep $sleepTime; (( numberOfTries++ )); done
+
+# print if internet was not already available on the first try
+[ $numberOfTries -gt 0 ] && {
+	export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus; export DISPLAY=:0; . $HOME/.profile;  notify-send "♨ wifi-check" "Internet available again!\nChecked $numberOfTries times."
+}
 
