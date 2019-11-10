@@ -1,33 +1,42 @@
-# The following lines were added by compinstall
+
+# take tike to measure boot time
+bootTimeStart=$(date +%s%N)
 
 # bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
-autoload -U +X bashcompinit && bashcompinit
-
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+#autoload -U +X bashcompinit && bashcompinit
+#
+zstyle ':completion:*' matcher-list      'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # prefers not case sensitive
+# zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # prefers case sensitive
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate rehash true
 zstyle ':completion:*' menu select completer _expand _complete _ignored _correct _approximate rehash true
-
+#
+#bindkey -M menuselect '^?' undo
+#bindkey -M 'menuselect' '^M' .accept-line
+#
+#
 zstyle :compinstall filename '/home/kipras/.zshrc'
-
+#
 setopt autolist
 
-autoload -Uz compinit promptinit
+autoload -Uz compinit
+
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
+zstyle ':completion:*' menu select
+
+autoload -Uz promptinit
 promptinit
 
+# select the redhat prompt
 prompt redhat
 
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-###HISTSIZE=1000			# current session
-###SAVEHIST=999999999999	# history file
+
 
 # hub.zsh_completion
 # https://github.com/github/hub/tree/master/etc
-fpath=(~/.config/zsh/completions $fpath)
-autoload -U compinit && compinit
+##fpath=(~/.config/zsh/completions $fpath)
+##autoload -U compinit && compinit
 
 ###
 # history #
@@ -38,6 +47,7 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt append_history            # Don't _overwrite_ history
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
@@ -49,6 +59,35 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 #setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+setopt share_history             # share history between shells
+setopt hist_no_store             # don't save 'history' cmd in history
+
+
+# Directory changing
+# adopted from https://github.com/moprak/zshrc
+setopt autocd           # Automatically change directory
+setopt autopushd        # Use "pushd" instead of "cd", enabling use of "popd"
+setopt pushdsilent      # Make "popd" be less verbose (like cd)
+##setopt pushdignoredups  # Don't record the same directory as multiple entries
+setopt pushdtohome
+setopt cdable_vars
+DIRSTACKSIZE=10         # Limit the number of directories to keep in history
+
+# Completion, expansion and globbing
+setopt automenu
+setopt autolist
+#setopt complete_in_word
+setopt always_to_end
+setopt menucomplete
+setopt listpacked
+setopt globdots
+setopt extendedglob
+setopt markdirs
+setopt nomatch
+setopt numeric_glob_sort
+setopt rc_quotes
+##setopt rec_exact
+unsetopt autoparamslash
 
 ###
 
@@ -215,6 +254,10 @@ zle -N down-line-or-beginning-search
 
 ###
 
+# print how long a command took if it took longer than `3` seconds
+# http://zsh.sourceforge.net/Doc/Release/Parameters.html
+export REPORTTIME=3
+
 # ported from .bashrc #
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -273,5 +316,11 @@ bindkey '^?' backward-delete-char  #backspace
 bindkey -M viins '^t' history-incremental-search-backward
 bindkey -M vicmd '^t' history-incremental-search-backward
 
+bindkey -M menuselect '^M' .accept-line
+
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+ bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
+ echo "$bootTimeDuration ms"
+
