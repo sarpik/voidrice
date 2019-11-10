@@ -19,6 +19,7 @@ zstyle :compinstall filename '/home/kipras/.zshrc'
 setopt autolist
 
 autoload -Uz compinit
+zmodload -i zsh/complist # https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52#gistcomment-3079386
 
 compinit
 _comp_options+=(globdots)		# Include hidden files.
