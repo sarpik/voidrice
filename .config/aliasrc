@@ -161,6 +161,12 @@ pretty() {
 # kill workspace (i3)
 kw() {
 	workspace="$1"
+
+	[ -z "$workspace" ] && {
+		printf "noob gimme workspace numbah\n"
+		return 1
+	}
+
 	i3-msg "[workspace=$workspace] kill"
 }
 
