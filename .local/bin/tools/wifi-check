@@ -5,7 +5,7 @@ sleepTime=1
 
 numberOfTries=0
 
-until (ping -c1 kipras.org); do sleep $sleepTime; (( numberOfTries++ )); done
+until (ping -c1 kipras.org); do sleep $sleepTime; numberOfTries=$((numberOfTries + 1)); done
 
 # print if internet was not already available on the first try
 [ $numberOfTries -gt 0 ] && {
