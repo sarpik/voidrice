@@ -32,12 +32,14 @@ promptinit
 # select the redhat prompt
 prompt redhat
 
-
-
 # hub.zsh_completion
 # https://github.com/github/hub/tree/master/etc
-##fpath=(~/.config/zsh/completions $fpath)
+fpath=($HOME/.config/zsh/completions $fpath)
 ##autoload -U compinit && compinit
+
+# source 'git-extras' completions
+# (https://github.com/tj/git-extras)
+[ -f "$HOME/.config/zsh/completions/git-extras-completion.zsh" ] && source "$HOME/.config/zsh/completions/git-extras-completion.zsh"
 
 ###
 # history #
