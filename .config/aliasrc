@@ -27,8 +27,6 @@ alias ka="killall" \
 	sd="shutdown" \
 	sad="shutdown 0" \
 	f="vifm" \
-	git="hub" \
-	g="git" \
 	config="hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
 	co="config" \
 	cs="clear && config add ~/.gitignore && config status" \
@@ -80,6 +78,23 @@ alias ka="killall" \
 	queota="printf \"want some?\n\"" \
 	scim="sc-im" \
 	py="python"
+
+# function is better than an alias
+# (allows better auto-completions & compatibility etc)
+# see https://github.com/tj/git-extras/issues/797
+git() {
+	hub $*
+}
+
+# compdef is needed for auto-completions,
+# since I'm using `git`, `hub` and `git-extras`
+compdef git="hub"
+
+g() {
+	hub $*
+}
+
+compdef g="hub"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
