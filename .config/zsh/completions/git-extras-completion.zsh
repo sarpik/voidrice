@@ -436,9 +436,9 @@ _git-undo(){
         '(--hard -h)'{--hard,-h}'[wipes your commit(s)]'
 }
 
-zstyle -g existing_user_commands ':completion:*:*:git:*' user-commands
+zstyle -g existing_user_commands ':completion:*:*:g:*' user-commands
 
-zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
+zstyle ':completion:*:*:g:*' user-commands $existing_user_commands \
     alias:'define, search and show aliases' \
     archive-file:'export the current head of the git repository to an archive' \
     authors:'generate authors report' \
