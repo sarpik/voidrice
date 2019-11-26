@@ -174,7 +174,9 @@ bindsym $mod+Ctrl+l		move workspace to output right
 bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
-bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst;
+bindsym $mod+x                 exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst;
+
+#bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst;
 
 #bindsym $mod+x                 exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id loginctl lock-sessions; exec --no-startup-id pkill -USR1 --euid "$(id -u)" --exact dunst; exec --no-startup-id i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" --nofork; exec --no-startup-id notify-send "Disabling"; exec --no-startup-id pkill -USR2 --euid "$(id -u)" --exact dunst; exec --no-startup-id notify-send "testing notifs after"
 
