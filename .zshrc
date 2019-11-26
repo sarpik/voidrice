@@ -100,6 +100,7 @@ ZLE_REMOVE_SUFFIX_CHARS=""
 
 setopt appendhistory autocd extendedglob nomatch notify
 ### do NOT set COMPLETE_ALIASES! See https://stackoverflow.com/a/20643204
+#setopt complete_aliases
 unsetopt beep
 bindkey -v
 export KEYTIMEOUT=1

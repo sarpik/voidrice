@@ -437,6 +437,7 @@ _git-undo(){
 }
 
 zstyle -g existing_user_commands ':completion:*:*:g:*' user-commands
+#zstyle -g existing_user_commands ':completion:*:*:co:*' user-commands
 
 zstyle ':completion:*:*:g:*' user-commands $existing_user_commands \
     alias:'define, search and show aliases' \
