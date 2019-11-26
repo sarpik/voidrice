@@ -7,7 +7,7 @@ tt  ~/time-track
 pp	~/projects
 pw 	~/projects/personal-website
 fp 	~/forkprojects
-lp	~/learnprojects
+lep	~/learnprojects
 tp ~/testprojects
 wp ~/workprojects
 prp ~/privateprojects
