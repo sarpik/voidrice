@@ -1,0 +1,22 @@
+#!/bin/sh
+# I have a cronjob run this every minute to log time spend on the computer in
+# `~/.time` for each day. Gives estimate of daily NEEThood.
+
+timeDir="$HOME/time"
+
+[ ! -d "$timeDir" ] && {
+	mkdir -p "$timeDir" || exit 1
+}
+
+date="$(date '+%Y-%m-%d')"
+
+todaysTimeFile="$timeDir/$date"
+
+[ ! -e "$todaysTimeFile" ] && {
+	printf "0" > "$todaysTimeFile" || exit 1
+}
+
+currentMinCount="$(cat $todaysTimeFile)"
+
+echo $(($currentMinCount + 1)) > "$timeDir/$date"
+
