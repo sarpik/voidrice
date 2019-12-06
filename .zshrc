@@ -1,5 +1,5 @@
 
-# take tike to measure boot time
+# measure boot time (see also the last line)
 bootTimeStart=$(date +%s%N)
 
 # bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
@@ -325,6 +325,6 @@ bindkey -M menuselect '^M' .accept-line
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
- bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
- echo "$bootTimeDuration ms"
+bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
+printf "$bootTimeDuration ms\n"
 
