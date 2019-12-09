@@ -83,7 +83,7 @@
 	backup = !git-backup # remote script, availabe @ github.com/sarpik/dotfiles/.local/bin/tools/git-backup
 	# how many commits you're behind some other branch
 	behind = !git-behind # remote script, available @ github.com/sarpik/dotfiles/.local/bin/tools/git-behind
-	behind-remote = !behind-remote
+	behind-remote = !git-behind-remote
 	c = commit -S -s
 	ca = c --amend
 	cl = clone

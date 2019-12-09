@@ -36,8 +36,8 @@ gitCmd="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 passName="bin--behind-remote"
 token="$(pass "$passName")"
 
-upstreamName="upstream"
-upstreamBranchName="archi3"
+upstreamName="${1:-upstream}"
+upstreamBranchName="${2:-master}"
 upstream="$upstreamName/$upstreamBranchName"
 
 behind-remote() {

@@ -34,7 +34,7 @@ label=📦
 interval=once
 signal=8
 
-[behind-remote]
+[git-behind-remote]
 label=🏃
 interval=1800
 
