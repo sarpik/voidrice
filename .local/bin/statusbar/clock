@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 #date '+%Y %b %d (%a) %I:%M%p'	# 12h AM/PM
 #date '+%Y %b %d (%a) %H:%M'		# 24h
@@ -51,4 +51,3 @@ case $BLOCK_BUTTON in
 	3) pgrep -x dunst >/dev/null && notify-send "📅 Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
 - Middle click opens calcurse if installed" ;;
 esac
-

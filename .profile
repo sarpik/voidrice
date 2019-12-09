@@ -1,18 +1,26 @@
 #!/usr/bin/env sh
-# Profile file. Runs on login.
+# ~/.profile
+# Profile file. Runs on login. Environmental variables are set here.
+
+# Get default LARBS WM from ~/.local/share/larbs/wm
+export LARBSWM="$(cat ~/.local/share/larbs/wm 2>/dev/null)" &&
+	[ "$LARBSWM" = "dwm" ] || export LARBSWM="i3"
 
 # Adds `~/.local/bin/` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
 
+# Default programs:
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="google-chrome-stable"
 export READER="zathura"
-export FILE="vifm"
+export FILE="ranger"
+export STATUSBAR="${LARBSWM}blocks"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -28,37 +36,44 @@ export DOTNET_ROOT="/opt/dotnet" # https://wiki.archlinux.org/index.php/.NET_Cor
 export MSBuildSDKsPath="/opt/dotnet/sdk/3.0.100/Sdks";
 #export MSBuildSDKsPath="/opt/dotnet/sdk/2.2.108/Sdks";
 
-# less/man colors
+# ~/ Clean-up:
+export INPUTRC="$HOME/.config/inputrc"
+export ZDOTDIR="$HOME/.config/zsh"
+export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
+
+# Other program settings:
+export DICS="/usr/share/stardict/dic/"
+export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
+export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export LESS=-R
-export LESSHISTFILE="$HOME/.cache/less/history"
-export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
-export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
-export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
-export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"; a="${a%_}"
-export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
-export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
-export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
+#export LESSHISTFILE="$HOME/.cache/less/history"
+export LESSHISTFILE="-"
+export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
+export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
+export LESS_TERMCAP_me="$(printf '%b' '[0m')"
+export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
+export LESS_TERMCAP_se="$(printf '%b' '[0m')"
+export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
+export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 
 mpd >/dev/null 2>&1 &
 
 [ ! -f ~/.config/shortcutrc ] && shortcuts >/dev/null 2>&1
 
-echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
+# Start graphical server on tty1 if not already running.
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
 
-## enable numlock on startup
-## https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup#Bash_alternative
-#setleds -D +num
+# Switch escape and caps if tty and no passwd required:
+sudo -n loadkeys ~/.local/share/larbs/ttymaps.kmap 2>/dev/null
 
-# Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && startx
+export LF_ICONS="di=:fi=:ln=:or=:ex=:*.c=:*.cc=:*.clj=:*.coffee=:*.cpp=:*.css=:*.d=:*.dart=:*.erl=:*.exs=:*.fs=:*.go=:*.h=:*.hh=:*.hpp=:*.hs=:*.html=:*.java=:*.jl=:*.js=:*.json=:*.lua=:*.md=:*.php=:*.pl=:*.pro=:*.py=:*.rb=:*.rs=:*.scala=:*.ts=:*.vim=:*.cmd=:*.ps1=:*.sh=:*.bash=:*.zsh=:*.fish=:*.tar=:*.tgz=:*.arc=:*.arj=:*.taz=:*.lha=:*.lz4=:*.lzh=:*.lzma=:*.tlz=:*.txz=:*.tzo=:*.t7z=:*.zip=:*.z=:*.dz=:*.gz=:*.lrz=:*.lz=:*.lzo=:*.xz=:*.zst=:*.tzst=:*.bz2=:*.bz=:*.tbz=:*.tbz2=:*.tz=:*.deb=:*.rpm=:*.jar=:*.war=:*.ear=:*.sar=:*.rar=:*.alz=:*.ace=:*.zoo=:*.cpio=:*.7z=:*.rz=:*.cab=:*.wim=:*.swm=:*.dwm=:*.esd=:*.jpg=:*.jpeg=:*.mjpg=:*.mjpeg=:*.gif=:*.bmp=:*.pbm=:*.pgm=:*.ppm=:*.tga=:*.xbm=:*.xpm=:*.tif=:*.tiff=:*.png=:*.svg=:*.svgz=:*.mng=:*.pcx=:*.mov=:*.mpg=:*.mpeg=:*.m2v=:*.mkv=:*.webm=:*.ogm=:*.mp4=:*.m4v=:*.mp4v=:*.vob=:*.qt=:*.nuv=:*.wmv=:*.asf=:*.rm=:*.rmvb=:*.flc=:*.avi=:*.fli=:*.flv=:*.gl=:*.dl=:*.xcf=:*.xwd=:*.yuv=:*.cgm=:*.emf=:*.ogv=:*.ogx=:*.aac=:*.au=:*.flac=:*.m4a=:*.mid=:*.midi=:*.mka=:*.mp3=:*.mpc=:*.ogg=:*.ra=:*.wav=:*.oga=:*.opus=:*.spx=:*.xspf=:*.pdf="
 
-# Switch escape and caps if tty:
-sudo -n loadkeys ~/.local/bin/ttymaps.kmap 2>/dev/null
+# Various bs
 
+# gpg stuff
 # https://bbs.archlinux.org/viewtopic.php?pid=1490821#p1490821
 export GPG_TTY=$(tty)
 export GPG_AGENT_INFO=""
-
 #eval $(keychain --eval -Q --quiet id_rsa)
 
 # see https://wiki.archlinux.org/index.php/GnuPG#Configure_pinentry_to_use_the_correct_TTY
@@ -79,4 +94,3 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # nosqlclient (for mongo)
 export MONGO_URL="/usr/bin/mongo"
-

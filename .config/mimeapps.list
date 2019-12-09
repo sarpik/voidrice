@@ -1,5 +1,6 @@
 [Default Applications]
 x-scheme-handler/magnet=torrent.desktop;
+application/x-bittorrent=torrent.desktop;
 x-scheme-handler/mailto=mail.desktop;
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
@@ -9,6 +10,7 @@ text/plain=text.desktop;
 text/x-shellscript=text.desktop;
 text/html=google-chrome.desktop
 text/plain=text.desktop;
+application/postscript=pdf.desktop;
 application/pdf=pdf.desktop;
 image/png=img.desktop;
 image/jpeg=img.desktop;

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 ## explanations
 #
@@ -13,12 +13,12 @@
 # `sv` => `sudoedit` instead of `sudo nvim`:
 # read https://wiki.archlinux.org/index.php/Security#Editing_files_using_sudo
 
+# Use neovim for vim if present.
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
 alias ka="killall" \
 	Q="cd / && $HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit" \
-	mkd="mkdir -pv" \
-	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 	calcurse="calcurse -D ~/.config/calcurse" \
-	magit="nvim -c MagitOnly" \
 	f="$FILE" \
 	p="pacman" \
 	sp="sudo pacman" \
@@ -26,7 +26,6 @@ alias ka="killall" \
 	SS="sudo systemctl" \
 	sd="shutdown" \
 	sad="shutdown 0" \
-	f="vifm" \
 	config="hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
 	co="config" \
 	cs="clear && config add ~/.gitignore && config status" \
@@ -61,12 +60,6 @@ alias ka="killall" \
 	c.="vscodium . && exit" \
 	gpgkeys="gpg --list-secret-keys --keyid-format LONG" \
 	gpgreload="gpg-connect-agent reloadagent /bye" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
-	ccat="highlight --out-format=ansi" \
-	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
-	yta="yt -x -f bestaudio/best" \
-	YT="youtube-viewer" \
 	yv="yarn version" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
 	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
@@ -81,12 +74,49 @@ alias ka="killall" \
 	acl="arduino-cli" \
 	ac="arduino-cli"
 
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	bat="cat /sys/class/power_supply/BAT?/capacity" \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -v" \
+	mkd="mkdir -pv" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+
+# Some other stuff
+alias \
+	magit="nvim -c MagitOnly" \
+	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
+	weath="less -S ~/.local/share/weatherreport" \
+
+# This alias is important. It enables the `pauseallmpv` command.
+alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
+
+# Removed because of https://github.com/nvbn/thefuck/issues/1018
+### https://github.com/nvbn/thefuck
+### eval $(thefuck --alias)
+
+# Functions & stuff
 
 # function is better than an alias
 # (allows better auto-completions & compatibility etc)
 # see https://github.com/tj/git-extras/issues/797
 git() {
-	hub $*
+	hub "$*"
 }
 
 # compdef is needed for auto-completions,
@@ -94,94 +124,26 @@ git() {
 compdef git="hub"
 
 g() {
-	hub $*
+	hub "$*"
 }
 
 compdef g="hub"
 
-command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
-
-# https://github.com/nvbn/thefuck
-# removed because of https://github.com/nvbn/thefuck/issues/1018
-###eval $(thefuck --alias)
-
-# --- #
-
-# auto-completions
-
-### NOTE - only needed for bash!
-
-## https://brbsix.github.io/2015/11/23/perform-tab-completion-for-aliases-in-bash/
-#_completion_loader docker
-#complete -F _docker d
-#
-#_completion_loader git
-#complete -F _git config # config aka dotfile management from $HOME/.dotfiles
-#complete -F _git co
-#
-#_completion_loader systemctl
-#complete -F _systemctl S
-#
-#_completion_loader systemctl
-#complete -F _systemctl SS
-#
-#_completion_loader pacman
-#complete -F _pacman p
-#
-#_completion_loader pacman
-#complete -F _pacman sp
-
-# --- #
-
-vf() { fzf | xargs -r -I % $EDITOR % ;}
-
-shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
-se() { du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf | xargs  -r $EDITOR ;}
-svcp() { vcopy "$(du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf)" ;}
-vf() { fzf | xargs -r -I % $EDITOR % ;}
-
-bright() {
-	[ -z $1 ] && echo "usage: bright [brightness %]" && return 1
-	brightness="$(echo "$1 / 100" | bc -l)"
-	echo "brightness $brightness"
-	xrandr --output DP-0 --brightness $brightness ;
-}
-#drm() { docker rm $(docker ps -aq) ;}
-
+# Fast clipboard copying
 # -r removes the last newline! https://stackoverflow.com/a/43830018/9285308
-clip() { xclip -r -selection c ;}
-copy() { xclip -r -selection c "$1" ;}
+clip() { xclip -r -selection c ;}      # pipe  into  me
+copy() { xclip -r -selection c "$1" ;} # gimme the file
 
-md() { pandoc -t markdown $1 | less ;}
+md() { pandoc -t markdown "$1" | less ;}
 
-# Add file / folder to ~/.gitignore (dotfile management)
-gig() {
-	if [ -z "$1" ]; then
-	#	echo "$(pwd | sed 's|/home/kipras/||g; s|\s|\\ |g;')" >> "$HOME/.gitignore"
-		echo "$(pwd | sed 's|'"$HOME"'/||g; s|\s|\\ |g;')" | tee -a "$HOME/.gitignore";
-	else
-	#	echo "$(pwd | sed 's|/home/kipras/||g; s|\s|\\ |g;'`/$1" >> "$HOME/.gitignore"
-	#	echo "$(pwd | sed 's|'"$HOME"'/||g; s|\s|\\ |g;')/$1" >> "$HOME/.gitignore";
- 		echo "$(pwd | sed 's|$|/'"$1"'|g; s|'"$HOME"'/||g; s|\s|\\ |g;')" | tee -a "$HOME/.gitignore";
-	fi
-}
-
-# examples:
-# cat file.json | pretty .json
-# pretty file.json .json
-pretty() {
-	if [ -z "$2" ]; then
-		prettier --stdin --stdin-filepath $1; # piping
-	else
-		cat $1 | prettier --stdin --stdin-filepath $2; # using directly
-	fi
-}
+shdl() { curl -O "$(curl -s http://sci-hub.tw/"$*" | grep location.href | grep -o 'http.*pdf')" ;}
+se() { du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf | xargs  -r "$EDITOR" ;}
+svcp() { vcopy "$(du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf)" ;}
+vf() { fzf | xargs -r -I % "$EDITOR" % ;}
 
 # kill workspace (i3)
 kw() {
-	workspace="$1"
-
-	[ -z "$workspace" ] && {
+	[ -n "$1" ] && workspace="$1" || {
 		printf "noob gimme workspace numbah\n"
 		return 1
 	}
@@ -189,7 +151,9 @@ kw() {
 	i3-msg "[workspace=$workspace] kill"
 }
 
-fork() {
-	nohup "$@" &
+bright() {
+	[ -z "$1" ] && { echo "usage: bright [brightness %]"; return 1; }
+	brightness="$(echo "$1 / 100" | bc -l)"
+	echo "brightness $brightness"
+	xrandr --output DP-0 --brightness "$brightness"
 }
-

@@ -86,3 +86,24 @@ export PASSWORD_STORE_DIR="$HOME/.password-store"
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
+# Auto-completions
+
+## https://brbsix.github.io/2015/11/23/perform-tab-completion-for-aliases-in-bash/
+#_completion_loader docker
+#complete -F _docker d
+#
+#_completion_loader git
+#complete -F _git config # config aka dotfile management from $HOME/.dotfiles
+#complete -F _git co
+#
+#_completion_loader systemctl
+#complete -F _systemctl S
+#
+#_completion_loader systemctl
+#complete -F _systemctl SS
+#
+#_completion_loader pacman
+#complete -F _pacman p
+#
+#_completion_loader pacman
+#complete -F _pacman sp
