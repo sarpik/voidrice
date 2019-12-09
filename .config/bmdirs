@@ -14,8 +14,9 @@ prp ~/privateprojects
 pri ~/privateprojects/interactio
 prip ~/privateprojects/interactio/panel
 sw ~/privateprojects/sioko-cpp/
-ts	~/projects/turbo-schedule
+tt	~/projects/turbo-schedule
 gbp ~/projects/git-backup
+so  ~/projects/sioko
 pc	~/Pictures
 sa ~/screenshots
 vv	~/Videos
@@ -28,6 +29,7 @@ dds ~/.dotfiles
 lr ~/larbs
 sr ~/.local/share
 te ~/projects/teaching
+pk ~/programavimo-klubas
 
 lampp /opt/lampp
 ho /opt/lampp/htdocs

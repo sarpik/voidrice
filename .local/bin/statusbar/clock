@@ -17,8 +17,6 @@ currentMinute="$(date '+%M')"
 # boolean (1 or 0)
 (( "$currentMinute" >= 30 )) && past30Mins="1" || past30Mins="0"
 
-#echo "'$past30Mins' past30Mins"
-
 case $currentHour in
 	01) [ "$past30Mins" = 0 ] && clockLabel="🕐" || clockLabel="🕜" ;;
 	02) [ "$past30Mins" = 0 ] && clockLabel="🕐" || clockLabel="🕝" ;;

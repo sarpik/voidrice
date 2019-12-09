@@ -77,7 +77,10 @@ alias ka="killall" \
 	b="bright" \
 	queota="printf \"want some?\n\"" \
 	scim="sc-im" \
-	py="python"
+	py="python" \
+	acl="arduino-cli" \
+	ac="arduino-cli"
+
 
 # function is better than an alias
 # (allows better auto-completions & compatibility etc)
@@ -99,6 +102,7 @@ compdef g="hub"
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
 # https://github.com/nvbn/thefuck
+# removed because of https://github.com/nvbn/thefuck/issues/1018
 ###eval $(thefuck --alias)
 
 # --- #

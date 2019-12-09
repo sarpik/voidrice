@@ -5,6 +5,7 @@
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
@@ -22,6 +23,10 @@ export REFER="$HOME/Documents/referbib"
 export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 # https://wiki.archlinux.org/index.php/.NET_Core#Telemetry
+export DOTNET_ROOT="/opt/dotnet" # https://wiki.archlinux.org/index.php/.NET_Core#Troubleshooting
+export MSBuildSDKsPath="/opt/dotnet/sdk/3.0.100/Sdks";
+#export MSBuildSDKsPath="/opt/dotnet/sdk/2.2.108/Sdks";
 
 # less/man colors
 export LESS=-R

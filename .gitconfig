@@ -83,6 +83,7 @@
 	backup = !git-backup # remote script, availabe @ github.com/sarpik/dotfiles/.local/bin/tools/git-backup
 	# how many commits you're behind some other branch
 	behind = !git-behind # remote script, available @ github.com/sarpik/dotfiles/.local/bin/tools/git-behind
+	behind-remote = !behind-remote
 	c = commit -S -s
 	ca = c --amend
 	cl = clone
@@ -129,7 +130,8 @@
 	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
-	prme = pull-request -a sarpik -b master -depo
+	prme =  pull-request -a sarpik -b master  -epo
+	prmed = pull-request -a sarpik -b master -depo
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	#r =
