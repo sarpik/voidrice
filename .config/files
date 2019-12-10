@@ -5,7 +5,7 @@ bmd	~/.config/directories
 cfb	~/.bashrc
 bm	~/.config/bookmarks
 cfa	~/.config/aliasrc
-cfz	~/$ZDOTDIR/.zshrc
+cfz	$ZDOTDIR/.zshrc
 cfv	~/.config/nvim/init.vim
 cfr	~/.config/ranger/rc.conf
 cfi	~/.config/i3/config
