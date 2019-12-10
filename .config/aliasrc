@@ -113,10 +113,11 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 # Functions & stuff
 
 # function is better than an alias
+# note - do NOT quote the '$*'!
 # (allows better auto-completions & compatibility etc)
 # see https://github.com/tj/git-extras/issues/797
 git() {
-	hub "$*"
+	hub $*
 }
 
 # compdef is needed for auto-completions,
@@ -124,7 +125,7 @@ git() {
 compdef git="hub"
 
 g() {
-	hub "$*"
+	hub $*
 }
 
 compdef g="hub"
