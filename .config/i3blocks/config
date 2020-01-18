@@ -7,10 +7,14 @@ command=cat /tmp/recordingicon
 interval=once
 signal=9
 
-[music]
-label=🎼
-interval=once
-signal=11
+[session-count]
+interval=5
+#label=🍯
+
+#[music]
+#label=🎼
+#interval=once
+#signal=11
 
 # apparently broken atm
 [disk]
