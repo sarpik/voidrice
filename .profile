@@ -27,6 +27,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1 # https://wiki.archlinux.org/index.php/.NET
 export DOTNET_ROOT="/opt/dotnet" # https://wiki.archlinux.org/index.php/.NET_Core#Troubleshooting
 export MSBuildSDKsPath="/opt/dotnet/sdk/3.0.100/Sdks";
 #export MSBuildSDKsPath="/opt/dotnet/sdk/2.2.108/Sdks";
+##export N_PREFIX="$HOME/.local/share/n"
 
 # less/man colors
 export LESS=-R

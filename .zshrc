@@ -322,6 +322,8 @@ bindkey -M vicmd '^t' history-incremental-search-backward
 
 bindkey -M menuselect '^M' .accept-line
 
+#source ~/.config/zsh/completions/_deno
+
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 

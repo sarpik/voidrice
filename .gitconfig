@@ -29,7 +29,7 @@
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = mail.kipras.org
-	smtpUser = dev@kipras.org
+	smtpUser = kipras@kipras.org
 	smtpServerPort = 587
 [stash]
 	usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
@@ -113,8 +113,8 @@
 	#j =
 	#k =
 	#l =
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lp = log --patch --follow
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit # awesome log!
+	lp = log --patch #--follow
 	#m = merge
 	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
 	#n =
@@ -139,7 +139,6 @@
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	#r =
-	riom = rebase -i origin/master
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 	s = status
