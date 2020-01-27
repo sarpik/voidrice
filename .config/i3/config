@@ -108,13 +108,16 @@ bindsym $mod+Shift+r		exec --no-startup-id winresize
 bindsym $mod+t			split toggle
 bindsym $mod+Shift+t		gaps inner current set $gaps_inner; gaps outer current set $gaps_outer
 
-bindsym $mod+y			exec $term -e calcurse -D ~/.config/calcurse
+#bindsym $mod+y			exec $term -e calcurse -D ~/.config/calcurse
+# youtube native app through nativefier
+bindsym $mod+y			exec --no-startup-id youtube
 bindsym $mod+Shift+y		exec --no-startup-id i3resize left
 
 bindsym $mod+u			exec --no-startup-id ddspawn tmuxdd
 bindsym $mod+Shift+u		exec --no-startup-id i3resize down
 
-bindsym $mod+Shift+i		exec --no-startup-id i3resize up
+#bindsym $mod+Shift+i		exec --no-startup-id i3resize up
+bindsym $mod+Shift+i		exec --no-startup-id figma
 
 bindsym $mod+o			sticky toggle
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
@@ -197,7 +200,7 @@ bindsym $mod+Shift+x		exec --no-startup-id prompt "Shutdown computer?" "$shutdow
 ### TODO #merge (luke's)
 ###bindsym $mod+c			exec --no-startup-id cabl
 
-bindsym $mod+c			exec --no-startup-id freealf
+bindsym $mod+c			exec --no-startup-id google-calendar
 bindsym $mod+Shift+c		exec --no-startup-id camtoggle
 
 ### TOODO #merge (luke's)
