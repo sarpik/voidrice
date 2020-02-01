@@ -46,6 +46,8 @@ Plug 'https://github.com/vim-scripts/JumpToLastOccurrence'
 Plug 'https://github.com/tpope/vim-abolish'
 Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
+
+Plug 'junegunn/vim-emoji' " https://github.com/junegunn/vim-emoji
 call plug#end()
 
 set bg=light
@@ -79,6 +81,9 @@ let g:ycm_global_ycm_extra_conf = "~/.config/nvim/plugged/YouCompleteMe/third_pa
 	" https://stackoverflow.com/a/2287449
 	set ignorecase
 	set smartcase
+
+" https://github.com/junegunn/vim-emoji#emoji-completion
+set completefunc=emoji#complete
 
 	" Create necessary directories:
 	if !isdirectory("~/.vim/backup")
