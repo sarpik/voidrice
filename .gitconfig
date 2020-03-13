@@ -18,7 +18,7 @@
 	# editor = '/usr/bin/env code' --new-window --wait
 	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
-	pager = less -R
+	pager = diff-so-fancy | less --tabs=4 -RFX
 	longpaths = true
 [imap]
 	host = mail.kipras.org
@@ -29,7 +29,7 @@
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = mail.kipras.org
-	smtpUser = dev@kipras.org
+	smtpUser = kipras@kipras.org
 	smtpServerPort = 587
 [stash]
 	usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
@@ -49,7 +49,7 @@
 	tool = code
 [rebase]
 	missingCommitsCheck = warn
-	autostash = true
+	#autostash = true # you cannot access it from the stash which sucks
 [pull]
 	rebase = true
 	ff = yes
@@ -74,6 +74,7 @@
 [alias]
 	fn = "!f() { echo \"hi\"; }; f;"
 	a = add
+	ac = !git add . && git c
 	aca = !git add . && git ca
 	ad = add
 	adc = !git add . && git c
@@ -113,8 +114,8 @@
 	#j =
 	#k =
 	#l =
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lp = log --patch --follow
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit # awesome log!
+	lp = log --patch #--follow
 	#m = merge
 	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
 	#n =
@@ -131,15 +132,14 @@
 	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
-	prme =        pull-request --push -a sarpik  --base        master  -epo                                                  # targets upstream
+	prme =        pull-request --push -a sarpik  #--base        master  -epo                                                  # targets upstream
 	prmee =  !hub pull-request --push -a sarpik  --base sarpik:master  -epo --head sarpik:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
-	prmed =       pull-request --push -a sarpik  --base        master -depo                                                  # targets upstream
+	prmed =       pull-request --push -a sarpik  #--base        master -depo                                                  # targets upstream
 	prmeed = !hub pull-request --push -a sarpik  --base sarpik:master -depo --head sarpik:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
 	#prmeed = !git pull-request -a sarpik  --base "${$(git config --global --get user.username):-sarpik}":master -depo # targets local repo
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	#r =
-	riom = rebase -i origin/master
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 	s = status
