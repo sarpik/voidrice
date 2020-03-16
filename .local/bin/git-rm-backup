@@ -4,9 +4,9 @@
 list-backups() {
 	# get current username (if it's set), or get the first name of `user.name`
 	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
-	backupBranchPrefix="zzz__git-backup/$currentUsername/"
+	backupBranchPrefix="zzz__git-backup/$currentUsername/|wip/$currentUsername/"
 
-	git branch | grep "$backupBranchPrefix"
+	git branch | grep -E "$backupBranchPrefix"
 }
 
 git-rm-backup() {
@@ -21,9 +21,9 @@ git-rm-backup() {
 		while
 			read -r backupBranch
 		do
-			printf "\n$backupBranch\n"
+			printf "\n%s\n" "$backupBranch"
 			printf "  rm? [Y/n]: "
-			read -u 3 choice
+			read -r -u 3 choice
 
 			#read choice
 

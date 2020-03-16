@@ -30,6 +30,9 @@ Plug 'tpope/vim-commentary'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --rust-completer --ts-completer' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
+" https://github.com/rdnetto/YCM-Generator
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
 Plug 'https://github.com/jalvesaq/nvim-r.git'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'wakatime/vim-wakatime'
@@ -42,6 +45,8 @@ Plug 'https://github.com/vim-scripts/JumpToLastOccurrence'
 Plug 'https://github.com/tpope/vim-abolish'
 Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
+
+Plug 'junegunn/vim-emoji' " https://github.com/junegunn/vim-emoji
 call plug#end()
 
 set bg=light
@@ -51,6 +56,12 @@ set nohlsearch
 """ TODO #merge ('=' changed to '+=' - does this solve all my problems? :D)
 set clipboard+=unnamedplus " always copies into default clipboard by default. see https://stackoverflow.com/a/11489440/9285308
 set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see https://stackoverflow.com/a/6286925 & https://github.com/neovim/neovim/issues/3469#issuecomment-148900742
+
+" YouCompleteMe fix - see https://github.com/ycm-core/YouCompleteMe/issues/700
+"
+" The config itself is a generic one from https://github.com/ycm-core/YouCompleteMe#option-2-provide-the-flags-manually,
+" you can use YCM-generator to generate a config per-project basis - see https://github.com/rdnetto/YCM-Generator
+let g:ycm_global_ycm_extra_conf = "~/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 
 " Some basics:
 	nnoremap c "_c
@@ -69,6 +80,9 @@ set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see http
 	" https://stackoverflow.com/a/2287449
 	set ignorecase
 	set smartcase
+
+" https://github.com/junegunn/vim-emoji#emoji-completion
+set completefunc=emoji#complete
 
 	" Create necessary directories:
 	if !isdirectory("~/.vim/backup")

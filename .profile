@@ -12,9 +12,13 @@ export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/go/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:/home/kipras/.gem/ruby/2.7.0/bin" # WE'VE REVERSELY FALLEN FOR THE MEME BOYZ
+export PATH="$PATH:/home/kipras/builds/DataGrip-2019.3.2/bin" # WE'VE REVERSELY FALLEN FOR THE MEME BOYZ
+export PATH="$PATH:/opt/resolve/bin"
 
 # Default programs:
 export EDITOR="nvim"
+export REACT_EDITOR="vscodium"
 export SUDO_EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="google-chrome-stable"
@@ -35,6 +39,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1 # https://wiki.archlinux.org/index.php/.NET
 export DOTNET_ROOT="/opt/dotnet" # https://wiki.archlinux.org/index.php/.NET_Core#Troubleshooting
 export MSBuildSDKsPath="/opt/dotnet/sdk/3.0.100/Sdks";
 #export MSBuildSDKsPath="/opt/dotnet/sdk/2.2.108/Sdks";
+##export N_PREFIX="$HOME/.local/share/n"
 
 # ~/ Clean-up:
 export INPUTRC="$HOME/.config/inputrc"

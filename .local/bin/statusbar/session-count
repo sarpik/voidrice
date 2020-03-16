@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# session-count
+
+case $BLOCK_BUTTON in
+	#1) $TERMINAL -e 'bash -c "w && loginctl list-sessions && read -r"' ;;
+	3) pgrep -x dunst >/dev/null && notify-send "💽 Session count module" "\- Shows the number of active sessions.
+- Click to show all session info." ;;
+esac
+
+sessionCount=$(w --no-header | wc -l)
+
+# if there's only 1 session - don't do anything.
+[ $sessionCount -gt 1 ] && printf "%s %s\n" "🍯" "$sessionCount"
+
