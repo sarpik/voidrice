@@ -29,7 +29,7 @@
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = mail.kipras.org
-	smtpUser = dev@kipras.org
+	smtpUser = kipras@kipras.org
 	smtpServerPort = 587
 [stash]
 	usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
