@@ -18,7 +18,7 @@
 	# editor = '/usr/bin/env code' --new-window --wait
 	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
 	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
-	pager = less -R
+	pager = diff-so-fancy | less --tabs=4 -RFX
 	longpaths = true
 [imap]
 	host = mail.kipras.org
