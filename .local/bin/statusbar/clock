@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 #date '+%Y %b %d (%a) %I:%M%p'	# 12h AM/PM
 #date '+%Y %b %d (%a) %H:%M'		# 24h

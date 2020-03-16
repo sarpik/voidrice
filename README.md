@@ -27,7 +27,7 @@ These are the dotfiles deployed by [LARBS](https://larbs.xyz), as seen on [Luke'
 ## Want even more?
 
 My setup is pretty modular nowadays.
-I use several suckless program that are meant to be configured and compiled by the user and I also have separate repos for some other things.
+I use several suckless programs that are meant to be configured and compiled by the user and I also have separate repos for some other things.
 Check out their links:
 
 - st ([Kipras's](https://github.com/sarpik/st) or [Luke's](https://github.com/lukesmithxyz/st)) - the terminal emulator assumed to be used by these dotfiles

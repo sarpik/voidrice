@@ -25,7 +25,6 @@ command=disk / 🥢
 #command=disk /home 🏠
 
 [news]
-label=📰
 interval=once
 signal=6
 
@@ -50,7 +49,6 @@ interval=3600
 signal=5
 
 [mailbox]
-label=📬
 interval=180
 signal=12
 
