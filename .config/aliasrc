@@ -57,7 +57,6 @@ alias ka="killall" \
 	quit="exit" \
 	q="exit" \
 	cls="clear" \
-	c="vscodium" \
 	c.="vscodium . && exit" \
 	gpgkeys="gpg --list-secret-keys --keyid-format LONG" \
 	gpgreload="gpg-connect-agent reloadagent /bye" \
@@ -74,12 +73,12 @@ alias ka="killall" \
 	ffmpeg="ffmpeg -hide_banner" \
 	chrome="nohup google-chrome-stable & disown" \
 	ce="chrome && exit 0" \
-	b="bright" \
 	queota="printf \"want some?\n\"" \
 	scim="sc-im" \
 	py="python" \
 	acl="arduino-cli" \
-	ac="arduino-cli"
+	ac="arduino-cli" \
+	esl="eslint --ext js,jsx,ts,tsx"
 
 
 # function is better than an alias
@@ -98,6 +97,29 @@ g() {
 }
 
 compdef g="hub"
+
+# vscode
+c() {
+	vscodium $*
+}
+
+compdef c="code"
+
+ci() {
+	code-insiders $*
+}
+
+compdef ci="code"
+
+drag() {
+	dragon-drag-and-drop $*
+}
+
+# taken from the 'Exec' entry once a desktop shortcut is created
+postwoman() {
+	/opt/google/chrome/google-chrome --profile-directory=Default --app-id=ljencpkfbmahjfhepjlnokmmfipcbcld $*
+}
+
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
@@ -191,5 +213,15 @@ kw() {
 
 fork() {
 	nohup "$@" &
+}
+
+KO() {
+	while (killall redshift); do echo KO; done
+}
+
+song() {
+	[ -n "$1" ] && out="$1" || out="$(xclip -selection c -o)"
+	printf "$out\n"
+	[ -n "$out" ] && printf "$out\n" >> ~/songs
 }
 
