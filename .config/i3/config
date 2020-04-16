@@ -349,6 +349,8 @@ bindsym $mod+Shift+bracketright exec --no-startup-id lmc forward 120
 bindsym Print 			exec --no-startup-id maim pic-full-"$(date '+%y%m%d-%H%M-%S').png"
 # `End` is on the `Print` key for me, otherwise I would just use the `Print` binding
 bindsym $mod+End 		exec --no-startup-id "flameshot gui"
+#bindsym $mod+End 		exec --no-startup-id "flameshot full -p /home/kipras/debug/htop-pics/"
+
 bindsym $mod+Shift+End 		exec --no-startup-id maimpick
 bindsym $mod+Print		exec --no-startup-id dmenurecord
 bindsym $mod+Scroll_Lock	exec --no-startup-id "killall screenkey || screenkey"
