@@ -9,6 +9,7 @@ pw 	~/projects/personal-website
 fp 	~/forkprojects
 lep	~/learnprojects
 css ~/learnprojects/css-suck-less
+el  ~/learnprojects/every-layout
 gop ~/go/src/
 tp ~/testprojects
 wp ~/workprojects
@@ -18,6 +19,7 @@ prip ~/privateprojects/interactio/panel
 sw ~/privateprojects/sioko-cpp/
 sn ~/projects/snitch-latest-car
 tt	~/projects/turbo-schedule
+tw  ~/learnprojects/tailwindcss
 xs  ~/projects/xstate-cpp
 gbp ~/projects/git-backup
 so  ~/projects/sioko
