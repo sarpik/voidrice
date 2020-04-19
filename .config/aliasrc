@@ -95,6 +95,14 @@ alias \
 	ka="killall" \
 	trem="transmission-remote" \
 	YT="youtube-viewer" \
+	sdn="sudo shutdown -h now" \
+	f="$FILE" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="sudo pacman" \
+	xi="sudo xbps-install" \
+	xr="sudo xbps-remove -R" \
+	xq="xbps-query"
 
 # Some other stuff
 alias \

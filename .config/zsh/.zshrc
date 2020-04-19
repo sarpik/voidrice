@@ -41,6 +41,13 @@ fpath=($HOME/.config/zsh/completions $fpath)
 # (https://github.com/tj/git-extras)
 [ -f "$HOME/.config/zsh/completions/git-extras-completion.zsh" ] && source "$HOME/.config/zsh/completions/git-extras-completion.zsh"
 
+stty stop undef		# Disable ctrl-s to freeze terminal.
+
+# Load aliases and shortcuts if existent.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
+#[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
+
 ###
 # history #
 # see https://unix.stackexchange.com/a/273863
@@ -188,6 +195,27 @@ precmd () {
 	" (%s)" \
 }
 
+# # echo -ne '\e[5 q' # Use beam shape cursor on startup.
+# # preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp" >/dev/null
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
+
+bindkey -s '^a' 'bc -l\n'
+
+bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
+
+bindkey '^[[P' delete-char
+
 # git-prompt.sh configs
 # More info @ ~/.config/git-prompt.sh & ~/.config/git-completion.bash
 GIT_PS1_SHOWCOLORHINTS=1
@@ -269,10 +297,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export GPG_TTY="$(tty)"
 #export PASSWORD_STORE_DIR="$HOME/.password-store"
 
-# load stuff
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
 ### vi mode improved!
 
 autoload -U select-quoted; zle -N select-quoted
@@ -329,4 +353,3 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
 printf "$bootTimeDuration ms\n"
-

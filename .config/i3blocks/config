@@ -32,7 +32,6 @@ signal=6
 #interval=30
 
 [pacpackages]
-label=📦
 interval=once
 signal=8
 
@@ -88,7 +87,7 @@ interval=30
 [internet]
 interval=10
 
-[help]
+[help-icon]
 interval=once
 
 # bluetooth
@@ -120,4 +119,3 @@ interval=once
 [flameshot]
 command=flameshot
 interval=once
-

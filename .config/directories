@@ -1,5 +1,6 @@
 # You can add comments to these files with #
 h	~/
+zd	$ZDOTDIR
 D	~/Documents
 dl	~/Downloads
 m	~/Music
@@ -31,7 +32,7 @@ biz ~/projects/biz
 pc	~/Pictures
 sa ~/screenshots
 vv	~/Videos
-cf	~/.config
+cf	${XDG_CONFIG_HOME:-$HOME/.config}
 ca  ~/.cache
 sc	~/.local/bin
 mn	/mnt

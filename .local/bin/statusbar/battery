@@ -1,36 +1,27 @@
 #!/bin/sh
-# Give a battery name (Check the battery name from sys/class/power_supply/ e.g. BAT0 or BAT1 and pass it as an argument.
+
+# Prints all batteries, their percentage remaining and an emoji corresponding
+# to charge status (🔌 for plugged up, 🔋 for discharging on battery, etc.).
 
 case $BLOCK_BUTTON in
-    3) pgrep -x dunst >/dev/null && notify-send "🔋 Battery module" "🔋: discharging
+    3) notify-send "🔋 Battery module" "🔋: discharging
 🛑: not charging
 ♻: stagnant charge
 🔌: charging
 ⚡: charged
-❗: battery very low!
-- Text color reflects charge left" ;;
+❗: battery very low!" ;;
 esac
 
+# Loop through all attached batteries.
 for battery in /sys/class/power_supply/BAT?
 do
-capacity=$(cat "$battery"/capacity) || exit
-status=$(cat "$battery"/status)
+	# Get its remaining capacity and charge status.
+	capacity=$(cat "$battery"/capacity) || break
+	status=$(sed "s/Discharging/🔋/;s/Not charging/🛑/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/" "$battery"/status)
 
-if [ "$capacity" -ge 75 ]; then
-	color="#00ff00"
-elif [ "$capacity" -ge 50 ]; then
-	color="#ffffff"
-elif [ "$capacity" -ge 25 ]; then
-	color="#ffff00"
-else
-	color="#ff0000"
-	warn="❗"
-fi
+	# If it is discharging and 25% or less, we will add a ❗ as a warning.
+	 [ "$capacity" -le 25 ] && [ "$status" = "🔋" ] && warn="❗"
 
-[ -z $warn ] && warn=" "
-
-[ "$status" = "Charging" ] && color="#ffffff"
-
-printf "%s%s%s\n" "$(echo "$status" | sed "s/,//;s/Discharging/🔋/;s/Not charging/🛑/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
-done
-
+	printf "%s%s%s%% " "$status" "$warn" "$capacity"
+	unset warn
+done | sed s/\ $/\\n/
