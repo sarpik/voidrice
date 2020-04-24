@@ -173,5 +173,8 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH="$PATH:/opt/lampp"
 export PATH="$PATH:$HOME/.local/bin"
 
+# sourcemod / sourcepawn
+export PATH="$PATH:$HOME/.local/share/sourcemod/addons/sourcemod/scripting"
+
 # nosqlclient (for mongo)
 export MONGO_URL="/usr/bin/mongo"

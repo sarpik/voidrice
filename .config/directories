@@ -5,10 +5,12 @@ D	~/Documents
 dl	~/Downloads
 m	~/Music
 tt  ~/time-track
+pr  ~/private
 pp	~/projects
 pw 	~/projects/personal-website
+sm  ~/projects/sourcemod
 fp 	~/forkprojects
-lep	~/learnprojects
+lp	~/learnprojects
 css ~/learnprojects/css-suck-less
 el  ~/learnprojects/every-layout
 gop ~/go/src/
