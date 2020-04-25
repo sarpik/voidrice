@@ -61,6 +61,7 @@
 	autoCorrect = 0
 [diff]
 	tool = default-difftool
+	algorithm = histogram
 [difftool "default-difftool"]
   cmd = code --wait --diff $LOCAL $REMOTE
 [filter "lfs"]
