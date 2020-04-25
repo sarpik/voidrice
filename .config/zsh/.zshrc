@@ -52,7 +52,9 @@ stty stop undef		# Disable ctrl-s to freeze terminal.
 # history #
 # see https://unix.stackexchange.com/a/273863
 
-HISTFILE="$HOME/.cache/zsh/history"
+HISTDIR="$HOME/.cache/zsh"
+HISTFILE="$HISTDIR/history"
+mkdir -p "$HISTDIR"
 HISTSIZE=10000000
 SAVEHIST=10000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
