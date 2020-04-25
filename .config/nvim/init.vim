@@ -27,8 +27,16 @@ Plug 'tpope/vim-commentary'
 "
 " dos2unix /usr/share/vim/vimfiles/plugin/youcompleteme.vim
 "
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --rust-completer --ts-completer' }
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+" For dank autocompletions, the following packages need to be installed:
+" pacman -S cmake vim python python-pip python2-pip cmake rust go nodejs yarn ruby-irb mono
+"
+" See also https://github.com/sarpik/LARBS/blob/master/do-it-yourself/vim
+"
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all ' }
+
+" Related to YouCompleteMe
+Plug 'https://github.com/ternjs/tern_for_vim'
 
 " https://github.com/rdnetto/YCM-Generator
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
