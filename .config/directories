@@ -36,6 +36,7 @@ sa ~/screenshots
 vv	~/Videos
 cf	${XDG_CONFIG_HOME:-$HOME/.config}
 ca  ~/.cache
+bb  ~/.cache/builds
 sc	~/.local/bin
 mn	/mnt
 ds ~/dotfiles
