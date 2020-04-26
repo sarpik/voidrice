@@ -83,6 +83,7 @@
 	b = branch
 	ba = branch --all
 	bp = backup
+	o = browse # hub
 	backup = !git-backup # remote script, availabe @ github.com/sarpik/dotfiles/.local/bin/tools/git-backup
 	# how many commits you're behind some other branch
 	behind = !git-behind # remote script, available @ github.com/sarpik/dotfiles/.local/bin/tools/git-behind
