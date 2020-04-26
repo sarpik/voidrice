@@ -9,8 +9,8 @@
 #
 
 # set ALT + SHIFT to change layouts from US to LT & vice versa
-#setxkbmap -option "grp:switch,grp:alt_shift_toggle,grp_led:scroll" -layout "us,lt" &
-# NOTE - moved to /etc/X11/xorg.conf.d/00-keyboard.conf
+setxkbmap -option "grp:switch,grp:alt_shift_toggle,grp_led:scroll" -layout "us,lt" &
+# ~~ NOTE - moved to /etc/X11/xorg.conf.d/00-keyboard.conf ~~
 # READ MORE at https://wiki.archlinux.org/index.php/Xorg/Keyboard_configuration#Using_X_configuration_files
 
 # enables clicking the touchpad
