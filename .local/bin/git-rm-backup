@@ -6,7 +6,7 @@ list-backups() {
 	currentUsername="$(git config user.username || git config user.name | cut -d ' ' -f 1)" && \
 	backupBranchPrefix="zzz__git-backup/$currentUsername/|wip/$currentUsername/"
 
-	git branch | grep -E "$backupBranchPrefix"
+	git branch --all | grep -E "$backupBranchPrefix" | grep -v "\->" | sed -E 's|^\s*remotes/\w*/||g'
 }
 
 git-rm-backup() {
