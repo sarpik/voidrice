@@ -148,9 +148,13 @@ gs() { hub s $* }
 gg() { hub s $* }
 gp() { hub p $* }
 gc() { hub c $* }
+gca() { hub ca $* }
 gco() {  hub co $* }
 gb() { hub b $* }
 glg() { hub lg $* }
+gad() { hub a . $* }
+gadc() { hub a . && hub c $* }
+gadca() { hub a . && hub ca $* }
 
 # Fast clipboard copying
 # -r removes the last newline! https://stackoverflow.com/a/43830018/9285308
