@@ -37,7 +37,8 @@ alias ka="killall" \
 	compass="mongodb-compass" \
 	h="grep -Hr" \
 	trem="transmission-remote" \
-	e="git exec" \
+	e="dolphin" \
+	e.="dolphin ." \
 	v="$EDITOR" \
 	sv="sudoedit" \
 	x="sxiv -ft *" \
@@ -97,7 +98,6 @@ alias \
 	YT="youtube-viewer" \
 	sdn="sudo shutdown -h now" \
 	f="$FILE" \
-	e="$EDITOR" \
 	v="$EDITOR" \
 	p="sudo pacman" \
 	xi="sudo xbps-install" \
@@ -145,12 +145,17 @@ compdef gr="hub"
 
 # calls aliases. See https://github.com/sarpik/voidrice/blob/master/.gitconfig
 gs() { hub s $* }
+gd() { hub d $* }
 gg() { hub s $* }
 gp() { hub p $* }
 gc() { hub c $* }
+gca() { hub ca $* }
 gco() {  hub co $* }
 gb() { hub b $* }
 glg() { hub lg $* }
+gad() { hub a . $* }
+gadc() { hub a . && hub c $* }
+gadca() { hub a . && hub ca $* }
 
 # Fast clipboard copying
 # -r removes the last newline! https://stackoverflow.com/a/43830018/9285308
