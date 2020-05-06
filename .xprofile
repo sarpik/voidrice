@@ -21,9 +21,6 @@
 
 ### ---
 
-# Add this when you include flatpak in your system
-dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
-
 setbg &		# Set the background
 sxhkd &	# Bind keys
 # Switch to US international with Caps as Mod/Escape
