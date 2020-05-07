@@ -55,6 +55,11 @@ Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'junegunn/vim-emoji' " https://github.com/junegunn/vim-emoji
+
+Plug 'https://github.com/xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
+Plug 'https://github.com/lervag/vimtex'
+
 call plug#end()
 
 set bg=light
@@ -64,12 +69,34 @@ set nohlsearch
 """ TODO #merge ('=' changed to '+=' - does this solve all my problems? :D)
 set clipboard+=unnamedplus " always copies into default clipboard by default. see https://stackoverflow.com/a/11489440/9285308
 set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see https://stackoverflow.com/a/6286925 & https://github.com/neovim/neovim/issues/3469#issuecomment-148900742
+set updatetime=1000 " http://vimdoc.sourceforge.net/htmldoc/options.html#%27updatetime%27
 
 " YouCompleteMe fix - see https://github.com/ycm-core/YouCompleteMe/issues/700
 "
 " The config itself is a generic one from https://github.com/ycm-core/YouCompleteMe#option-2-provide-the-flags-manually,
 " you can use YCM-generator to generate a config per-project basis - see https://github.com/rdnetto/YCM-Generator
 let g:ycm_global_ycm_extra_conf = "~/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+
+" https://github.com/xuhdev/vim-latex-live-preview#pdf-viewer
+let g:livepreview_previewer = 'zathura'
+
+" :h vimtex-complete-auto
+let g:vimtex_complete_enabled=1
+
+if !exists('g:ycm_semantic_triggers')
+  let g:ycm_semantic_triggers = {}
+endif
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+
+let g:vimtex_compiler_latexmk = { 
+        \ 'executable' : 'latexmk',
+        \ 'options' : [ 
+        \   '-xelatex',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=nonstopmode',
+        \ ],
+        \}
 
 " Some basics:
 	nnoremap c "_c
@@ -190,8 +217,8 @@ set completefunc=emoji#complete
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
 
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
-	autocmd BufWritePre * %s/\s\+$//e
-	autocmd BufWritepre * %s/\n\+\%$//e
+	""autocmd BufWritePre * %s/\s\+$//e
+	""autocmd BufWritepre * %s/\n\+\%$//e
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
 	autocmd BufWritePost files,directories !shortcuts
