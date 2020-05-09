@@ -25,3 +25,4 @@ text/x-arduino=arduino-arduinoide.desktop
 x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/ssh=ktelnetservice5.desktop
 x-scheme-handler/devhub=devhub.desktop
+x-scheme-handler/msteams=teams.desktop
