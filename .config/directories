@@ -2,6 +2,8 @@
 h	~/
 zd	$ZDOTDIR
 D	~/Documents
+o	~/Documents/thoughts/
+th	~/Documents/thoughts/
 dl	~/Downloads
 m	~/Music
 tt  ~/time-track
@@ -12,6 +14,8 @@ sm  ~/projects/sourcemod
 fp 	~/forkprojects
 lp	~/learnprojects
 css ~/learnprojects/css-suck-less
+lax ~/learnprojects/latex
+re  ~/learnprojects/latex/resume
 el  ~/learnprojects/every-layout
 gop ~/go/src/
 tp ~/testprojects
@@ -24,7 +28,7 @@ sn ~/projects/snitch-latest-car
 tt	~/projects/turbo-schedule
 tw  ~/learnprojects/tailwindcss
 xs  ~/projects/xstate-cpp
-gbp ~/projects/git-backup
+gbak ~/projects/git-backup
 so  ~/projects/sioko
 es  ~/projects/eslint-config-sarpik
 di  ~/projects/design-ideas
