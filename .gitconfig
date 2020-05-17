@@ -90,6 +90,7 @@
 	behind-remote = !git-behind-remote
 	c = commit -S -s
 	ca = c --amend
+	cgg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
 	cl = clone
 	co = checkout
 	#co = !git stash -u && git checkout
