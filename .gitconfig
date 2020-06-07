@@ -90,6 +90,8 @@
 	behind-remote = !git-behind-remote
 	c = commit -S -s
 	ca = c --amend
+	cgg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
+	gg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
 	cl = clone
 	co = checkout
 	#co = !git stash -u && git checkout
@@ -156,6 +158,7 @@
 			# > Pass a configuration parameter to the command. The value given will override values from configuration files.
 	so = show
 	ss = show
+	sh = show @
 	sil = !git -c color.status=always status --ignored=traditional | less -R
 	stash-unapply = !git stash show -p | git apply -Rc
 	#t =
