@@ -37,7 +37,8 @@ alias ka="killall" \
 	compass="mongodb-compass" \
 	h="grep -Hr" \
 	trem="transmission-remote" \
-	e="git exec" \
+	e="dolphin" \
+	e.="dolphin ." \
 	v="$EDITOR" \
 	sv="sudoedit" \
 	x="sxiv -ft *" \
@@ -97,7 +98,6 @@ alias \
 	YT="youtube-viewer" \
 	sdn="sudo shutdown -h now" \
 	f="$FILE" \
-	e="$EDITOR" \
 	v="$EDITOR" \
 	p="sudo pacman" \
 	xi="sudo xbps-install" \
@@ -119,6 +119,8 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 
 # Functions & stuff
 
+cr() { sudo vscodium --user-data-dir $HOME/.config/VSCodium/ --extensions-dir $HOME/.vscode-oss/extensions $* }
+
 # function is better than an alias
 # note - do NOT quote the '$*'!
 # (allows better auto-completions & compatibility etc)
@@ -137,7 +139,7 @@ g() {
 
 compdef g="hub"
 
-gp() {
+gnp() {
 	hub --no-pager $*
 }
 
@@ -145,12 +147,46 @@ compdef gr="hub"
 
 # calls aliases. See https://github.com/sarpik/voidrice/blob/master/.gitconfig
 gs() { hub s $* }
+gd() { hub d $* }
+gds() { hub ds $* }
 gg() { hub s $* }
+ggg() { hub s $* }
+gggg() { hub s $* }
+ggggg() { hub s $* }
+s() { hub s $* }
+gcl() { hub cl $* }
 gp() { hub p $* }
+gpp() { hub pp $* }
+gpl() { hub pl $* }
+gf() { hub f $* }
+gfa() { hub fa $* }
 gc() { hub c $* }
+gca() { hub ca $* }
 gco() {  hub co $* }
+gcom() { hub co master $* }
+gcob() { hub co -b $* }
 gb() { hub b $* }
+gba() { hub ba $* }
+grmbp() { hub rmbp $* }
+gl() { hub lg $* }
 glg() { hub lg $* }
+gls() { hub lgs $* }
+glgs() { hub lgs $* }
+ga() { hub a $* }
+gad() { hub a . $* }
+gadc() { hub a . && hub c $* }
+gadca() { hub a . && hub ca $* }
+gbp() { hub bp $* }
+gss() { hub ss $* }
+gsh() { hub sh $* }
+gct() { hub ct $- }
+gt() { hub t $* }
+gtt() { hub tt $* }
+gtas() { hub tas $* }
+
+y() {
+	yarn $*
+}
 
 # Fast clipboard copying
 # -r removes the last newline! https://stackoverflow.com/a/43830018/9285308
