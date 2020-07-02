@@ -178,3 +178,10 @@ export PATH="$PATH:$HOME/.local/share/sourcemod/addons/sourcemod/scripting"
 
 # nosqlclient (for mongo)
 export MONGO_URL="/usr/bin/mongo"
+
+# deno
+export DENO_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/deno"
+export DENO_INSTALL_ROOT="$DENO_DIR/bin"
+
+
+

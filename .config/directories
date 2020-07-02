@@ -2,16 +2,21 @@
 h	~/
 zd	$ZDOTDIR
 D	~/Documents
+o	~/Documents/thoughts/
+th	~/Documents/thoughts/
 dl	~/Downloads
 m	~/Music
 tt  ~/time-track
 pr  ~/private
 pp	~/projects
+te  ~/projects/server-party
 pw 	~/projects/personal-website
 sm  ~/projects/sourcemod
 fp 	~/forkprojects
 lp	~/learnprojects
 css ~/learnprojects/css-suck-less
+lax ~/learnprojects/latex
+re  ~/learnprojects/latex/resume
 el  ~/learnprojects/every-layout
 gop ~/go/src/
 tp ~/testprojects
@@ -24,7 +29,7 @@ sn ~/projects/snitch-latest-car
 tt	~/projects/turbo-schedule
 tw  ~/learnprojects/tailwindcss
 xs  ~/projects/xstate-cpp
-gbp ~/projects/git-backup
+gbak ~/projects/git-backup
 so  ~/projects/sioko
 es  ~/projects/eslint-config-sarpik
 di  ~/projects/design-ideas
@@ -43,7 +48,7 @@ ds ~/dotfiles
 dds ~/.dotfiles
 lr ~/larbs
 sr ~/.local/share
-te ~/projects/teaching
+#te ~/projects/teaching
 pk ~/programavimo-klubas
 
 lampp /opt/lampp
