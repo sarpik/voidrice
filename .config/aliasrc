@@ -174,8 +174,9 @@ gls() { hub lgs $* }
 glgs() { hub lgs $* }
 ga() { hub a $* }
 gad() { hub a . $* }
-gadc() { hub a . && hub c $* }
-gadca() { hub a . && hub ca $* }
+gadc() { hub adc $* }
+gadca() { hub adca $* }
+gadct() { hub adct $* }
 gbp() { hub bp $* }
 gss() { hub ss $* }
 gsh() { hub sh $* }
