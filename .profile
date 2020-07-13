@@ -183,5 +183,23 @@ export MONGO_URL="/usr/bin/mongo"
 export DENO_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/deno"
 export DENO_INSTALL_ROOT="$DENO_DIR/bin"
 
+# https://stackoverflow.com/a/18434831
+case "$OSTYPE" in
+  solaris*) echo "SOLARIS" ;;
+  darwin*)
+	  #echo "OSX"
+		export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+	  
+		# see https://stackoverflow.com/a/57973942/9285308
+		# make GNU commands available
+		export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+		export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
+	  ;; 
+  linux*)   echo "LINUX" ;;
+  bsd*)     echo "BSD" ;;
+  msys*)    echo "WINDOWS" ;;
+  *)        echo "unknown: $OSTYPE" ;;
+esac
 
+source ~/.iterm2_shell_integration.zsh
 

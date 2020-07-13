@@ -80,7 +80,7 @@
 	ad = add
 	adc = !git add . && git c
 	adca = !git add . && git ca
-	adct = !git add . && git c -m "TEMP"
+	adct = !git add . && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks
 	ap = add --patch
 	b = branch
 	ba = branch --all

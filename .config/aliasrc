@@ -145,6 +145,18 @@ gnp() {
 
 compdef gr="hub"
 
+# Fast clipboard copying
+# -r removes the last newline! https://stackoverflow.com/a/43830018/9285308
+clip() { xclip -r -selection c ;}      # pipe  into  me
+copy() { xclip -r -selection c "$1" ;} # gimme the file
+
+cg() {
+	case "$OSTYPE" in
+		darwin*) pbcopy < .git/COMMIT_EDITMSG ;;
+			  *)   copy < .git/COMMIT_EDITMSG ;;
+	esac
+}
+
 # calls aliases. See https://github.com/sarpik/voidrice/blob/master/.gitconfig
 gs() { hub s $* }
 gd() { hub d $* }
@@ -185,14 +197,9 @@ gt() { hub t $* }
 gtt() { hub tt $* }
 gtas() { hub tas $* }
 
-y() {
-	yarn $*
-}
-
-# Fast clipboard copying
-# -r removes the last newline! https://stackoverflow.com/a/43830018/9285308
-clip() { xclip -r -selection c ;}      # pipe  into  me
-copy() { xclip -r -selection c "$1" ;} # gimme the file
+y() { yarn $* }
+yd() { yarn dev $* || yarn develop $* }
+yy() { yd $* }
 
 # vscode
 c() {

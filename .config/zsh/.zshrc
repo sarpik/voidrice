@@ -353,5 +353,16 @@ bindkey -M menuselect '^M' .accept-line
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
+case "$OSTYPE" in
+	# https://unix.stackexchange.com/a/446380/332452
+	$~darvin*)
+		# iterm2
+		test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+	;;
+		*)
+	;;
+esac
+
 bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
 printf "$bootTimeDuration ms\n"
+
