@@ -203,4 +203,6 @@ case "$OSTYPE" in
   *)        #echo "unknown: $OSTYPE" ;;
 esac
 
+# snap
+export PATH="$PATH:/var/lib/snapd/snap/bin"
 
