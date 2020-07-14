@@ -197,10 +197,10 @@ case "$OSTYPE" in
 		
 		export PATH="$PATH:/Applications/Firefox Developer Edition.app/Contents/MacOS/"
 	  ;; 
-  linux*)   echo "LINUX" ;;
-  bsd*)     echo "BSD" ;;
-  msys*)    echo "WINDOWS" ;;
-  *)        echo "unknown: $OSTYPE" ;;
+  linux*)   #echo "LINUX" ;;
+  bsd*)     #echo "BSD" ;;
+  msys*)    #echo "WINDOWS" ;;
+  *)        #echo "unknown: $OSTYPE" ;;
 esac
 
 
