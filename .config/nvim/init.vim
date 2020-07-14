@@ -30,10 +30,14 @@ Plug 'tpope/vim-commentary'
 
 " For dank autocompletions, the following packages need to be installed:
 " pacman -S cmake vim python python-pip python2-pip cmake rust go nodejs yarn ruby-irb mono
+" or
+" brew install cmake vim python cmake rust go nodejs yarn mono
 "
 " See also https://github.com/sarpik/LARBS/blob/master/do-it-yourself/vim
 "
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all ' }
+""Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all ' }
+""Plug 'Valloric/YouCompleteMe', { 'do': 'sudo ./install.py --ts-completer --go-completer --cs-completer --clangd-completer --rust-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'sudo ./install.py --ts-completer --go-completer --clangd-completer' }
 
 " Related to YouCompleteMe
 Plug 'https://github.com/ternjs/tern_for_vim'
