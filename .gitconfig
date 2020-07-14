@@ -147,7 +147,9 @@
 	#prmeed = !git pull-request -a sarpik  --base "${$(git config --global --get user.username):-sarpik}":master -depo # targets local repo
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
-	#r =
+	r = rebase
+	ri = rebase -i
+	riom = rebase -i origin/master
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 	s = status

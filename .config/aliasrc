@@ -179,6 +179,9 @@ gcom() { hub co master $* }
 gcob() { hub co -b $* }
 gb() { hub b $* }
 gba() { hub ba $* }
+gr() { hub r $* }
+gri() { hub ri $* }
+griom() { hub riom $* }
 grmbp() { hub rmbp $* }
 gl() { hub lg $* }
 glg() { hub lg $* }
