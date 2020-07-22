@@ -84,6 +84,7 @@
 	ap = add --patch
 	b = branch
 	ba = branch --all
+	bd = delete-branch # git-extras
 	bp = backup
 	o = browse # hub
 	backup = !git-backup # remote script, availabe @ github.com/sarpik/dotfiles/.local/bin/tools/git-backup

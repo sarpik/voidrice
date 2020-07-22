@@ -178,6 +178,7 @@ gco() {  hub co $* }
 gcom() { hub co master $* }
 gcob() { hub co -b $* }
 gb() { hub b $* }
+gbd() { hub bd $* }
 gba() { hub ba $* }
 gr() { hub r $* }
 gri() { hub ri $* }
