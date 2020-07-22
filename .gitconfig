@@ -131,12 +131,7 @@
 	p = push
 	# pa = push --all # meh
 	pl = pull
-	# git push -u origin master -> g pp
-	pp = "!f() { \
-		remote=\"${1:-origin}\"; \
-		currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
-		git push --set-upstream \"$remote\" \"$currentBranch\"; }; \
-	f; "
+	pp = "!git push --set-upstream \"${1:-origin}\" HEAD"
 	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
