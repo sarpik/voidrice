@@ -183,7 +183,7 @@ gr() { hub r $* }
 gri() { hub ri $* }
 griom() { hub riom $* }
 grmbp() { hub rmbp $* }
-gl() { hub lg $* }
+gl() { hub l $* }
 glg() { hub lg $* }
 gls() { hub lgs $* }
 glgs() { hub lgs $* }
