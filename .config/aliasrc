@@ -72,7 +72,8 @@ alias ka="killall" \
 	py="python" \
 	acl="arduino-cli" \
 	ac="arduino-cli" \
-	esl="eslint --ext js,jsx,ts,tsx"
+	esl="eslint --ext js,jsx,ts,tsx" \
+	lol="sudo sh -c 'echo \"abi.vsyscall32 = 0\" >> /etc/sysctl.conf && sysctl -p;'"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
