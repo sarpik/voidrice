@@ -21,7 +21,7 @@ export EDITOR="nvim"
 export REACT_EDITOR="vscodium"
 export SUDO_EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="google-chrome-stable"
+export BROWSER="firefox"
 export READER="zathura"
 export FILE="lf"
 export STATUSBAR="${LARBSWM}blocks"
@@ -183,6 +183,9 @@ export MONGO_URL="/usr/bin/mongo"
 export DENO_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/deno"
 export DENO_INSTALL_ROOT="$DENO_DIR/bin"
 
+# snap
+export PATH="$PATH:/var/lib/snapd/snap/bin"
+
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in
   solaris*) echo "SOLARIS" ;;
@@ -196,6 +199,7 @@ case "$OSTYPE" in
 		export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
 		
 		export PATH="$PATH:/Applications/Firefox Developer Edition.app/Contents/MacOS/"
+
 	  ;; 
   linux*)   #echo "LINUX" ;;
   		;;
@@ -206,7 +210,3 @@ case "$OSTYPE" in
   *)        #echo "unknown: $OSTYPE" ;;
   		;;
 esac
-
-# snap
-export PATH="$PATH:/var/lib/snapd/snap/bin"
-

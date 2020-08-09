@@ -32,7 +32,7 @@
 	smtpUser = kipras@kipras.org
 	smtpServerPort = 587
 [stash]
-	usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
+	## usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
 [gpg]
 	program = gpg2
 [color]
@@ -80,6 +80,8 @@
 	ad = add
 	adc = !git add . && git c
 	adca = !git add . && git ca
+	adcaw = !git add . && git ca --no-edit
+	adcawq = adcaw
 	adct = !git add . && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks
 	ap = add --patch
 	b = branch
@@ -93,6 +95,7 @@
 	behind-remote = !git-behind-remote
 	c = commit -S -s
 	ca = c --amend
+	caw = c --amend --no-edit
 	ct = c -m "TEMP"
 	cgg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
 	gg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
@@ -132,7 +135,7 @@
 	p = push
 	# pa = push --all # meh
 	pl = pull
-	pp = "!git push --set-upstream \"${1:-origin}\" HEAD"
+	pp = "!git push --set-upstream \"${1:-origin}\" \"HEAD\""
 	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
@@ -146,6 +149,8 @@
 	r = rebase
 	rc = rebase --continue
 	ri = rebase -i
+	ra = rebase --abort
+	rc = rebase --continue
 	riom = rebase -i origin/master
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup

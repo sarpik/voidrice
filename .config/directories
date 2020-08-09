@@ -22,6 +22,7 @@ gop ~/go/src/
 tp ~/testprojects
 wp ~/workprojects
 wo ~/work
+oss ~/oss
 prp ~/privateprojects
 pri ~/privateprojects/interactio
 prip ~/privateprojects/interactio/panel

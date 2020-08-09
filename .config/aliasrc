@@ -78,8 +78,8 @@ alias ka="killall" \
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
 	bat="cat /sys/class/power_supply/BAT?/capacity" \
-	cp="cp -iv" \
-	mv="mv -iv" \
+	cp="cp -v" \
+	mv="mv -v" \
 	rm="rm -v" \
 	mkd="mkdir -pv" \
 	yt="youtube-dl --add-metadata -i" \
@@ -160,6 +160,7 @@ cg() {
 
 # calls aliases. See https://github.com/sarpik/voidrice/blob/master/.gitconfig
 gs() { hub s $* }
+gso() { hub so $* }
 gd() { hub d $* }
 gds() { hub ds $* }
 gg() { hub s $* }
@@ -175,6 +176,7 @@ gf() { hub f $* }
 gfa() { hub fa $* }
 gc() { hub c $* }
 gca() { hub ca $* }
+gcaw() { hub caw $* }
 gco() {  hub co $* }
 gcom() { hub co master $* }
 gcob() { hub co -b $* }
@@ -183,6 +185,8 @@ gbd() { hub bd $* }
 gba() { hub ba $* }
 gr() { hub r $* }
 gri() { hub ri $* }
+gra() { g ra $* }
+grc() { g rc $* }
 griom() { hub riom $* }
 grmbp() { hub rmbp $* }
 gl() { hub l $* }
@@ -193,6 +197,8 @@ ga() { hub a $* }
 gad() { hub a . $* }
 gadc() { hub adc $* }
 gadca() { hub adca $* }
+gadcaw() { hub adcaw $* }
+gadcawq() { hub adcaw $* }
 gadct() { hub adct $* }
 gbp() { hub bp $* }
 gss() { hub ss $* }
@@ -205,6 +211,13 @@ gtas() { hub tas $* }
 y() { yarn $* }
 yd() { yarn dev $* || yarn develop $* }
 yy() { yd $* }
+yb() { y build $* }
+yw() { y watch $* }
+ya() { y add $* }
+yr() { y rm $* }
+
+yg() { y global $* }
+yga() { y global add $* }
 
 # vscode
 c() {
@@ -296,3 +309,12 @@ song() {
 	printf "$out\n"
 	[ -n "$out" ] && printf "$out\n" >> ~/songs
 }
+
+mc() { mkdir -p "$@" && cd $_; }
+mkdc() { mc }
+
+eslf() { esl $* --fix }
+esldf() { esl . --fix }
+eslfd() { esl . --fix }
+esll() { esl . --fix }
+
