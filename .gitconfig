@@ -9,7 +9,7 @@
 
 [user]
 	# @param username - custom, used for some aliases / scripts (& also my github/bitbucket username)
-	username = sarpik
+	username = kiprasmel
 	name = Kipras Melnikovas
 	email = kipras@kipras.org
 	signingkey = AA505BC1C6D8AD90
