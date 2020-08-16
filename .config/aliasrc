@@ -154,7 +154,7 @@ copy() { xclip -r -selection c "$1" ;} # gimme the file
 cg() {
 	case "$OSTYPE" in
 		darwin*) pbcopy < .git/COMMIT_EDITMSG ;;
-			  *)   copy < .git/COMMIT_EDITMSG ;;
+			  *)   copy   .git/COMMIT_EDITMSG ;;
 	esac
 }
 
@@ -203,7 +203,7 @@ gadct() { hub adct $* }
 gbp() { hub bp $* }
 gss() { hub ss $* }
 gsh() { hub sh $* }
-gct() { hub ct $- }
+gct() { hub ct $* }
 gt() { hub t $* }
 gtt() { hub tt $* }
 gtas() { hub tas $* }

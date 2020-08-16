@@ -16,7 +16,8 @@ fp 	~/forkprojects
 lp	~/learnprojects
 css ~/learnprojects/css-suck-less
 lax ~/learnprojects/latex
-re  ~/learnprojects/latex/resume
+#re  ~/learnprojects/latex/resume
+re  ~/projects/refined-gitlab
 el  ~/learnprojects/every-layout
 gop ~/go/src/
 tp ~/testprojects
