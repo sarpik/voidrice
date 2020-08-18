@@ -30,7 +30,7 @@ xrdb "$HOME/.Xdefaults"
 numlockx &
 
 # keyboard remaps (called by i3)
-#. ~/.scripts/tools/remaps
+. ~/.local/bin/remaps
 
 # automatic screen brightness adjustment, blue light filtering and more
 # https://wiki.archlinux.org/index.php/Redshift
