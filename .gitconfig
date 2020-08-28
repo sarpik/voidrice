@@ -81,7 +81,8 @@
 	adc = !git add . && git c
 	adca = !git add . && git ca
 	adcaw = !git add . && git ca --no-edit
-	adcawq = adcaw
+	adcawpf = !git adcaw && git push -f
+	adcawpfn = !git adcaw && git push -f --no-verify # --no-verify to ignore husky's hooks
 	adct = !git add . && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks
 	ap = add --patch
 	b = branch
@@ -93,7 +94,7 @@
 	# how many commits you're behind some other branch
 	behind = !git-behind # remote script, available @ github.com/sarpik/dotfiles/.local/bin/tools/git-behind
 	behind-remote = !git-behind-remote
-	c = commit -S -s
+	c = commit -S # -s # ~~Removed to avoid the 'signed-off-by', causing bots to not catch the reference~~
 	ca = c --amend
 	caw = c --amend --no-edit
 	ct = c -m "TEMP"
@@ -132,7 +133,7 @@
 	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
 	#n =
 	#o =
-	p = push
+	p = push --follow-tags
 	# pa = push --all # meh
 	pl = pull
 	pp = "!git push --set-upstream \"${1:-origin}\" \"HEAD\""
@@ -151,6 +152,7 @@
 	ri = rebase -i
 	ra = rebase --abort
 	rc = rebase --continue
+	rom = rebase origin/master
 	riom = rebase -i origin/master
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup

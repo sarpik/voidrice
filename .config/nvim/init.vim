@@ -70,6 +70,8 @@ Plug 'junegunn/fzf.vim'
 " https://github.com/neoclide/coc.nvim
 "" Plug 'neoclide/coc.nvim', {'branch': 'release'} " Provided by youcompleteme
 
+Plug 'https://github.com/mogelbrod/vim-jsonpath'
+
 call plug#end()
 
 set bg=light
@@ -107,6 +109,11 @@ let g:vimtex_compiler_latexmk = {
         \   '-interaction=nonstopmode',
         \ ],
         \}
+
+" https://github.com/mogelbrod/vim-jsonpath#quick-start
+let g:jsonpath_register = '*'
+
+let g:tex_flavor = 'latex'
 
 " Some basics:
 	nnoremap c "_c

@@ -187,6 +187,7 @@ gr() { hub r $* }
 gri() { hub ri $* }
 gra() { g ra $* }
 grc() { g rc $* }
+grom() { g rom $* }
 griom() { hub riom $* }
 grmbp() { hub rmbp $* }
 gl() { hub l $* }
@@ -198,7 +199,8 @@ gad() { hub a . $* }
 gadc() { hub adc $* }
 gadca() { hub adca $* }
 gadcaw() { hub adcaw $* }
-gadcawq() { hub adcaw $* }
+gadcawpf() { hub adcawpf $* }
+gadcawpfn() { hub adcawpfn $* }
 gadct() { hub adct $* }
 gbp() { hub bp $* }
 gss() { hub ss $* }
