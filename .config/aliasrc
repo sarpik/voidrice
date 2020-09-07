@@ -209,6 +209,10 @@ gct() { hub ct $* }
 gt() { hub t $* }
 gtt() { hub tt $* }
 gtas() { hub tas $* }
+gprmee() { g prmee $* }
+gprmeed() { g prmeed $* }
+gprmeew() { g prmeew $* }
+gprmeedw() { g prmeedw $* }
 
 y() { yarn $* }
 yd() { yarn dev $* || yarn develop $* }

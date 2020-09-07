@@ -144,6 +144,8 @@
 	prmee =  !hub pull-request --push -a sarpik  --base sarpik:master  -epo --head sarpik:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
 	prmed =       pull-request --push -a sarpik  #--base        master -depo                                                  # targets upstream TODO
 	prmeed = !hub pull-request --push -a sarpik  --base sarpik:master -depo --head sarpik:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
+	prmedw = !hub prmed --no-edit
+	prmeedw = !hub prmeed --no-edit
 	#prmeed = !git pull-request -a sarpik  --base "${$(git config --global --get user.username):-sarpik}":master -depo # targets local repo
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =

@@ -31,6 +31,9 @@ numlockx &
 
 # keyboard remaps (called by i3)
 . ~/.local/bin/remaps
+. ~/.local/bin/remaps
+. ~/.local/bin/remaps
+. ~/.local/bin/remaps
 
 # automatic screen brightness adjustment, blue light filtering and more
 # https://wiki.archlinux.org/index.php/Redshift
