@@ -19,6 +19,7 @@ lax ~/learnprojects/latex
 #re  ~/learnprojects/latex/resume
 re  ~/projects/refined-gitlab
 el  ~/learnprojects/every-layout
+dsa ~/learnprojects/dsa
 gop ~/go/src/
 tp ~/testprojects
 wp ~/workprojects
