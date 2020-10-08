@@ -21,3 +21,6 @@ cfr	~/.config/ranger/rc.conf
 cfg ~/.gitconfig
 cfd	~/.Xdefaults
 docs ~/.local/share/larbs/readme.mom
+
+ma ~/main.cpp
+

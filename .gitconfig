@@ -1,6 +1,6 @@
 # ~/.gitconfig
 #	@author:	Kipras Melnikovas (kipras.org) <kipras@kipras.org>
-#	@dotfiles:	https://github.com/sarpik/voidrice
+#	@dotfiles:	https://github.com/kiprasmel/voidrice
 #	@license:	GPL-3.0
 #
 #	@description:
@@ -90,9 +90,9 @@
 	bd = delete-branch # git-extras
 	bp = backup
 	o = browse # hub
-	backup = !git-backup # remote script, availabe @ github.com/sarpik/dotfiles/.local/bin/tools/git-backup
+	backup = !git-backup # remote script, availabe @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-backup
 	# how many commits you're behind some other branch
-	behind = !git-behind # remote script, available @ github.com/sarpik/dotfiles/.local/bin/tools/git-behind
+	behind = !git-behind # remote script, available @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-behind
 	behind-remote = !git-behind-remote
 	c = commit -S # -s # ~~Removed to avoid the 'signed-off-by', causing bots to not catch the reference~~
 	ca = c --amend
@@ -116,7 +116,7 @@
 	exec = "!exec " # execute a script at the root of the repository!
 	# this is super useful, for example,
 	# `git exec sudo make install`!
-	# See https://github.com/sarpik/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
+	# See https://github.com/kiprasmel/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
 	#
 	f = fetch
 	fa = fetch --all
@@ -140,13 +140,13 @@
 	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
-	prme =        pull-request --push -a sarpik  #--base        master  -epo                                                  # targets upstream TODO
-	prmee =  !hub pull-request --push -a sarpik  --base sarpik:master  -epo --head sarpik:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
-	prmed =       pull-request --push -a sarpik  #--base        master -depo                                                  # targets upstream TODO
-	prmeed = !hub pull-request --push -a sarpik  --base sarpik:master -depo --head sarpik:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
+	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
+	prmee =  !hub pull-request --push -a kiprasmel  --base kiprasmel:master  -epo --head kiprasmel:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
+	prmed =       pull-request --push -a kiprasmel  #--base        master -depo                                                  # targets upstream TODO
+	prmeed = !hub pull-request --push -a kiprasmel  --base kiprasmel:master -depo --head kiprasmel:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
 	prmedw = !hub prmed --no-edit
 	prmeedw = !hub prmeed --no-edit
-	#prmeed = !git pull-request -a sarpik  --base "${$(git config --global --get user.username):-sarpik}":master -depo # targets local repo
+	#prmeed = !git pull-request -a kiprasmel  --base "${$(git config --global --get user.username):-kiprasmel}":master -depo # targets local repo
 	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 	#q =
 	r = rebase

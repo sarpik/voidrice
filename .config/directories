@@ -5,7 +5,6 @@ D	~/Documents
 o	~/Documents/thoughts/
 th	~/Documents/thoughts/
 dl	~/Downloads
-m	~/Music
 tt  ~/time-track
 pr  ~/private
 pp	~/projects
@@ -20,6 +19,12 @@ lax ~/learnprojects/latex
 re  ~/projects/refined-gitlab
 el  ~/learnprojects/every-layout
 dsa ~/learnprojects/dsa
+dsac ~/learnprojects/dsa/competitive-programmers-handbook/
+dsacp ~/learnprojects/dsa/competitive-programmers-handbook/problemset
+dsaa ~/learnprojects/dsa/competitive-programmers-handbook/problemset
+daa ~/learnprojects/dsa/competitive-programmers-handbook/problemset
+da ~/learnprojects/dsa/competitive-programmers-handbook/problemset
+lpk ~/learnprojects/kube
 gop ~/go/src/
 tp ~/testprojects
 wp ~/workprojects

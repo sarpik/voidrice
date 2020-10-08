@@ -30,6 +30,7 @@ application/x-extension-shtml=firefox-developer-edition.desktop
 application/xhtml+xml=firefox-developer-edition.desktop
 application/x-extension-xhtml=firefox-developer-edition.desktop
 application/x-extension-xht=firefox-developer-edition.desktop
+x-scheme-handler/obsidian=obsidian.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox-developer-edition.desktop;

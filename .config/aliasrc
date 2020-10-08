@@ -33,6 +33,7 @@ alias ka="killall" \
 	d="docker" \
 	r="ranger" \
 	k="kubectl" \
+	m="minikube" \
 	le="lerna" \
 	compass="mongodb-compass" \
 	h="grep -Hr" \
@@ -213,6 +214,22 @@ gprmee() { g prmee $* }
 gprmeed() { g prmeed $* }
 gprmeew() { g prmeew $* }
 gprmeedw() { g prmeedw $* }
+
+# alias k="kubectl"
+kg() { k get $* }
+kga() { k get all $* }
+kgp() { k get pods $* }
+kgd() { k get deploy $* }
+kgs() { k get service $* }
+kd() { k delete $* }
+kdp() { k delete pod $* }
+kdd() { k delete deploy $* }
+kl() { k logs $* } # (pod|deploy|...)_name
+ke() { k exec $* } # -it pod_name bash
+kaf() { k apply -f $* } # image_deployment.yaml
+kd() { k describe $* }
+kdp() { k describe pod $* }
+kdd() { k describe deploy $* }
 
 y() { yarn $* }
 yd() { yarn dev $* || yarn develop $* }
