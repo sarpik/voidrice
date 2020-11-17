@@ -212,11 +212,23 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
-bindkey -s '^a' 'bc -l\n'
+## bindkey -s '^a' 'bc -l\n'
 
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 bindkey '^[[P' delete-char
+
+### tmux
+bindkey -s '^s' 'tmux a || tmux\n'
+bindkey -s -M viins '^s' 'tmux a || tmux\n'
+bindkey -s -M vicmd '^s' 'tmux a || tmux\n'
+
+# unbind -- https://unix.stackexchange.com/a/285210/332452
+bindkey -r "^[/"
+bindkey -r "^_"
+##bindkey -r "^\\"
+bindkey -r "\^\\\^"
+###
 
 # git-prompt.sh configs
 # More info @ ~/.config/git-prompt.sh & ~/.config/git-completion.bash
@@ -343,8 +355,8 @@ bindkey '^?' backward-delete-char  #backspace
 ### history search in vim mode
 # http://zshwiki.org./home/zle/bindkeys#why_isn_t_control-r_working_anymore
 # ctrl+r to search history
-bindkey -M viins '^t' history-incremental-search-backward
-bindkey -M vicmd '^t' history-incremental-search-backward
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
 
 bindkey -M menuselect '^M' .accept-line
 
