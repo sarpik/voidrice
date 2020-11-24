@@ -225,6 +225,12 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
+bindkey -s -M viins '^w' 'exit\n'
+bindkey -s -M vicmd '^w' 'exit\n'
+
+bindkey -s -M viins '^[w' 'exit\n'
+bindkey -s -M vicmd '^[w' 'exit\n'
+
 ## bindkey -s '^a' 'bc -l\n'
 
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
@@ -232,9 +238,9 @@ bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 bindkey '^[[P' delete-char
 
 ### tmux
-bindkey -s '^s' 'tmux a || tmux\n'
-bindkey -s -M viins '^s' 'tmux a || tmux\n'
-bindkey -s -M vicmd '^s' 'tmux a || tmux\n'
+bindkey -s '^s' 'tmux a -t 0 2>/dev/null || tmux new -s 0\n'
+bindkey -s -M viins '^s'  'tmux a -t 0 2>/dev/null || tmux new -s 0\n'
+bindkey -s -M vicmd '^s' 'tmux a -t 0 2>/dev/null || tmux new -s 0\n'
 
 # unbind -- https://unix.stackexchange.com/a/285210/332452
 bindkey -r "^[/"
@@ -390,6 +396,8 @@ case "$OSTYPE" in
 	;;
 esac
 
-bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
-printf "$bootTimeDuration ms\n"
+[ -z "$TMUX" ] && {
+	bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
+	printf "$bootTimeDuration ms\n"
+}
 
