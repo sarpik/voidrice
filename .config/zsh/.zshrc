@@ -14,7 +14,8 @@ zstyle ':completion:*' menu select completer _expand _complete _ignored _correct
 #bindkey -M 'menuselect' '^M' .accept-line
 #
 #
-zstyle :compinstall filename '/home/kipras/.zshrc'
+##zstyle :compinstall filename '/home/kipras/.zshrc'
+zstyle :compinstall filename '$ZDOTDIT/.zshrc'
 #
 setopt autolist
 
@@ -47,6 +48,9 @@ stty stop undef		# Disable ctrl-s to freeze terminal.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
 #[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
+
+# ghcup-env (haskell poggers)
+[ -f "/home/kipras/.ghcup/env" ] && source "/home/kipras/.ghcup/env"
 
 ###
 # history #
@@ -111,41 +115,50 @@ setopt appendhistory autocd extendedglob nomatch notify
 ### do NOT set COMPLETE_ALIASES! See https://stackoverflow.com/a/20643204
 #setopt complete_aliases
 unsetopt beep
+
+
+
+### BEGIN CURSOR (zsh + nvim + tmux) ###
+
+### https://superuser.com/a/1501674/1012390
+
 bindkey -v
 export KEYTIMEOUT=1
 
-### Change cursor shape for different vi modes.
+# Change cursor with support for inside/outside tmux
+function _set_cursor() {
+    if [[ $TMUX = '' ]]; then
+      echo -ne $1
+    else
+      echo -ne "\ePtmux;\e\e$1\e\\"
+    fi
+}
+
+function _set_block_cursor() { _set_cursor '\e[2 q' }
+function _set_beam_cursor() { _set_cursor '\e[6 q' }
+
 function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
+  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+      _set_block_cursor
+  else
+      _set_beam_cursor
   fi
 }
 zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
-}
-zle -N zle-line-init
+# ensure beam cursor when starting new terminal
+precmd_functions+=(_set_beam_cursor) #
+# ensure insert mode and beam cursor when exiting vim
+zle-line-init() { zle -K viins; _set_beam_cursor }
 
-#echo -ne '\e[5 q' # Use beam shape cursor on startup.
-#preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-
-precmd_functions+=(_fix_cursor)
+### END CURSOR (zsh + nvim + tmux) ###
 
 ###
 
 ### Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+bindkey -M viins '^e' edit-command-line
+bindkey -M vicmd '^e' edit-command-line
 
 ###
 
@@ -359,6 +372,8 @@ bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
 
 bindkey -M menuselect '^M' .accept-line
+
+### --- ###
 
 #source ~/.config/zsh/completions/_deno
 
