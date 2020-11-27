@@ -11,6 +11,7 @@ pp	~/projects
 te  ~/projects/server-party
 pw 	~/projects/personal-website
 sm  ~/projects/sourcemod
+cpa  ~/projects/cputils
 fp 	~/forkprojects
 lp	~/learnprojects
 css ~/learnprojects/css-suck-less
@@ -20,8 +21,7 @@ re  ~/projects/refined-gitlab
 el  ~/learnprojects/every-layout
 dsa ~/learnprojects/dsa
 dsac ~/learnprojects/dsa/competitive-programmers-handbook/
-dsacp ~/learnprojects/dsa/competitive-programmers-handbook/problemset
-dsaa ~/learnprojects/dsa/competitive-programmers-handbook/problemset
+dsaa ~/learnprojects/dsa/competitive-programmers-handbook/
 daa ~/learnprojects/dsa/competitive-programmers-handbook/problemset
 da ~/learnprojects/dsa/competitive-programmers-handbook/problemset
 lpk ~/learnprojects/kube
@@ -52,6 +52,7 @@ cf	${XDG_CONFIG_HOME:-$HOME/.config}
 ca  ~/.cache
 bb  ~/.cache/builds
 sc	~/.local/bin
+sca ~/school
 mn	/mnt
 ds ~/dotfiles
 dds ~/.dotfiles

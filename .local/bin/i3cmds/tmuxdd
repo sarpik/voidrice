@@ -2,4 +2,7 @@
 
 # This is the script that i3 runs to either start tmux in
 # the dropdown terminal or log into a previous session.
-tmux a || tmux
+SESSION_NAME="f"
+
+tmux a -t "$SESSION_NAME" 2>/dev/null || tmux new -s "$SESSION_NAME"
+

@@ -42,7 +42,6 @@ alias ka="killall" \
 	e.="dolphin ." \
 	v="$EDITOR" \
 	sv="sudoedit" \
-	x="sxiv -ft *" \
 	sdn="sudo shutdown -h now" \
 	gua="git remote | xargs -L1 git push --all" \
 	ls="LC_COLLATE=C ls -hN --color=auto --group-directories-first" \
@@ -178,6 +177,8 @@ gfa() { hub fa $* }
 gc() { hub c $* }
 gca() { hub ca $* }
 gcaw() { hub caw $* }
+gcawpf() { hub cawpf $* }
+gcawpfn() { hub cawpfn $* }
 gco() {  hub co $* }
 gcom() { hub co master $* }
 gcob() { hub co -b $* }
@@ -242,6 +243,10 @@ yr() { y rm $* }
 yg() { y global $* }
 yga() { y global add $* }
 
+x() {
+	cputils $*
+}
+
 # vscode
 c() {
 	vscodium $*
@@ -257,6 +262,19 @@ compdef ci="code"
 
 drag() {
 	dragon-drag-and-drop $*
+}
+
+fork() {
+	nohup $* &
+}
+
+forkq() {
+	nohup $* &
+	exit
+}
+
+za() {
+	fork zathura $*
 }
 
 # taken from the 'Exec' entry once a desktop shortcut is created
@@ -334,10 +352,15 @@ song() {
 }
 
 mc() { mkdir -p "$@" && cd $_; }
-mkdc() { mc }
+mkdc() { mc $* }
+mk() { mc $* }
 
 eslf() { esl $* --fix }
 esldf() { esl . --fix }
 eslfd() { esl . --fix }
 esll() { esl . --fix }
 
+# https://stackoverflow.com/questions/1401002/how-to-trick-an-application-into-thinking-its-stdout-is-a-terminal-not-a-pipe#comment72300162_20401674
+faketty() {
+    script -qfc "$(printf "%q " "$@")" /dev/null
+}

@@ -55,3 +55,19 @@
 
 ;; https://github.com/kiwanami/emacs-epc/issues/35#issuecomment-660639327
 ;; (setq byte-compile-warnings '(cl-functions))
+
+(require 'package)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-archives
+   (quote
+    (("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")))))
+(package-initialize)
+
+;;(add-to-list 'load-path "/path/to/hindent/elisp")
+;;(require 'hindent)
+;;(add-hook 'haskell-mode-hook #'hindent-mode)
