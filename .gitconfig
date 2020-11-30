@@ -97,11 +97,14 @@
 	c = commit -S # -s # ~~Removed to avoid the 'signed-off-by', causing bots to not catch the reference~~
 	ca = c --amend
 	caw = c --amend --no-edit
+	cawpf = !git c --amend --no-edit && git push -f
+	cawpfn = !git c --amend --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
 	ct = c -m "TEMP"
 	cgg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
 	gg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
 	cl = clone
 	co = checkout
+	cob = checkout -b
 	#co = !git stash -u && git checkout
 	cod = checkout dev
 	com = checkout master
@@ -110,8 +113,8 @@
 	cs = !clear && git status
 	csl = !clear && git sl
 	d = diff
-	ds = diff --staged
 	df = diff FETCH_HEAD
+	ds = diff --staged
 	e = exec
 	exec = "!exec " # execute a script at the root of the repository!
 	# this is super useful, for example,
@@ -135,6 +138,7 @@
 	#o =
 	p = push --follow-tags
 	# pa = push --all # meh
+	pa = !git -c core.pager=none diff -u
 	pl = pull
 	pp = "!git push --set-upstream \"${1:-origin}\" \"HEAD\""
 	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308

@@ -4,9 +4,4 @@
 # requires 'diff-so-fancy' @ https://github.com/so-fancy/diff-so-fancy
 #
 
-dif() {
-	git diff --color --no-index "$1" "$2" | diff-so-fancy;
-}
-
-dif "$@"
-
+diff -u $* | diff-so-fancy

@@ -15,6 +15,9 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:/home/kipras/.gem/ruby/2.7.0/bin" # WE'VE REVERSELY FALLEN FOR THE MEME BOYZ
 export PATH="$PATH:/home/kipras/builds/DataGrip-2019.3.2/bin" # WE'VE REVERSELY FALLEN FOR THE MEME BOYZ
 export PATH="$PATH:/opt/resolve/bin"
+export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin"
+export PATH="$PATH:/opt/depot_tools"
+export PATH="$PATH:$HOME/.emacs.d/bin"
 
 # Default programs:
 export EDITOR="nvim"
@@ -153,8 +156,9 @@ sudo -n loadkeys ~/.local/share/larbs/ttymaps.kmap 2>/dev/null
 
 # gpg stuff
 # https://bbs.archlinux.org/viewtopic.php?pid=1490821#p1490821
+export GPG="gpg2"
 export GPG_TTY=$(tty)
-export GPG_AGENT_INFO=""
+export GPG_AGENT_INFO="_" # set to non-empty to avoid the check in /usr/bin/pass
 #eval $(keychain --eval -Q --quiet id_rsa)
 
 # see https://wiki.archlinux.org/index.php/GnuPG#Configure_pinentry_to_use_the_correct_TTY
@@ -185,6 +189,9 @@ export DENO_INSTALL_ROOT="$DENO_DIR/bin"
 
 # snap
 export PATH="$PATH:/var/lib/snapd/snap/bin"
+
+# emacs
+export DOOMDIR="${XDG_CONFIG_HOME:-$HOME/.config}/doom"
 
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in

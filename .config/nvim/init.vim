@@ -20,36 +20,26 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 " autocompletion. the `--all` flag might be used to install all support. more info @ https://valloric.github.io/YouCompleteMe/#installation
 " https://github.com/Valloric/YouCompleteMe/
-"
 " note - this is somewhat cumbersome to setup.
-"
-"
-"
-" dos2unix /usr/share/vim/vimfiles/plugin/youcompleteme.vim
-"
-
 " For dank autocompletions, the following packages need to be installed:
 " pacman -S cmake vim python python-pip python2-pip cmake rust go nodejs yarn ruby-irb mono
 " or
 " brew install cmake vim python cmake rust go nodejs yarn mono
 "
-" See also https://github.com/sarpik/LARBS/blob/master/do-it-yourself/vim
+" dos2unix /usr/share/vim/vimfiles/plugin/youcompleteme.vim
+"
+" See also https://github.com/kiprasmel/LARBS/blob/master/do-it-yourself/vim
 "
 ""Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all ' }
 ""Plug 'Valloric/YouCompleteMe', { 'do': 'sudo ./install.py --ts-completer --go-completer --cs-completer --clangd-completer --rust-completer' }
 Plug 'Valloric/YouCompleteMe', { 'do': 'sudo ./install.py --ts-completer --go-completer --clangd-completer' }
+Plug 'https://github.com/ternjs/tern_for_vim' " Related to YouCompleteMe
 
-" Related to YouCompleteMe
-Plug 'https://github.com/ternjs/tern_for_vim'
-
-" https://github.com/rdnetto/YCM-Generator
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-
+Plug 'https://github.com/rdnetto/YCM-Generator', { 'branch': 'stable'} " 
 Plug 'https://github.com/jalvesaq/nvim-r.git'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'wakatime/vim-wakatime'
 
-" dependencies for 'JumpToLastOccurrence'
 Plug 'https://github.com/vim-scripts/ingo-library'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'https://github.com/vim-scripts/JumpToLastOccurrence'
@@ -68,10 +58,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " https://github.com/neoclide/coc.nvim
-"" Plug 'neoclide/coc.nvim', {'branch': 'release'} " Provided by youcompleteme
+" Plug 'neoclide/coc.nvim', {'branch': 'release'} " Provided by youcompleteme
 
 Plug 'https://github.com/mogelbrod/vim-jsonpath'
-
+Plug 'https://github.com/preservim/tagbar'
 call plug#end()
 
 set bg=light
@@ -256,6 +246,8 @@ set completefunc=emoji#complete
 
 " Save file as sudo on files that require root permission
 	cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+	nmap <leader>t :TagbarToggle<CR>
 
 """ I haven't used these, Luke does though - maybe one day:D
 
