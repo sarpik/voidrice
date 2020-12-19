@@ -8,16 +8,16 @@
 #
 
 [user]
-	# @param username - custom, used for some aliases / scripts (& also my github/bitbucket username)
+	# username - custom, used for some aliases / scripts
 	username = kiprasmel
 	name = Kipras Melnikovas
 	email = kipras@kipras.org
 	signingkey = AA505BC1C6D8AD90
 [core]
-	### editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
+	# editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
 	# editor = '/usr/bin/env code' --new-window --wait
 	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
-	safecrlf = false # Hides warning message but doesn't impact `autocrlf` functionality
+	safecrlf = false # hides warning message but doesn't impact `autocrlf` functionality
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	longpaths = true
 [imap]
@@ -69,46 +69,66 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[winUpdater]
-	recentlySeenVersion = 2.21.0.windows.1
 
 [alias]
+	#
+	# $GIT_PREFIX refers to the current directory
+	# (by default, git defaults to the root directory of the repo)
+	#
+	#
+	#
 	fn = "!f() { echo \"hi\"; }; f;"
-	a = add
-	ac = !git add . && git c
-	aca = !git add . && git ca
-	ad = add
-	adc = !git add . && git c
-	adca = !git add . && git ca
-	adcaw = !git add . && git ca --no-edit
-	adcawpf = !git adcaw && git push -f
-	adcawpfn = !git adcaw && git push -f --no-verify # --no-verify to ignore husky's hooks
-	adct = !git add . && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks
-	ap = add --patch
+
+	a        = add
+
+	ad       = !git add ${GIT_PREFIX:-.} # edit: fuck that's not what i want subdirs still add root ffs # edit: COMBINE BOTH BABY F YEA # add . # edit: but then aliases dont work because they must use "!git " ... # edit: nvm -- just use "." without "!git " # $GIT_PREFIX refers to the current directory                   (the expected effect of [d]ot (.)
+	ag       = !git add .           # .           refers to the root    directory of the repository ([g]lobal)
+
+	adc      = !git add ${GIT_PREFIX:-.} && git c
+	agc      = !git add               .  && git c
+
+	adca     = !git add ${GIT_PREFIX:-.} && git ca
+	agca     = !git add               .  && git ca
+
+	adcaw    = !git add ${GIT_PREFIX:-.} && git ca --no-edit
+	agcaw    = !git add               .  && git ca --no-edit
+
+	adcaw    = !git add ${GIT_PREFIX:-.} && git ca --no-edit && git push -f
+	agcaw    = !git add               .  && git ca --no-edit && git push -f
+
+	adcawpf  = !git add ${GIT_PREFIX:-.} && git ca --no-edit && git push -f
+	agcawpf  = !git add               .  && git ca --no-edit && git push -f
+
+	adcawpfn = !git add ${GIT_PREFIX:-.} && git ca --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
+	agcawpfn = !git add               .  && git ca --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
+
+	adct     = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks 
+	agct     = !git add               .  && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks 
+
+	ap  = add --patch
+	adp = !git add --patch ${GIT_PREFIX:-.}
+	agp = !git add --patch               .
+
 	b = branch
 	ba = branch --all
 	bd = delete-branch # git-extras
 	bp = backup
-	o = browse # hub
 	backup = !git-backup # remote script, availabe @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-backup
-	# how many commits you're behind some other branch
 	behind = !git-behind # remote script, available @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-behind
 	behind-remote = !git-behind-remote
-	c = commit -S # -s # ~~Removed to avoid the 'signed-off-by', causing bots to not catch the reference~~
+	c = commit -S -s
 	ca = c --amend
 	caw = c --amend --no-edit
 	cawpf = !git c --amend --no-edit && git push -f
 	cawpfn = !git c --amend --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
 	ct = c -m "TEMP"
 	cgg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
-	gg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
 	cl = clone
 	co = checkout
 	cob = checkout -b
 	#co = !git stash -u && git checkout
 	cod = checkout dev
 	com = checkout master
-	#checkout = !git stash -u && command git "$@"
 	cfg = config --global --edit
 	cs = !clear && git status
 	csl = !clear && git sl
@@ -116,11 +136,16 @@
 	df = diff FETCH_HEAD
 	ds = diff --staged
 	e = exec
-	exec = "!exec " # execute a script at the root of the repository!
-	# this is super useful, for example,
-	# `git exec sudo make install`!
-	# See https://github.com/kiprasmel/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
-	#
+	exec = "!exec " # execute a script at the root of the repository
+					# this is useful in case you're deep in the repo
+					# but want to exec a command at the top, e.g.
+	                # `git exec sudo make install`
+                    #
+					# the opposite is using $GIT_PREFIX,
+	                # see some examples above.
+					#
+	                # see also https://github.com/kiprasmel/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
+					#
 	f = fetch
 	fa = fetch --all
 	#g =
@@ -135,13 +160,13 @@
 	#m = merge
 	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
 	#n =
-	#o =
+	o = browse # [o]pen -> hub browse -> opens repo in github
 	p = push --follow-tags
-	# pa = push --all # meh
-	pa = !git -c core.pager=none diff -u
+	pp = "!git push --set-upstream \"${1:-origin}\" \"HEAD\"" # hella neat! automatically sets upstream
+	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
+	# pa = push --all                                         # meh
 	pl = pull
-	pp = "!git push --set-upstream \"${1:-origin}\" \"HEAD\""
-	pt = push --follow-tags # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
+	pa = !git -c core.pager=none diff -u                      # "patch"
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
@@ -157,24 +182,24 @@
 	rc = rebase --continue
 	ri = rebase -i
 	ra = rebase --abort
-	rc = rebase --continue
 	rom = rebase origin/master
 	riom = rebase -i origin/master
+	rs = reset
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 	s = status
 	sa = status --untracked-files=all
-	sb = show-branch
-	sh = show HEAD
-	shc = !git show HEAD | wc
 	si = status --ignored=traditional
+	sil = !git -c color.status=always status --ignored=traditional | less -R
 	sl = !git -c color.status=always status | less -R # https://stackoverflow.com/a/18304605
-			# /\ the -c option is explained by `man git` @ 47
-			# > Pass a configuration parameter to the command. The value given will override values from configuration files.
+			                                          # the -c option is explained by `man git` @ 47:
+													  # Pass a configuration parameter to the command.
+	                                                  # The value given will override values from configuration files.
+	sb = show-branch
 	so = show
 	ss = show
-	sh = show @
-	sil = !git -c color.status=always status --ignored=traditional | less -R
+	sh = show HEAD
+	shc = !git show HEAD | wc
 	stash-unapply = !git stash show -p | git apply -Rc
 	t = tag
 	tt = tas

@@ -108,9 +108,9 @@ interval=once
 command=syncthingtray
 interval=once
 
-[slack]
-command=slack --startup
-interval=once
+##[slack]
+##command=slack --startup
+##interval=once
 
 #[devhub]
 #command=devhub

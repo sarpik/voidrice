@@ -120,6 +120,15 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 
 # Functions & stuff
 
+ee() {
+	emacs &
+	disown
+}
+
+a() {
+	emacsclient -t $* || { emacs --daemon && emacsclient -t } 
+}
+
 cr() { sudo vscodium --user-data-dir $HOME/.config/VSCodium/ --extensions-dir $HOME/.vscode-oss/extensions $* }
 
 # function is better than an alias
@@ -197,14 +206,25 @@ gl() { hub l $* }
 glg() { hub lg $* }
 gls() { hub lgs $* }
 glgs() { hub lgs $* }
+
 ga() { hub a $* }
-gad() { hub a . $* }
+
+gad() { hub ad $* }
 gadc() { hub adc $* }
 gadca() { hub adca $* }
 gadcaw() { hub adcaw $* }
 gadcawpf() { hub adcawpf $* }
 gadcawpfn() { hub adcawpfn $* }
 gadct() { hub adct $* }
+
+gag() { hub ag $* }
+gagc() { hub agc $* }
+gagca() { hub agca $* }
+gagcaw() { hub agcaw $* }
+gagcawpf() { hub agcawpf $* }
+gagcawpfn() { hub agcawpfn $* }
+gagct() { hub agct $* }
+
 gbp() { hub bp $* }
 gss() { hub ss $* }
 gsh() { hub sh $* }
@@ -365,3 +385,8 @@ esll() { esl . --fix }
 faketty() {
     script -qfc "$(printf "%q " "$@")" /dev/null
 }
+
+xo() {
+	xdg-open $*
+}
+

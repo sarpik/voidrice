@@ -50,7 +50,7 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'junegunn/vim-emoji' " https://github.com/junegunn/vim-emoji
 
-Plug 'https://github.com/xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'https://github.com/xuhdev/vim-latex-live-preview', { 'for': 'tex' } " :LLPStartPreview
 
 Plug 'https://github.com/lervag/vimtex'
 
@@ -62,6 +62,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'https://github.com/mogelbrod/vim-jsonpath'
 Plug 'https://github.com/preservim/tagbar'
+Plug 'https://github.com/rust-lang/rust.vim'
 call plug#end()
 
 set bg=light
