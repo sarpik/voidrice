@@ -21,8 +21,8 @@ setxkbmap -option "grp:switch,grp:alt_shift_toggle,grp_led:scroll" -layout "us,l
 # also, take a look at
 # /etc/X11/xorg.conf.d/70-synaptics.conf
 
-# load config from ~/.Xdefaults
-xrdb "$HOME/.Xdefaults"
+# load config from ~/config/.Xdefaults
+xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/.Xdefaults"
 
 # enable num lock on startup
 # https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup#X.org

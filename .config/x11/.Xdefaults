@@ -1,18 +1,50 @@
-!! Transparency (0-1):
-*.alpha: 0.8
+!! Transparency (0-255):
+!st.alpha: 240
+!st.alpha: 165
+!st.alpha: 220
+!st.alpha: 0.86
+st.alpha: 1
 
 !! Set a default font and font size as below:
-*.font: monospace:size=10
+!st.font: Monospace-13;
+!*.font: monospace:size=10
+!*.font:	Liberation Mono:pixelsize=20:antialias=true:autohint=true;
 
-/* name		dark	light */
-/* black	0	8 */
-/* red		1	9 */
-/* green	2	10 */
-/* yellow	3	11 */
-/* blue		4	12 */
-/* purple	5	13 */
-/* cyan		6	14 */
-/* white	7	15 */
+! st.termname: st-256color
+! st.borderpx: 2
+
+### this makes st crash when emojis are seen ###
+*.font: FuraCode Nerd Font Mono:pixelsize=20:style=Retina,Regular;
+
+/* !! from the good'ol urxvt: */
+*.background: #282828
+*.foreground: white
+*.cursorColor: white
+
+!! black
+*.color0: #1b1918
+*.color8: #766e6b
+!! red
+*.color1: #f22c40
+*.color9: #f22c40
+!! green
+*.color2: #5ab738
+*.color10: #5ab738
+!! yellow
+*.color3: #d5911a
+*.color11: #d5911a
+!! blue
+*.color4: #407ee7
+*.color12: #407ee7
+!! magenta
+*.color5: #6666ea
+*.color13: #6666ea
+!! cyan
+*.color6: #00ad9c
+*.color14: #00ad9c
+!! white
+*.color7: #a8a19f
+*.color15: #f1efee
 
 /* !! gruvbox: */
 /* *.color0: #1d2021 */
@@ -31,8 +63,6 @@
 /* *.color13: #d3869b */
 /* *.color14: #8ec07c */
 /* *.color15: #ebdbb2 */
-/* *.color256: #1d2021 */
-/* *.color257: #ebdbb2 */
 
 /* !! gruvbox light: */
 /* *.color0: #fbf1c7 */
@@ -51,9 +81,6 @@
 /* *.color13: #8f3f71 */
 /* *.color14: #427b58 */
 /* *.color15: #3c3836 */
-/* *.background: #fbf1c7 */
-/* *.foreground: #282828 */
-/* st.alpha: 0.9 */
 
 /* !! brogrammer: */
 /* *.foreground:  #d6dbe5 */
@@ -129,28 +156,19 @@
 /* *.color13:  #ff00ff */
 /* *.color14:  #00ffff */
 /* *.color15:  #aabac8 */
-/* *.background:   #000000 */
 
-/* ! Dracula Xresources palette */
-/* *.foreground: #F8F8F2 */
-/* *.background: #282A36 */
-/* *.color0:     #000000 */
-/* *.color8:     #4D4D4D */
-/* *.color1:     #FF5555 */
-/* *.color9:     #FF6E67 */
-/* *.color2:     #50FA7B */
-/* *.color10:    #5AF78E */
-/* *.color3:     #F1FA8C */
-/* *.color11:    #F4F99D */
-/* *.color4:     #BD93F9 */
-/* *.color12:    #CAA9FA */
-/* *.color5:     #FF79C6 */
-/* *.color13:    #FF92D0 */
-/* *.color6:     #8BE9FD */
-/* *.color14:    #9AEDFE */
-/* *.color7:     #BFBFBF */
-/* *.color15:    #E6E6E6 */
 
-/* *.background: .color0 */
-/* *.color256: 0#1d2021 */
-/* *.color257: 15#ebdbb2 */
+### rofi? ###
+
+!rofi.color-enabled:	true
+!rofi.color-window:	#000, #000, #000
+!rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
+!rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
+!rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
+!
+!rofi.fake-transparency:	true
+!rofi.lines:		3
+!rofi.bw:		0
+!rofi.opacity:		"10"
+!rofi.hide-scrollbar:	true
+!rofi.width:		30
