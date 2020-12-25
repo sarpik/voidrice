@@ -207,7 +207,7 @@ precmd () {
 	__git_ps1 \
 	"%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%1~%{$reset_color%}" \
 	"%{$fg[red]%}]%{$reset_color%}$%b " \
-	" (%s)" \
+	" (%s)"
 }
 
 # # echo -ne '\e[5 q' # Use beam shape cursor on startup.
