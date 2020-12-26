@@ -62,9 +62,38 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'https://github.com/mogelbrod/vim-jsonpath'
 Plug 'https://github.com/preservim/tagbar'
+Plug 'https://github.com/rust-lang/rust.vim'
+Plug 'https://github.com/rstacruz/vim-closer'
+Plug 'https://github.com/tpope/vim-unimpaired'
+
+""" Themes
+Plug 'https://github.com/romgrk/doom-one.vim'
+"  https://github.com/kiprasmel/doom-one.vim
+
+"" TODO: https://github.com/peitalin/vim-jsx-typescript
+""     & https://github.com/peitalin/dotfiles/blob/master/.vimrc
+
+" Plug 'https://github.com/morhetz/gruvbox'
+" Plug 'sonph/onehalf', { 'rtp': 'vim' }
+" Plug 'https://github.com/rakr/vim-one'
+" Plug 'sonph/onehalf', { 'rtp': 'vim' }
+
+" jsx/tsx support
+Plug 'chemzqm/vim-jsx-improve'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
+""" TODO list:
+" https://github.com/romgrk/barbar.nvim
+" https://github.com/romgrk/winteract.vim
+
 call plug#end()
 
-set bg=light
+""" Themes
+set termguicolors
+colorscheme doom-one
+
+set background=dark
 set go=a
 set mouse=a
 set nohlsearch
