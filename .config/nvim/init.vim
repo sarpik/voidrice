@@ -183,6 +183,15 @@ set completefunc=emoji#complete
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" SLICK! Mappings for moving lines and preserving indentation
+" http://vim.wikia.com/wiki/Moving_lines_up_or_down
+	nnoremap <A-j> :m .+1<CR>==
+	nnoremap <A-k> :m .-2<CR>==
+	inoremap <A-j> <Esc>:m .+1<CR>==gi
+	inoremap <A-k> <Esc>:m .-2<CR>==gi
+	vnoremap <A-j> :m '>+1<CR>gv=gv
+	vnoremap <A-k> :m '<-2<CR>gv=gv
+
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>g :Goyo \| set bg=light \| set linebreak<CR>
 
