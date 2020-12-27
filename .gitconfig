@@ -149,6 +149,7 @@
 	cs = !clear && git status
 	csl = !clear && git sl
 	d = diff
+	dd = diff .
 	df = diff FETCH_HEAD
 	ds = diff --staged
 	e = exec
