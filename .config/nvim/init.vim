@@ -50,7 +50,7 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug 'junegunn/vim-emoji' " https://github.com/junegunn/vim-emoji
 
-Plug 'https://github.com/xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'https://github.com/xuhdev/vim-latex-live-preview', { 'for': 'tex' } " :LLPStartPreview
 
 Plug 'https://github.com/lervag/vimtex'
 
@@ -65,6 +65,8 @@ Plug 'https://github.com/preservim/tagbar'
 Plug 'https://github.com/rust-lang/rust.vim'
 Plug 'https://github.com/rstacruz/vim-closer'
 Plug 'https://github.com/tpope/vim-unimpaired'
+Plug 'https://github.com/stevearc/vim-arduino'
+Plug 'https://github.com/luochen1990/rainbow'
 
 """ Themes
 Plug 'https://github.com/romgrk/doom-one.vim'
@@ -101,6 +103,8 @@ set nohlsearch
 set clipboard+=unnamedplus " always copies into default clipboard by default. see https://stackoverflow.com/a/11489440/9285308
 set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see https://stackoverflow.com/a/6286925 & https://github.com/neovim/neovim/issues/3469#issuecomment-148900742
 set updatetime=1000 " http://vimdoc.sourceforge.net/htmldoc/options.html#%27updatetime%27
+
+let g:rainbow_active = 0 "set to 0 if you want to enable it later via :RainbowToggle
 
 " YouCompleteMe fix - see https://github.com/ycm-core/YouCompleteMe/issues/700
 "
