@@ -7,7 +7,8 @@ case $BLOCK_BUTTON in
 - Click to show all session info." ;;
 esac
 
-sessionCount=$(w --no-header | wc -l)
+### sessionCount=$(w --no-header | wc -l)
+sessionCount=$(loginctl list-users | tail -n 1 | awk '{ print $1 }')
 
 # if there's only 1 session - don't do anything.
 [ $sessionCount -gt 1 ] && printf "%s %s\n" "🍯" "$sessionCount"
