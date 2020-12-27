@@ -120,6 +120,15 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 
 # Functions & stuff
 
+ee() {
+	emacs &
+	disown
+}
+
+a() {
+	emacsclient -t $* || { emacs --daemon && emacsclient -t }
+}
+
 cr() { sudo vscodium --user-data-dir $HOME/.config/VSCodium/ --extensions-dir $HOME/.vscode-oss/extensions $* }
 
 # function is better than an alias
@@ -151,6 +160,8 @@ compdef gr="hub"
 clip() { xclip -r -selection c ;}      # pipe  into  me
 copy() { xclip -r -selection c "$1" ;} # gimme the file
 
+pbpaste() { xclip -r -selection clipboard -o }
+
 cg() {
 	case "$OSTYPE" in
 		darwin*) pbcopy < .git/COMMIT_EDITMSG ;;
@@ -160,6 +171,7 @@ cg() {
 
 # calls aliases. See https://github.com/sarpik/voidrice/blob/master/.gitconfig
 gs() { hub s $* }
+cos() { co s $* }
 gso() { hub so $* }
 gd() { hub d $* }
 gds() { hub ds $* }
@@ -197,14 +209,25 @@ gl() { hub l $* }
 glg() { hub lg $* }
 gls() { hub lgs $* }
 glgs() { hub lgs $* }
+
 ga() { hub a $* }
-gad() { hub a . $* }
+
+gad() { hub ad $* }
 gadc() { hub adc $* }
 gadca() { hub adca $* }
 gadcaw() { hub adcaw $* }
 gadcawpf() { hub adcawpf $* }
 gadcawpfn() { hub adcawpfn $* }
 gadct() { hub adct $* }
+
+gag() { hub ag $* }
+gagc() { hub agc $* }
+gagca() { hub agca $* }
+gagcaw() { hub agcaw $* }
+gagcawpf() { hub agcawpf $* }
+gagcawpfn() { hub agcawpfn $* }
+gagct() { hub agct $* }
+
 gbp() { hub bp $* }
 gss() { hub ss $* }
 gsh() { hub sh $* }
@@ -365,3 +388,19 @@ esll() { esl . --fix }
 faketty() {
     script -qfc "$(printf "%q " "$@")" /dev/null
 }
+
+xo() {
+	xdg-open $*
+}
+
+xd() { x d $* }
+xm() { x m $* }
+
+pc()  { playerctl $* }
+pcp() { playerctl play-pause $* }
+ppp() { playerctl play-pause $* }
+px()  { playerctl play-pause $* }
+
+psc() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py $* }
+raise() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py raise $* }
+
