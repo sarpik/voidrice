@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+gitCmd="${1:-git --git-dir=$HOME/.dotfiles --work-tree=$HOME}"
+upstream="${2:-upstream/master}"
+format="${3:-%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset}"
+
+$gitCmd log "$upstream" --graph --abbrev-commit --pretty=format:"$format"
+
