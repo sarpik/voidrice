@@ -23,6 +23,8 @@ set $hibernate sudo -A systemctl suspend
 # #---Gaps---# #
 #for_window [class="^.*"] border pixel 2
 #for_window [class="^.*"] border pixel $border_width
+##for_window [instance="dropdown_*"] border pixel 5
+##for_window [instance="^((?!dropdown_).)*"] border none
 for_window [class="^.*"] border none
 #gaps inner $gaps_inner
 #gaps outer $gaps_outer
@@ -35,12 +37,17 @@ for_window [instance="dropdown_*"] floating enable
 for_window [instance="dropdown_*"] move scratchpad
 for_window [instance="dropdown_*"] sticky enable
 for_window [instance="dropdown_*"] scratchpad show
+
 ## for_window [instance="dropdown_tmuxdd"] resize set 625 450
 # #for_window [instance="dropdown_tmuxdd"] resize set 1248 894
-for_window [instance="dropdown_tmuxdd"] resize set 960 640
+#for_window [instance="dropdown_tmuxdd"] resize set 960 640
+#for_window [instance="dropdown_tmuxdd"] resize set 1248 832
+for_window [instance="dropdown_tmuxdd"] resize set 1200 800
+for_window [instance="dropdown_tmuxdd"] border pixel 4
+
 for_window [instance="dropdown_dropdowncalc"] resize set 800 300
-for_window [instance="dropdown_tmuxdd"] border pixel 1
 for_window [instance="dropdown_dropdowncalc"] border pixel 1
+
 for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #

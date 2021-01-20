@@ -67,10 +67,15 @@ Plug 'https://github.com/rstacruz/vim-closer'
 Plug 'https://github.com/tpope/vim-unimpaired'
 Plug 'https://github.com/stevearc/vim-arduino'
 Plug 'https://github.com/luochen1990/rainbow'
+Plug 'https://github.com/jpalardy/vim-slime'
+Plug 'https://github.com/numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'https://github.com/liuchengxu/vista.vim'
 
 """ Themes
 Plug 'https://github.com/romgrk/doom-one.vim'
 "  https://github.com/kiprasmel/doom-one.vim
+
+Plug 'https://github.com/joshdick/onedark.vim'
 
 "" TODO: https://github.com/peitalin/vim-jsx-typescript
 ""     & https://github.com/peitalin/dotfiles/blob/master/.vimrc
@@ -95,6 +100,14 @@ call plug#end()
 set termguicolors
 colorscheme doom-one
 
+function! s:set_conditional_colorscheme()
+	if &filetype ==# 'python'
+		colorscheme onedark
+	endif
+endfunc
+
+call timer_start(0, { ->s:set_conditional_colorscheme() })
+
 set background=dark
 set go=a
 set mouse=a
@@ -105,6 +118,11 @@ set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see http
 set updatetime=1000 " http://vimdoc.sourceforge.net/htmldoc/options.html#%27updatetime%27
 
 let g:rainbow_active = 0 "set to 0 if you want to enable it later via :RainbowToggle
+
+let g:slime_target = "neovim"
+
+" https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+let g:slime_python_ipython = 1
 
 " YouCompleteMe fix - see https://github.com/ycm-core/YouCompleteMe/issues/700
 "
@@ -149,12 +167,18 @@ let g:tex_flavor = 'latex'
 
 " custom #sarpik
 	set tabstop=4
+	autocmd Filetype haskell setlocal tabstop=2
 	set shiftwidth=4
 	set autoindent
 	set backspace=indent,eol,start
 	" https://stackoverflow.com/a/2287449
 	set ignorecase
 	set smartcase
+
+" neovim terminal
+nnoremap <M-`> :split<CR>:terminal<CR>
+tnoremap <M-`> <C-\><C-n><CR>:q<CR>
+tnoremap <Esc> <C-\><C-n><CR>
 
 " https://github.com/junegunn/vim-emoji#emoji-completion
 set completefunc=emoji#complete

@@ -24,6 +24,12 @@ command=disk / 🥢
 #interval=60
 #command=disk /home 🏠
 
+[mediaplayer]
+command=/usr/lib/i3blocks/mediaplayer/mediaplayer
+instance=playerctl
+interval=5
+signal=10
+
 [news]
 interval=once
 signal=6
@@ -43,9 +49,9 @@ interval=1800
 #interval=20
 #signal=7
 
-[weather]
-interval=3600
-signal=5
+#[weather]
+#interval=3600
+#signal=5
 
 [mailbox]
 interval=180
@@ -108,9 +114,9 @@ interval=once
 command=syncthingtray
 interval=once
 
-[slack]
-command=slack --startup
-interval=once
+##[slack]
+##command=slack --startup
+##interval=once
 
 #[devhub]
 #command=devhub

@@ -126,7 +126,7 @@ ee() {
 }
 
 a() {
-	emacsclient -t $* || { emacs --daemon && emacsclient -t }
+	emacsclient -t $* || { emacs --daemon && emacsclient -t $* }
 }
 
 cr() { sudo vscodium --user-data-dir $HOME/.config/VSCodium/ --extensions-dir $HOME/.vscode-oss/extensions $* }
@@ -160,7 +160,12 @@ compdef gr="hub"
 clip() { xclip -r -selection c ;}      # pipe  into  me
 copy() { xclip -r -selection c "$1" ;} # gimme the file
 
-pbpaste() { xclip -r -selection clipboard -o }
+pbpaste()     { xclip -r -selection clipboard -o }
+pbpasteprim() { xclip -r -selection primary   -o }
+
+primtoclip()  { printf "$(pbpasteprim)" | clip   }
+primtocopy()  { printf "$(pbpasteprim)" | clip   }
+p2c()         { printf "$(pbpasteprim)" | clip   }
 
 cg() {
 	case "$OSTYPE" in
@@ -193,6 +198,7 @@ gcaw() { hub caw $* }
 gcawpf() { hub cawpf $* }
 gcawpfn() { hub cawpfn $* }
 gco() {  hub co $* }
+gcod() {  hub cod $* }
 gcom() { hub co master $* }
 gcob() { hub co -b $* }
 gb() { hub b $* }
@@ -403,4 +409,6 @@ px()  { playerctl play-pause $* }
 
 psc() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py $* }
 raise() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py raise $* }
+
+gdbc() { cgdb $* }
 

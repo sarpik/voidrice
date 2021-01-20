@@ -71,3 +71,20 @@
 ;;(add-to-list 'load-path "/path/to/hindent/elisp")
 ;;(require 'hindent)
 ;;(add-hook 'haskell-mode-hook #'hindent-mode)
+
+
+
+	;; CUSTOM
+	;; See https://github.com/haskell/haskell-mode/issues/1553#issuecomment-358373643
+    (setq haskell-process-args-ghci
+          '("-ferror-spans" "-fshow-loaded-modules"))
+
+    (setq haskell-process-args-cabal-repl
+          '("--ghc-options=-ferror-spans -fshow-loaded-modules"))
+
+    (setq haskell-process-args-stack-ghci
+          '("--ghci-options=-ferror-spans -fshow-loaded-modules"
+            "--no-build" "--no-load"))
+
+    (setq haskell-process-args-cabal-new-repl
+          '("--ghc-options=-ferror-spans -fshow-loaded-modules"))

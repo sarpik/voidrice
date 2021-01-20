@@ -59,8 +59,8 @@ stty stop undef		# Disable ctrl-s to freeze terminal.
 HISTDIR="$HOME/.cache/zsh"
 HISTFILE="$HISTDIR/history"
 mkdir -p "$HISTDIR"
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=10000000000
+SAVEHIST=10000000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt append_history            # Don't _overwrite_ history

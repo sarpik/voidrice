@@ -179,7 +179,7 @@
 	#n =
 	o = browse # [o]pen -> hub browse -> opens repo in github
 	p = push --follow-tags
-	pp = "!git push --set-upstream \"${1:-origin}\" \"HEAD\"" # hella neat! automatically sets upstream
+	pp = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\"" # hella neat! automatically sets upstream
 	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	# pa = push --all                                         # meh
 	pl = pull
