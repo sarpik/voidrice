@@ -9,6 +9,7 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
+Plug 'https://github.com/tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
@@ -70,6 +71,7 @@ Plug 'https://github.com/luochen1990/rainbow'
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'https://github.com/liuchengxu/vista.vim'
+" Plug 'https://github.com/matze/vim-move' " custom defines instead
 
 """ Themes
 Plug 'https://github.com/romgrk/doom-one.vim'
@@ -212,13 +214,36 @@ set completefunc=emoji#complete
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " SLICK! Mappings for moving lines and preserving indentation
-" http://vim.wikia.com/wiki/Moving_lines_up_or_down
-	nnoremap <A-j> :m .+1<CR>==
+	
+	" note you must have tpope/vim-rsi installed to avoid
+	" annoying stuff with Esc acting as Alt and calling these
+	" when you don't want to.
+	"
+  	" http://vim.wikia.com/wiki/Moving_lines_up_or_down
+	"
+	" must read before using:
+	" https://github.com/matze/vim-move/issues/15#issuecomment-168177827
+	"
+	" edit: that fix does not work;
+	" using tpope/vim-rsi fixes it!
+	"
+ 	nnoremap <A-j> :m .+1<CR>==
 	nnoremap <A-k> :m .-2<CR>==
 	inoremap <A-j> <Esc>:m .+1<CR>==gi
-	inoremap <A-k> <Esc>:m .-2<CR>==gi
-	vnoremap <A-j> :m '>+1<CR>gv=gv
-	vnoremap <A-k> :m '<-2<CR>gv=gv
+ 	inoremap <A-k> <Esc>:m .-2<CR>==gi
+ 	vnoremap <A-j> :m '>+1<CR>gv=gv
+ 	vnoremap <A-k> :m '<-2<CR>gv=gv
+	"
+	" see also https://github.com/matze/vim-move
+	"
+	" related:
+	"   https://stackoverflow.com/a/15620344/9285308
+	" & https://github.com/matze/vim-move/issues/15#issuecomment-168177827
+	"
+	" (tmux needs this too -- see the second link)
+	"
+	set ttimeoutlen=0 
+
 
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>g :Goyo \| set bg=light \| set linebreak<CR>
