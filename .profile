@@ -193,6 +193,10 @@ export PATH="$PATH:/var/lib/snapd/snap/bin"
 # emacs
 export DOOMDIR="${XDG_CONFIG_HOME:-$HOME/.config}/doom"
 
+# man, man-db, cppman
+# https://github.com/aitjcize/cppman/issues/84#issuecomment-763265258
+## export MANPATH="${XDG_DATA_HOME}/man"
+
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in
   solaris*) echo "SOLARIS" ;;

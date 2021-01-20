@@ -412,3 +412,12 @@ raise() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-
 
 gdbc() { cgdb $* }
 
+cman() { cppman $* }
+manc() { cppman $* }
+
+# forward to cppman in case man doesn't work
+# https://github.com/aitjcize/cppman/blob/master/bin/cppman
+man() {
+	/usr/bin/env man $* 2>/dev/null || cppman $*
+}
+
