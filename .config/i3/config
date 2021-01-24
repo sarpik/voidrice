@@ -45,8 +45,8 @@ for_window [instance="dropdown_*"] scratchpad show
 for_window [instance="dropdown_tmuxdd"] resize set 1200 800
 for_window [instance="dropdown_tmuxdd"] border pixel 4
 
-for_window [instance="dropdown_dropdowncalc"] resize set 800 300
-for_window [instance="dropdown_dropdowncalc"] border pixel 1
+for_window [instance="dropdown_calc"] resize set 800 300
+for_window [instance="dropdown_calc"] border pixel 1
 
 for_window [instance="dropdown_*"] move position center
 
@@ -145,7 +145,7 @@ bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 bindsym $mod+p			exec --no-startup-id mpc toggle
 bindsym $mod+Shift+p		exec --no-startup-id mpc pause
 
-bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
+bindsym $mod+a			exec --no-startup-id ddspawn calc -f mono:pixelsize=24
 bindsym $mod+Shift+a		exec $term -e pulsemixer
 
 bindsym $mod+s			exec --no-startup-id slack
@@ -398,7 +398,7 @@ bindsym XF86PowerOff		exec --no-startup-id prompt "Shutdown computer?" "$shutdow
 ##bindsym XF86Paste		exec
 ##bindsym XF86Cut		exec
 ##bindsym XF86MenuKB		exec
-bindsym XF86Calculator		exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
+bindsym XF86Calculator		exec --no-startup-id ddspawn calc -f mono:pixelsize=24
 ##bindsym XF86Sleep		This binding is typically mapped by systemd automatically.
 ##bindsym XF86WakeUp		exec
 bindsym XF86Explorer		exec $term -e lf

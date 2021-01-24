@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# ifinstalled bc && echo "Welcome to the Calculator." && bc -lq 
+
+NOT_BLOAT="/tmp/pystartuplmao"
+
+cat > "$NOT_BLOAT" <<EOF
+from math import *
+from itertools import *
+
+# combinations
+choose = comb
+
+# variations / arrangements / k-permutations 
+# https://en.wikipedia.org/wiki/Permutation#k-permutations_of_n
+def kperm(n, k):
+	return factorial(n) // factorial(n - k)
+
+variations = kperm
+
+EOF
+
+python -i "$NOT_BLOAT"
+
