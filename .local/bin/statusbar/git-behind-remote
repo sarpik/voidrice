@@ -50,10 +50,14 @@ handle-statusbar() {
 			;;
 
 		2)
-			notify-send \
-			-t 60000 \
-			"\"$upstream\" log" \
-			"$($gitCmd log "$upstream" -n 10 --abbrev-commit --pretty=format:'\n%C(yellow)%s\n%Cgreen(%cr)')"
+			#notify-send \
+			#-t 60000 \
+			#"\"$upstream\" log" \
+			#"$($gitCmd log "$upstream" -n 10 --abbrev-commit --pretty=format:'\n%C(yellow)%s\n%Cgreen(%cr)')"
+
+			URL="$($gitCmd ls-remote --get-url upstream)"
+
+			xdg-open "$URL"
 
 			;;
 
@@ -87,3 +91,4 @@ behind-remote() {
 handle-statusbar
 
 behind-remote
+

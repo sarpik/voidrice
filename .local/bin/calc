@@ -5,8 +5,11 @@
 NOT_BLOAT="/tmp/pystartuplmao"
 
 cat > "$NOT_BLOAT" <<EOF
+import sys
 from math import *
 from itertools import *
+
+sys.ps1 = "λ "
 
 # combinations
 choose = comb
@@ -17,6 +20,38 @@ def kperm(n, k):
 	return factorial(n) // factorial(n - k)
 
 variations = kperm
+
+def is_prime(n):
+	if n < 2: return False
+
+	x = 2
+	while (x * x <= n):
+		if n % x == 0:
+			return False
+		x = x + 1
+
+	return True
+
+isPrime = is_prime
+
+def factors(n):
+	if n < 2: return []
+	f = []
+	x = 2
+	while(x * x <= n):
+		while(n % x == 0):
+			f.append(x);
+			n = n / x;
+
+		x = x + 1
+
+	if n > 1:
+		f.append(n)
+	
+	return f
+
+def primeFactors(n):
+	return [isPrime(n), factors(n)]
 
 EOF
 
