@@ -102,8 +102,8 @@ alias \
 	v="$EDITOR" \
 	p="sudo pacman" \
 	xi="sudo xbps-install" \
-	xr="sudo xbps-remove -R" \
 	xq="xbps-query"
+	# xr="sudo xbps-remove -R" \
 
 # Some other stuff
 alias \
@@ -166,6 +166,7 @@ pbpasteprim() { xclip -r -selection primary   -o }
 primtoclip()  { printf "$(pbpasteprim)" | clip   }
 primtocopy()  { printf "$(pbpasteprim)" | clip   }
 p2c()         { printf "$(pbpasteprim)" | clip   }
+
 
 cg() {
 	case "$OSTYPE" in
@@ -233,6 +234,10 @@ gagcaw() { hub agcaw $* }
 gagcawpf() { hub agcawpf $* }
 gagcawpfn() { hub agcawpfn $* }
 gagct() { hub agct $* }
+
+gap() { g ap $* }
+gadp() { g adp $* }
+gagp() { g agp $* }
 
 gbp() { hub bp $* }
 gss() { hub ss $* }
@@ -399,13 +404,18 @@ xo() {
 	xdg-open $*
 }
 
-xd() { x d $* }
-xm() { x m $* }
-
+xn() { cputils-new $* }
+xr() { cputils-run $* }
+xd() { cputils-run -a "-DDEBUG" $* }
+xds() {cputils-run -a "-DDEBUG -Wl,--stack,$((2 ** 28))" $* } # __rlimit_t
+xp() { cputils-run -a "-DEVAL"  $* }
+xps() {cputils-run -a "-DEVAL  -Wl,--stack,$((2 ** 28))" $* } # __rlimit_t
+ 
 pc()  { playerctl $* }
 pcp() { playerctl play-pause $* }
-ppp() { playerctl play-pause $* }
-px()  { playerctl play-pause $* }
+pt()  { playerctl play-pause $* }
+pn()  { playerctl next $* }
+ppr() { playerctl previous $* }
 
 psc() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py $* }
 raise() { ~/.local/bin/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py raise $* }
@@ -419,5 +429,9 @@ manc() { cppman $* }
 # https://github.com/aitjcize/cppman/blob/master/bin/cppman
 man() {
 	/usr/bin/env man $* 2>/dev/null || cppman $*
+}
+
+tn() {
+	tmux new -s $*
 }
 
