@@ -44,6 +44,10 @@ fpath=($HOME/.config/zsh/completions $fpath)
 
 stty stop undef		# Disable ctrl-s to freeze terminal.
 
+# make backspace work in vim + tmux environment
+# see https://superuser.com/a/793283/1012390
+stty erase "^?"
+
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
