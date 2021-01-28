@@ -115,8 +115,9 @@ bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec -
 #bindsym $mod+Shift+q		exec cd /; exec $HOME/.local/bin/tools/ecryptfs-unmount; exec i3-msg exit
 
 #bindsym $mod+w			exec $term -e nmtui
-bindsym $mod+w			exec --no-startup-id chrome-profile.js
-bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
+
+bindsym $mod+w			exec --no-startup-id firefox-profile
+bindsym $mod+Shift+w			exec --no-startup-id chrome-profile.js
 
 bindsym $mod+e			exec $term -e neomutt && pkill -RTMIN+12 i3blocks
 bindsym $mod+Shift+e		exec --no-startup-id tutorialvids
@@ -139,7 +140,9 @@ bindsym $mod+Shift+u		exec --no-startup-id i3resize down
 bindsym $mod+i		exec --no-startup-id figma
 bindsym $mod+Shift+i		exec --no-startup-id i3resize up
 
-bindsym $mod+o			sticky toggle
+
+#bindsym $mod+o			sticky toggle
+bindsym $mod+o			exec --no-startup-id slack
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 
 bindsym $mod+p			exec --no-startup-id mpc toggle
@@ -148,7 +151,7 @@ bindsym $mod+Shift+p		exec --no-startup-id mpc pause
 bindsym $mod+a			exec --no-startup-id ddspawn calc -f mono:pixelsize=24
 bindsym $mod+Shift+a		exec $term -e pulsemixer
 
-bindsym $mod+s			exec --no-startup-id slack
+bindsym $mod+s		exec --no-startup-id $BROWSER
 #bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
