@@ -125,3 +125,7 @@ interval=once
 [flameshot]
 command=flameshot
 interval=once
+
+[nm-applet]
+command=nm-applet
+interval=once

@@ -8,7 +8,7 @@ cfz	$ZDOTDIR/.zshrc
 cfv	${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim
 cft	${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf
 cfm	${XDG_CONFIG_HOME:-$HOME/.config}/mutt/muttrc
-cfx	${XDG_CONFIG_HOME:-$HOME/.config}/Xresources
+cfx	${XDG_CONFIG_HOME:-$HOME/.config}/x11/.Xdefaults
 cfu	${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/urls
 cfn	${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/config
 cfmb	${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/bindings
@@ -22,6 +22,7 @@ cfr	~/.config/ranger/rc.conf
 cfg ~/.gitconfig
 cfd	~/.Xdefaults
 docs ~/.local/share/larbs/readme.mom
+cfs ~/.ssh/config
 
-ma ~/main.cpp
+pg  ${HOME}/LARBS/progs.csv
 

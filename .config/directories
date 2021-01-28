@@ -1,6 +1,7 @@
 # You can add comments to these files with #
 h	~/
 zd	$ZDOTDIR
+tmp ~/tmp
 D	~/Documents
 o	~/Documents/thoughts/
 th	~/Documents/thoughts/
@@ -17,7 +18,7 @@ lp	~/learnprojects
 css ~/learnprojects/css-suck-less
 lax ~/learnprojects/latex
 #re  ~/learnprojects/latex/resume
-re  ~/projects/refined-gitlab
+rgl  ~/projects/refined-gitlab
 el  ~/learnprojects/every-layout
 #dsa ~/learnprojects/dsa
 dsa ~/learnprojects/dsa/competitive-programmers-handbook/
@@ -25,8 +26,9 @@ dsa ~/learnprojects/dsa/competitive-programmers-handbook/
 dsaa ~/learnprojects/dsa
 dsac ~/learnprojects/dsa/competitive-programmers-handbook/
 daa ~/learnprojects/dsa/competitive-programmers-handbook/
-da ~/learnprojects/dsa/competitive-programmers-handbook/
+da ~/docs/
 dcp ~/learnprojects/dsa/competitive-programmers-handbook/
+lm ~/learnprojects/dsa/lmio/
 lpk ~/learnprojects/kube
 gop ~/go/src/
 tp ~/testprojects
@@ -64,6 +66,8 @@ lr ~/larbs
 sr ~/.local/share
 #te ~/projects/teaching
 pk ~/programavimo-klubas
+vp ~/.config/delugevpn/
+dyi ~/LARBS/do-it-yourself/
 
 lampp /opt/lampp
 ho /opt/lampp/htdocs
