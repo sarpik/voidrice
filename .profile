@@ -18,6 +18,7 @@ export PATH="$PATH:/opt/resolve/bin"
 export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin"
 export PATH="$PATH:/opt/depot_tools"
 export PATH="$PATH:$HOME/.emacs.d/bin"
+export PATH="$PATH:$HOME/.mozbuild/git-cinnabar"
 
 # Default programs:
 export EDITOR="nvim"
@@ -192,6 +193,9 @@ export PATH="$PATH:/var/lib/snapd/snap/bin"
 
 # emacs
 export DOOMDIR="${XDG_CONFIG_HOME:-$HOME/.config}/doom"
+
+# mozilla (firefox etc)
+export MOZCONFIG="$HOME/.config/mozilla/mozconfig"
 
 # man, man-db, cppman
 # https://github.com/aitjcize/cppman/issues/84#issuecomment-763265258
