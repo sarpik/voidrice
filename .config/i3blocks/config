@@ -90,6 +90,10 @@ command=clock time
 #label=
 interval=30
 
+[twitch-viewer-count]
+interval=5
+label=👀 
+
 [internet]
 interval=10
 

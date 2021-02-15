@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# dependencies:
+# twitch-cli => https://github.com/twitchdev/twitch-cli
+# jq => https://github.com/stedolan/jq
+
+# one needs to setup an authentication token for the twitch api
+# before accessing stuff.
+# 
+# follow these instructions:
+# - https://github.com/twitchdev/twitch-cli/blob/main/docs/configure.md
+# - https://github.com/twitchdev/twitch-cli/blob/main/docs/token.md
+#
+
+TWITCH_USERNAME="${1:-kiprasmel}"
+
+RES="$(twitch-cli api get streams -q user_login="$TWITCH_USERNAME" | jq '.data[0].viewer_count')"
+
+[ "$RES" = "null" ] && exit 1
+
+printf "$RES\n"
+
