@@ -80,6 +80,12 @@ bar {
 	modifier None
 }
 
+# #---Mouse buttons---# #
+
+# https://github.com/tsoding/boomer
+bindsym $mod+m                 exec --no-startup-id "boomer"
+bindsym --whole-window button9 exec --no-startup-id "boomer"
+
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
 bindsym $mod+Shift+Return	exec --no-startup-id samedir
