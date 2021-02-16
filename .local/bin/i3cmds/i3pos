@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+W=1920
+H=1080
+
+TARGET="[title=Twitch]" # xprop + https://i3wm.org/docs/userguide.html#list_of_commands
+TARGET_W="373"
+TARGET_H="1045"
+
+USAGE="\
+usage:
+
+i3pos [-w target_width] [-h target_height] [-x target_x] [-y target_y] [-t target_selector]
+
+\`-w\` and \`-h\` will adjust 1) their width / height respectively,
+AND 2) will determine how far the window gets placed away
+from the bottom right of the screen
+
+#2 can be ignored if \`-x\` or \`-y\` are specified, respectively
+
+"
+
+while (( $# )); do
+	case "$1" in
+		-t)
+			shift
+			TARGET="[$1]"
+			shift
+			;;
+		-w)
+			shift
+			TARGET_W="$1"
+			shift
+			;;
+		-h)
+			shift
+			TARGET_H="$1"
+			shift
+			;;
+		-x)
+			shift
+			X="$1"
+			shift
+			;;
+		-y)
+			shift
+			Y="$1"
+			shift
+			;;
+		-H|--help)
+			shift
+			printf "$USAGE"
+			exit 0
+			;;
+		*)
+			>&2 printf "error: unrecognized option ($1)\n"
+			    printf "$USAGE"
+			shift
+			exit 1
+			;;
+	esac
+done
+
+[ -z "$X" ] && X=$(($W - $TARGET_W))
+[ -z "$Y" ] && Y=$(($H - $TARGET_H))
+
+i3-msg "$TARGET floating enable; $TARGET sticky enable; $TARGET move position $X $Y; $TARGET resize set $TARGET_W $TARGET_H; "
+
