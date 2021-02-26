@@ -1,5 +1,9 @@
 # vim: filetype=i3
-# File originally by Luke Smith <https://lukesmith.xyz>
+
+# https://i3wm.org/docs/userguide.html
+
+# File originally by Luke Smith        (https://lukesmith.xyz),
+# and then        by Kipras Melnikovas (https://kipras.org)
 
 # This config file will use environmental variables such as $BROWSER and $TERMINAL.
 # You can set these variables in ~/.profile or ~/.bash_profile if you have it as below:
@@ -19,6 +23,7 @@ set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
+set $display 0
 
 # #---Gaps---# #
 #for_window [class="^.*"] border pixel 2
@@ -38,17 +43,46 @@ for_window [instance="dropdown_*"] move scratchpad
 for_window [instance="dropdown_*"] sticky enable
 for_window [instance="dropdown_*"] scratchpad show
 
-## for_window [instance="dropdown_tmuxdd"] resize set 625 450
-# #for_window [instance="dropdown_tmuxdd"] resize set 1248 894
-#for_window [instance="dropdown_tmuxdd"] resize set 960 640
-#for_window [instance="dropdown_tmuxdd"] resize set 1248 832
+for_window [class="dropdown_*"] floating enable
+for_window [class="dropdown_*"] move scratchpad
+for_window [class="dropdown_*"] sticky enable
+for_window [class="dropdown_*"] scratchpad show
+
+for_window [title="dropdown_*"] floating enable
+for_window [title="dropdown_*"] move scratchpad
+for_window [title="dropdown_*"] sticky enable
+for_window [title="dropdown_*"] scratchpad show
+
+# specific targets
+
+# this one's a mess because different terminals set their titles differently
+# (st sets instance, alacritty & kitty set title etc. etc.)
+#
+# see also ddspawn & tmuxdd
 for_window [instance="dropdown_tmuxdd"] resize set 1200 800
 for_window [instance="dropdown_tmuxdd"] border pixel 4
+for_window [class="dropdown_tmuxdd"]    resize set 1200 800
+for_window [class="dropdown_tmuxdd"]    border pixel 4
+for_window [title="dropdown_tmuxdd"]    resize set 1200 800
+for_window [title="dropdown_tmuxdd"]    border pixel 4
+# 1248 894 | 625 450
 
-for_window [instance="dropdown_calc"] resize set 800 300
-for_window [instance="dropdown_calc"] border pixel 1
+# for the calculator
+for_window [instance="dropdown_calc"]	resize set 800 300
+for_window [class="dropdown_calc"]		resize set 800 300
+for_window [title="dropdown_calc"]		resize set 800 300
 
-for_window [instance="dropdown_*"] move position center
+for_window [instance="dropdown_calc"]	border pixel 1
+for_window [class="dropdown_calc"]		border pixel 1
+for_window [title="dropdown_calc"]		border pixel 1
+
+# finishing thoughts for general dropdowns
+for_window [instance="dropdown_*"]	move position center
+for_window [instance="dropdown_*"]	border none
+for_window [class="dropdown_*"]		move position center
+for_window [class="dropdown_*"] 	border none
+for_window [title="dropdown_*"]		move position center
+for_window [title="dropdown_*"] 	border none
 
 # #---Starting External Scripts---# #
 # mpd startup
@@ -72,6 +106,7 @@ exec --no-startup-id compton --config ~/.config/i3/compton.conf
 # Auto lock
 exec --no-startup-id xautolock -time 5 -locker i3lock -e -f -c 1d2021 -i "$HOME/.config/arch-logo-circle-cropped.png" -n
 
+# i3blocks
 bar {
 	font pango:mono 10
 	status_command i3blocks
@@ -80,11 +115,24 @@ bar {
 	modifier None
 }
 
+# polybar
+#bar {
+#	font pango:mono 10
+#	status_command $HOME/.config/polybar/launch.sh
+#	mode invisible
+#	modifier None
+#}
+
 # #---Mouse buttons---# #
 
 # https://github.com/tsoding/boomer
-bindsym $mod+m                 exec --no-startup-id "boomer"
-bindsym --whole-window button9 exec --no-startup-id "boomer"
+bindsym $mod+m                 exec --no-startup-id "$HOME/forkprojects/boomer/boomer"
+bindsym --whole-window button9 exec --no-startup-id "$HOME/forkprojects/boomer/boomer"
+
+# #---Layouts---# #
+# bindsym $mod+g layout tabbed
+bindsym $mod+g layout toggle splith tabbed
+bindsym $mod+v split toggle
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
@@ -115,6 +163,10 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 ###bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 ### TODO #merge
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
+
+# kh - kill hogs
+bindsym $mod+Ctrl+q exec --no-startup-id kh
+bindsym $mod+Ctrl+Shift+q exec --no-startup-id kh
 
 # kill all processes (waits before killing), encrypt the $HOME directory, exit i3 (& auto log off)
 #bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.local/bin/tools/ecryptfs-unmount; exec i3-msg exit
@@ -147,19 +199,24 @@ bindsym $mod+i		exec --no-startup-id figma
 bindsym $mod+Shift+i		exec --no-startup-id i3resize up
 
 
-#bindsym $mod+o			sticky toggle
+bindsym $mod+[			sticky toggle
+
 bindsym $mod+o			exec --no-startup-id slack
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 
 bindsym $mod+p			exec --no-startup-id mpc toggle
 bindsym $mod+Shift+p		exec --no-startup-id mpc pause
 
-bindsym $mod+a			exec --no-startup-id ddspawn calc -f mono:pixelsize=24
+# st:
+# bindsym $mod+a			exec --no-startup-id ddspawn calc -f mono:pixelsize=24
+# alacritty:
+bindsym $mod+a			exec --no-startup-id ddspawn calc -o font.size=14
 bindsym $mod+Shift+a		exec $term -e pulsemixer
 
 bindsym $mod+s		exec --no-startup-id $BROWSER
 #bindsym $mod+s			gaps inner current plus 5
-bindsym $mod+Shift+s		gaps inner current minus 5
+bindsym $mod+Shift+s floating enable; sticky enable
+# bindsym $mod+Shift+s		gaps inner current minus 5
 
 bindsym $mod+Shift+grave exec --no-startup-id "if [ `i3-msg -t get_tree | grep -Po \
     '.*(},|\[)\K{.*?focused\\":true.*?}(?=(,{|\]))' | grep -Po \
@@ -189,7 +246,7 @@ bindsym $mod+f exec --no-startup-id "if [ `i3-msg -t get_tree | grep -Po \
 
 bindsym $mod+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "<b>Distraction-free mode activated.</b> Press Super+Shift+f to return."
 
-bindsym $mod+g			workspace prev
+# bindsym $mod+g			workspace prev
 bindsym $mod+Shift+g		exec --no-startup-id gimp; workspace $ws5
 
 bindsym $mod+h			focus left
@@ -240,7 +297,7 @@ bindsym $mod+Shift+c		exec --no-startup-id camtoggle
 ### TOODO #merge (luke's)
 ###bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
 
-bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
+# bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
 #bindsym $mod+Shift+v
 
 bindsym $mod+b			bar mode toggle
@@ -251,10 +308,10 @@ bindsym $mod+n			exec --no-startup-id notion-app && pkill -RTMIN+6 i3blocks
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id bottomright
 #bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
 
-bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
-bindsym $mod+Shift+m		exec --no-startup-id amixer sset Master toggle && pkill -RTMIN+10 i3blocks
+# bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
+# bindsym $mod+Shift+m		exec --no-startup-id amixer sset Master toggle && pkill -RTMIN+10 i3blocks
 #bindsym $mod+Shift+m		exec --no-startup-id lmc mute
-#bindsym $mod+Shift+m		exec --no-startup-id pulsemixer --toggle-mute && pkill -RTMIN+10 i3blocks
+bindsym $mod+Shift+m		exec --no-startup-id pulsemixer --toggle-mute && pkill -RTMIN+10 i3blocks
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1
@@ -478,4 +535,4 @@ bindsym XF86WLAN		exec $netrefresh
 
 # shows borders only if there's more than one window in a workspace.
 # requires 'i3ipc-gjs': https://github.com/acrisci/i3ipc-gjs
-exec_always --no-startup-id $HOME/.local/bin/i3cmds/borders-only-if-more-than-one-window.js
+# exec_always --no-startup-id $HOME/.local/bin/i3cmds/borders-only-if-more-than-one-window.js

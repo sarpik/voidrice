@@ -25,8 +25,8 @@ textype() { \
 case "$file" in
 	*config.h) sudo make install ;;
 	*\.c) cc "$file" -o "$base" && "$base" ;;
-	*\.cpp) cputils-run -a "-DDEBUG" "$file" - ;;
-	*\.txt) cputils-run -a "-DDEBUG" "$file" - ;; # might run from the input file, thus aliasing
+	*\.cpp) cputils-run -a "-DDEBUG" "$file" -f  ;;
+	*\.txt) cputils-run -a "-DDEBUG" "$file" -f  ;; # might run from the input file, thus aliasing
 	*\.js) node "$file" ;;
 	*\.ts) ts-node-dev "$file" ;;
 	*\.py) python "$file" ;;

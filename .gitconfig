@@ -150,7 +150,7 @@
 	df = diff FETCH_HEAD
 	ds = diff --staged
 	e = exec
-	exec = "!exec " # execute a script at the root of the repository
+	exec = "!exec " # exec script at root of repo!
 					# this is useful in case you're deep in the repo
 					# but want to exec a command at the top, e.g.
 	                # `git exec sudo make install`
@@ -180,7 +180,7 @@
 	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	# pa = push --all                                         # meh
 	pl = pull
-	pa = !git -c core.pager=none diff -u                      # "patch"
+	pa = !git -c core.pager='' diff -u                      # "patch"
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
@@ -224,3 +224,6 @@
 	#x =
 	#y =
 	#z =
+[cinnabar]
+	helper = /tmp/tmpbf9i8_tc/git-cinnabar-master/git-cinnabar-helper
+	version-check = 1613416822

@@ -1,4 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+which="${1:-mem|swap}" # "Mem" | "Swap" | "Mem|Swap"
+
+if ! printf "$which" | grep -Pio "Mem|Swap" - &>/dev/null; then
+	printf "\nusage: memory Mem|Swap\n\n"
+	exit 1
+fi
 
 case $BLOCK_BUTTON in
 	1) notify-send "🧠 Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
@@ -8,4 +15,12 @@ case $BLOCK_BUTTON in
 - Middle click to open htop." ;;
 esac
 
-free -h | sed -n '2{p;q}' | awk '{print "🧠", $3 "/" $2}'
+# free -h | grep -P "^$which" | awk -v which_indication="${which:0:1}" '{print " " which_indication " " $3 "/" $2}'
+# free -h | grep -P "^$which" | awk '{print substr($1, 0, 1)"=" $3 "/" $2}' | tr '\n' ' ' | xargs -I{} printf " {}\n"
+
+# taken/avail:
+# free -h | grep -P "^$which" | awk '{print substr($1, 0, 1)"=" $3 "/" $2}' | tr '\n' ' ' | xargs -I{} printf " {}\n"
+# percent:
+# free | grep -P "^$which" | awk '{ print substr($1, 0, 1)"=" $3/$2*100 }' | cut -d. -f1 | awk '{ print $1 "%%" }' | tr '\n' ' ' | xargs -I{} printf " {}\n"
+free | grep -Pi "^$which" | awk '{ print tolower($1) $3/$2*100 }' | cut -d. -f1 | awk '{ print $1 "%%" }' | sed 's/a//;s/:/ /g;' | tr '\n' ' ' | xargs -I{} printf " {}\n"
+

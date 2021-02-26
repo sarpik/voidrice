@@ -9,11 +9,45 @@
 
 script=$1
 shift
-if xwininfo -tree -root | grep "(\"dropdown_$script\" ";
+if xwininfo -tree -root | grep "dropdown_$script" >/dev/null 2>&1
 then
 	echo "Window detected."
+	# for "title"
+	i3 "[title=\"dropdown_$script\"] scratchpad show; [title=\"dropdown_$script\"] move position center"
+	# for "instance"
 	i3 "[instance=\"dropdown_$script\"] scratchpad show; [instance=\"dropdown_$script\"] move position center"
+	# for "class"
+	i3 "[class=\"dropdown_$script\"] scratchpad show; [class=\"dropdown_$script\"] move position center"
 else
 	echo "Window not detected... spawning."
-	i3 "exec --no-startup-id $TERMINAL -n dropdown_$script $@ -e $script"
+
+	# set the title based on terminal command option
+		case "$TERMINAL" in
+		st)
+			i3 "exec --no-startup-id $TERMINAL -n dropdown_$script $@ -e $script"
+			;;
+		alacritty)
+			i3 "exec --no-startup-id $TERMINAL -t dropdown_$script $@ -e $script"
+			;;
+		kitty)
+			i3 "exec --no-startup-id $TERMINAL -T dropdown_$script $@ -e $script"
+			;;
+		*)
+			ERR="\
+ddspawn error:
+
+Did not find your terminal emulator in the list of supported ones.
+
+-> Add it to the script (really simple) to make things work (see \`command -v ddspawn \`):
+
+$(command -v ddspawn)
+
+"
+			printf "$ERR\n"
+			notify-send "ddspawn" "$ERR\n"
+
+			exit 1
+			;;
+	esac
 fi
+

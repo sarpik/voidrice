@@ -76,4 +76,7 @@ xhost +SI:localuser:screenlockuser
 
 # To use i3, comment out the line above with dwm and uncomment these two:
 # export STATUSBAR="i3blocks"
-exec i3
+
+# exec /home/kipras/.xmonad/xmonad-x86_64-linux
+  exec i3
+

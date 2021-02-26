@@ -4,6 +4,7 @@
 # $1 should be drive mountpoint, otherwise assumed /.
 
 location=${1:-/}
+[ -n "$2" ] && show_avail=1 || show_avail=0
 
 [ -d "$location" ] || exit
 
@@ -14,9 +15,16 @@ case $BLOCK_BUTTON in
 esac
 
 case "$location" in
-	"/home"* ) icon="🏠" ;;
+	# "/home"* ) icon="🏠" ;;
+	"/home"* ) icon="🖥" ;;
+
 	"/mnt"* ) icon="💾" ;;
 	*) icon="🖥  ";;
 esac
 
-printf "%s: %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $3 "/" $2}')"
+if [ "$show_avail" -eq 1 ]; then
+	# printf "%s %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $4}')"
+	printf "%s %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $5}')"
+else
+	printf "%s %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $3 "/" $2}')"
+fi

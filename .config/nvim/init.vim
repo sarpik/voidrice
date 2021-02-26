@@ -17,7 +17,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 " autocompletion. the `--all` flag might be used to install all support. more info @ https://valloric.github.io/YouCompleteMe/#installation
@@ -62,7 +62,7 @@ Plug 'https://github.com/lervag/vimtex'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+" Plug 'https://github.com/ctrlpvim/ctrlp.vim' " telescope ftw
 
 Plug 'https://github.com/mogelbrod/vim-jsonpath'
 Plug 'https://github.com/preservim/tagbar'
@@ -77,6 +77,16 @@ Plug 'https://github.com/liuchengxu/vista.vim'
 Plug 'https://github.com/sheerun/vim-polyglot'
 " Plug 'https://github.com/matze/vim-move' " custom defines instead
 Plug 'https://github.com/skywind3000/asyncrun.vim'
+Plug 'https://github.com/skywind3000/vim-terminal-help'
+Plug 'https://github.com/kassio/neoterm'
+Plug 'https://github.com/sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+Plug 'https://github.com/tommcdo/vim-exchange'
+Plug 'https://github.com/mkitt/tabline.vim' " tabs
+Plug 'https://github.com/christoomey/vim-tmux-navigator'
+Plug 'https://github.com/machakann/vim-sandwich'
+Plug 'https://github.com/wellle/tmux-complete.vim'
+
+Plug 'https://github.com/phaazon/hop.nvim'
 
 """ Themes
 Plug 'https://github.com/romgrk/doom-one.vim'
@@ -97,11 +107,31 @@ Plug 'chemzqm/vim-jsx-improve'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
+Plug 'https://github.com/aliou/bats.vim'
+
+" telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 """ TODO list:
 " https://github.com/romgrk/barbar.nvim
 " https://github.com/romgrk/winteract.vim
 
 call plug#end()
+
+" onedark.vim override: Don't set a background color when running in a terminal;
+" just use the terminal's background color
+" `gui` is the hex color code used in GUI mode/nvim true-color mode
+" `cterm` is the color code used in 256-color mode
+" `cterm16` is the color code used in 16-color mode
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+  augroup END
+endif
 
 """ Themes
 set termguicolors
@@ -199,9 +229,14 @@ endif
 	set smartcase
 
 " neovim terminal
-nnoremap <M-`> :split<CR>:terminal<CR>
-tnoremap <M-`> <C-\><C-n><CR>:q<CR>
-tnoremap <Esc> <C-\><C-n><CR>
+" nnoremap <M-`> :split<CR>:terminal<CR>
+" tnoremap <M-`> <C-\><C-n><CR>:q<CR>
+" tnoremap <Esc> <C-\><C-n><CR>
+
+" https://github.com/skywind3000/vim-terminal-help
+let g:terminal_key="<M-`>"
+let g:terminal_height=20
+
 
 " https://github.com/junegunn/vim-emoji#emoji-completion
 set completefunc=emoji#complete
@@ -301,7 +336,7 @@ set completefunc=emoji#complete
 	map Q gq
 
 " Check file in shellcheck:
-	map <leader>s :!clear && shellcheck %<CR>
+	map <leader>x :!clear && shellcheck %<CR>
 
 " Open my bibliography file in split
 	"map <leader>b :vsp<space>$BIB<CR>
@@ -314,6 +349,7 @@ set completefunc=emoji#complete
 	map <leader>c :w! \| !compiler <c-r>%<CR>
 
 	autocmd FileType cpp noremap <leader>p :w! \| !cputils-run -a "-DEVAL" - <c-r>%<CR>
+	autocmd FileType cpp noremap <M-p>     :w! \| !cputils-run -a "-DEVAL" - <c-r>%<CR>
 
 " Recompile markdown files to pdfs on write
 " compiler script is here: https://github.com/kiprasmel/voidrice/blob/master/.local/bin/compiler
@@ -321,9 +357,12 @@ set completefunc=emoji#complete
 
 " open input file (see cputils)
 	nnoremap <leader>e :50vsplit %.txt<CR>
+	" TODO: close if extension = .txt
+	nnoremap <M-e> :50vsplit %.txt<CR>
 
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
+	" map <M-p>     :!opout <c-r>%<CR><CR> " broken
 
 " https://raw.githubusercontent.com/jalvesaq/Nvim-R/master/doc/Nvim-R.txt
 " nvim-r
@@ -379,7 +418,7 @@ set completefunc=emoji#complete
 
 """LATEX
 	" Word count:
-	autocmd FileType tex map <leader>w :w !detex \| wc -w<CR>
+	" autocmd FileType tex map <leader>w :w !detex \| wc -w<CR>
 	" Code snippets
 	autocmd FileType tex inoremap ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><Esc>6kf}i
 	autocmd FileType tex inoremap ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><Esc>3kA
@@ -469,7 +508,7 @@ set completefunc=emoji#complete
 	autocmd FileType bib inoremap ,c @incollection{<Enter>author<Space>=<Space>{<++>},<Enter>title<Space>=<Space>{<++>},<Enter>booktitle<Space>=<Space>{<++>},<Enter>editor<Space>=<Space>{<++>},<Enter>year<Space>=<Space>{<++>},<Enter>publisher<Space>=<Space>{<++>},<Enter>}<Enter><++><Esc>8kA,<Esc>i
 
 "MARKDOWN
-	autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
+	" autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
 	autocmd Filetype markdown,rmd inoremap ,n ---<Enter><Enter>
 	autocmd Filetype markdown,rmd inoremap ,b ****<++><Esc>F*hi
 	autocmd Filetype markdown,rmd inoremap ,s ~~~~<++><Esc>F~hi
@@ -497,9 +536,9 @@ endif
 " Use A-- and A-= as C-i and C-o (go to previous/next location)
 " see https://stackoverflow.com/a/11018933/9285308
 " prev
-nmap <A--> <C-o>
+nnoremap <A--> <C-o>
 " next
-nmap <A-=> <C-i>
+nnoremap <A-=> <C-i>
 
 
 " BEGIN COC.VIM
@@ -591,8 +630,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <F2> <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -624,14 +663,14 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -650,7 +689,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " custom: Show marketplace.
@@ -677,3 +716,30 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "let g:asyncrun_trim=0
 "let g:asyncrun_status = "stopped" 
 "let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+
+" Reload / Source Vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
+
+noremap <leader>s :!git exec make test<CR>
+" autocmd FileType bats inoremap <Esc><leader>a :!git exec make test<CR>
+
+nnoremap <leader>w :HopWord<CR>
+nnoremap <leader>f :HopWord<CR>
+nnoremap <C-f> :HopWord<CR>
+nnoremap <M-f> :HopWord<CR>
+
+" --- Telescope ---
+
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" --- Tabline ---
+let g:tablineclosebutton=1
+hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
+

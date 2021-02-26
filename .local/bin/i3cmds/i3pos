@@ -3,9 +3,10 @@
 W=1920
 H=1080
 
+# TARGET="[title=Chatterino]" # xprop + https://i3wm.org/docs/userguide.html#list_of_commands
 TARGET="[title=Twitch]" # xprop + https://i3wm.org/docs/userguide.html#list_of_commands
-TARGET_W="373"
-TARGET_H="1045"
+TARGET_W="386"
+TARGET_H="600"
 
 USAGE="\
 usage:
@@ -61,8 +62,8 @@ while (( $# )); do
 	esac
 done
 
-[ -z "$X" ] && X=$(($W - $TARGET_W))
-[ -z "$Y" ] && Y=$(($H - $TARGET_H))
+[ -z "$X" ] && X=$(($W - $TARGET_W)) # 1547
+[ -z "$Y" ] && Y=$(($H - $TARGET_H)) # 35
 
 i3-msg "$TARGET floating enable; $TARGET sticky enable; $TARGET move position $X $Y; $TARGET resize set $TARGET_W $TARGET_H; "
 

@@ -38,8 +38,8 @@ alias ka="killall" \
 	compass="mongodb-compass" \
 	h="grep -Hr" \
 	trem="transmission-remote" \
-	e="dolphin" \
-	e.="dolphin ." \
+	dp="dolphin" \
+	dp.="dolphin ." \
 	v="$EDITOR" \
 	sv="sudoedit" \
 	sdn="sudo shutdown -h now" \
@@ -73,11 +73,13 @@ alias ka="killall" \
 	acl="arduino-cli" \
 	ac="arduino-cli" \
 	esl="eslint --ext js,jsx,ts,tsx" \
-	lol="sudo sh -c 'echo \"abi.vsyscall32 = 0\" >> /etc/sysctl.conf && sysctl -p;'"
+	lol="sudo sh -c 'echo \"abi.vsyscall32 = 0\" >> /etc/sysctl.conf && sysctl -p;'" \
+	ws="wifi-check" \
+	wr="wifi-restart"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-	bat="cat /sys/class/power_supply/BAT?/capacity" \
+	batt="cat /sys/class/power_supply/BAT?/capacity" \
 	cp="cp -v" \
 	mv="mv -v" \
 	rm="rm -v" \
@@ -181,7 +183,6 @@ cos() { co s $* }
 gso() { hub so $* }
 gd() { hub d $* }
 gds() { hub ds $* }
-gg() { hub s $* }
 ggg() { hub s $* }
 gggg() { hub s $* }
 ggggg() { hub s $* }
@@ -251,6 +252,13 @@ gprmeed() { g prmeed $* }
 gprmeew() { g prmeew $* }
 gprmeedw() { g prmeedw $* }
 
+# execute at the repository root!
+ge() { g e $* }
+e()  { g e $* }
+gmake() { ge make $* }
+gg() { gmake $* }
+ggs() { gmake test $* }
+
 # alias k="kubectl"
 kg() { k get $* }
 kga() { k get all $* }
@@ -268,7 +276,7 @@ kdp() { k describe pod $* }
 kdd() { k describe deploy $* }
 
 y() { yarn $* }
-yd() { yarn dev $* || yarn develop $* }
+yd() { yarn dev $* || yarn develop $* || yarn start $* }
 yy() { yd $* }
 yb() { y build $* }
 yw() { y watch $* }
@@ -299,13 +307,15 @@ drag() {
 	dragon-drag-and-drop $*
 }
 
+# see also https://youtu.be/92uo5OBOKfY
 fork() {
-	nohup $* &
+	# nohup $* &
+	 setsid -f $* >/dev/null 2>&1
 }
+alias fo="setsid -f >/dev/null 2>&1 "
 
 forkq() {
-	nohup $* &
-	exit
+	fork $* && exit
 }
 
 za() {
@@ -389,6 +399,11 @@ song() {
 mc() { mkdir -p "$@" && cd $_; }
 mkdc() { mc $* }
 mk() { mc $* }
+mkv() {
+	mkdir -p "$@"
+	rm "$@" -r
+	$EDITOR "$@"
+}
 
 eslf() { esl $* --fix }
 esldf() { esl . --fix }
@@ -434,4 +449,10 @@ man() {
 tn() {
 	tmux new -s $*
 }
+
+cclear() { printf "" | xsel --clipboard }
+
+ca="--color=always"
+
+sa() { ssh-add $* }
 

@@ -1,3 +1,10 @@
+
+! DPI
+! https://wiki.archlinux.org/index.php/Xorg#Display_size_and_DPI
+! https://wiki.archlinux.org/index.php/Xorg#Setting_DPI_manually
+! Xft.dpi: 96
+! Xft.dpi: 120
+
 !! Transparency (0-255):
 !st.alpha: 240
 !st.alpha: 165
@@ -15,11 +22,24 @@ st.alpha: 1
 
 ### this makes st crash when emojis are seen ###
 *.font: FuraCode Nerd Font Mono:pixelsize=20:style=Retina,Regular;
+st.font: monospace:size=11:style=Regular;
+dmenu.font: monospace:size=12:style=Regular;
+! *.font: xft:Symbola:style=Regular:pixelsize=24
+! *.font: Operator Mono Lig:pixelsize=22
+
+! btm.font: monospace:size=12:style=Regular;
 
 /* !! from the good'ol urxvt: */
-*.background: #282828
-*.foreground: white
+!! *.background: #282828
+!! *.foreground: white
 *.cursorColor: white
+
+!! from bad boy alacritty
+*.background: #1d1f21
+*.foreground: #c5c8c6
+
+!*.background: #c5c8c6
+!*.foreground: #1d1f21 
 
 !! black
 *.color0: #1b1918

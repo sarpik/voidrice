@@ -47,6 +47,7 @@ stty stop undef		# Disable ctrl-s to freeze terminal.
 # make backspace work in vim + tmux environment
 # see https://superuser.com/a/793283/1012390
 stty erase "^?"
+# see also 'stty ek'
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
@@ -386,6 +387,10 @@ bindkey -M menuselect '^M' .accept-line
 ### --- ###
 
 #source ~/.config/zsh/completions/_deno
+
+# https://github.com/okapia/zsh-viexchange
+[ -f "${ZDOTDIR}/zsh-viexchange/zsh-viexchange.plugin.zsh" ] && source "${ZDOTDIR}/zsh-viexchange/zsh-viexchange.plugin.zsh"
+zstyle 'zle:exchange' highlight 'fg=26,bg=195'
 
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
