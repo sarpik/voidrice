@@ -17,7 +17,7 @@ fp 	~/forkprojects
 lp	~/learnprojects
 css ~/learnprojects/css-suck-less
 lax ~/learnprojects/latex
-#re  ~/learnprojects/latex/resume
+res  ~/learnprojects/latex/resume
 rgl  ~/projects/refined-gitlab
 el  ~/learnprojects/every-layout
 #dsa ~/learnprojects/dsa
@@ -28,6 +28,7 @@ dsac ~/learnprojects/dsa/competitive-programmers-handbook/
 daa ~/learnprojects/dsa/competitive-programmers-handbook/
 da ~/docs/
 dcp ~/learnprojects/dsa/competitive-programmers-handbook/
+aoc ~/learnprojects/dsa/advent-of-code/
 lm ~/learnprojects/dsa/lmio/
 lpk ~/learnprojects/kube
 gop ~/go/src/
@@ -52,9 +53,10 @@ bz  ~/projects/biz
 biz ~/projects/biz
 nn 	~/projects/neural-nets-from-scratch
 pic	~/Pictures
-sa ~/screenshots
+# sa ~/screenshots
 vv	~/Videos
 cf	${XDG_CONFIG_HOME:-$HOME/.config}
+cfc ${XDG_CONFIG_HOME:-$HOME/.config}/cputils
 ca  ~/.cache
 bb  ~/.cache/builds
 sc	~/.local/bin

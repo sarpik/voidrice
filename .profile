@@ -9,7 +9,8 @@ export LARBSWM="$(cat ~/.local/share/larbs/wm 2>/dev/null)" &&
 # Adds `~/.local/bin/` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
-export PATH="$PATH:$HOME/.cargo/bin:$HOME/go/bin"
+export PATH="$PATH:${XDG_DATA_HOME:-$HOME/.local/share}/cargo/bin"
+export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:/home/kipras/.gem/ruby/2.7.0/bin" # WE'VE REVERSELY FALLEN FOR THE MEME BOYZ
@@ -19,12 +20,14 @@ export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin"
 export PATH="$PATH:/opt/depot_tools"
 export PATH="$PATH:$HOME/.emacs.d/bin"
 export PATH="$PATH:$HOME/.mozbuild/git-cinnabar"
+export PATH="$PATH:$HOME/forkprojects/boomer"
 
 # Default programs:
 export EDITOR="nvim"
 export REACT_EDITOR="vscodium"
 export SUDO_EDITOR="nvim"
 export TERMINAL="st"
+# export TERMINAL="alacritty"
 export BROWSER="firefox-developer-edition"
 export READER="zathura"
 export FILE="lf"
@@ -178,6 +181,9 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH="$PATH:/opt/lampp"
 export PATH="$PATH:$HOME/.local/bin"
 
+# source some secrets
+source "$HOME/.secret"
+
 # sourcemod / sourcepawn
 export PATH="$PATH:$HOME/.local/share/sourcemod/addons/sourcemod/scripting"
 
@@ -200,6 +206,9 @@ export MOZCONFIG="$HOME/.config/mozilla/mozconfig"
 # man, man-db, cppman
 # https://github.com/aitjcize/cppman/issues/84#issuecomment-763265258
 ## export MANPATH="${XDG_DATA_HOME}/man"
+
+# disable emoji in minikube
+export MINIKUBE_IN_STYLE=false
 
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in

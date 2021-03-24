@@ -22,7 +22,7 @@
 	longpaths = true
 [imap]
 	host = mail.kipras.org
-	user = kipras@kipras.org # todo - kipras@kipras.org
+	user = kipras@kipras.org
 	port = 993
 	sslverify = false
 	folder = Drafts
@@ -69,6 +69,8 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[init]
+	defaultBranch = master
 
 [alias]
 	#
@@ -150,7 +152,7 @@
 	df = diff FETCH_HEAD
 	ds = diff --staged
 	e = exec
-	exec = "!exec " # execute a script at the root of the repository
+	exec = "!exec " # exec script at root of repo!
 					# this is useful in case you're deep in the repo
 					# but want to exec a command at the top, e.g.
 	                # `git exec sudo make install`
@@ -180,10 +182,11 @@
 	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	# pa = push --all                                         # meh
 	pl = pull
-	pa = !git -c core.pager=none diff -u                      # "patch"
+	pa = !git -c core.pager='' diff -u                      # "patch"
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
+	prmed =       pull-request --push -a kiprasmel                          -depo                                                # targets upstream TODO
 	prmee =  !hub pull-request --push -a kiprasmel  --base kiprasmel:master  -epo --head kiprasmel:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
 	prmed =       pull-request --push -a kiprasmel  #--base        master -depo                                                  # targets upstream TODO
 	prmeed = !hub pull-request --push -a kiprasmel  --base kiprasmel:master -depo --head kiprasmel:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
@@ -224,3 +227,4 @@
 	#x =
 	#y =
 	#z =
+

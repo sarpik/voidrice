@@ -6,3 +6,6 @@ ac_add_options --enable-debug
 # https://firefox-source-docs.mozilla.org/setup/configuring_build_options.html#parallel-compilation
 mk_add_options MOZ_MAKE_FLAGS="-j4"
 
+# https://firefox-source-docs.mozilla.org/setup/configuring_build_options.html#sccache
+ac_add_options --with-ccache=sccache
+

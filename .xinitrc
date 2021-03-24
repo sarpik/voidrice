@@ -37,8 +37,10 @@ numlockx &
 
 # automatic screen brightness adjustment, blue light filtering and more
 # https://wiki.archlinux.org/index.php/Redshift
+# disabled because already launch it from the i3blocks statusbar
 #[ redshift -h >/dev/null 2>&1 ] && nohup redshift &
-nohup redshift &
+#nohup redshift &
+ 
 
 # https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method
 # dbus-update-activation-environment --systemd DISPLAY
@@ -76,4 +78,7 @@ xhost +SI:localuser:screenlockuser
 
 # To use i3, comment out the line above with dwm and uncomment these two:
 # export STATUSBAR="i3blocks"
-exec i3
+
+# exec /home/kipras/.xmonad/xmonad-x86_64-linux
+  exec i3
+

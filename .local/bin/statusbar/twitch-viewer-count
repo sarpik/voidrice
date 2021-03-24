@@ -39,7 +39,7 @@ RES="$(twitch-cli api get streams -q user_login="$TWITCH_USERNAME" | jq '.data[0
 LAST_RES_FILE="$HOME/.twitch-viewer-count-last"
 
 save_last() {
-	printf "$RES" > "$LAST_RES_FILE"
+	printf "$RES\n" > "$LAST_RES_FILE"
 }
 
 [ "$RES" = "null" ] && {
@@ -59,6 +59,12 @@ LAST_RES="$(cat $LAST_RES_FILE)"
 DIFF="$(($RES - $LAST_RES))"
 
 [ "$DIFF" -ne 0 ] && {
+	# minimum threshold
+	if (( $DIFF < 2 )); then
+		: # pass
+		#return 0
+	fi
+
 	if (( $DIFF > 0 )); then
 		notify-send "hey! 😄" " +$DIFF"
 	else

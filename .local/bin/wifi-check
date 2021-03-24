@@ -1,11 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # wifi-check
 
 sleepTime=1
 
 numberOfTries=0
 
-until (ping -c1 kipras.org); do sleep $sleepTime; numberOfTries=$((numberOfTries + 1)); done
+DOMAIN="${1:-kipras.org}"
+
+until (ping -c1 "$DOMAIN"); do sleep $sleepTime; numberOfTries=$((numberOfTries + 1)); done
 
 # print if internet was not already available on the first try
 [ $numberOfTries -gt 0 ] && {

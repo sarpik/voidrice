@@ -11,5 +11,5 @@ esac
 
 #$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
 
-nvidia-smi -a | grep Gpu | awk '{ str=$3"%" } { print str }'
+nvidia-smi -a | grep Gpu | awk '{ str=" "$3"%" } { print str }'
 

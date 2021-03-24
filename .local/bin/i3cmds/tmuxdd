@@ -4,5 +4,8 @@
 # the dropdown terminal or log into a previous session.
 SESSION_NAME="f"
 
+# WINDOW="$(xdotool getactivewindow)"
+# xdotool set_window --name 
+
 tmux a -t "$SESSION_NAME" 2>/dev/null || tmux new -s "$SESSION_NAME"
 

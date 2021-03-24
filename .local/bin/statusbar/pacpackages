@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Displays number of upgradeable packages.
 # For this to work, have a `pacman -Sy` command run in the background as a
@@ -17,12 +17,23 @@
 # When = PostTransaction
 # Exec = /usr/bin/pkill -RTMIN+8 dwmblocks # Or i3blocks if using i3.
 
+[ -n "$SHOW_PACKAGES" ] && {
+	/usr/bin/pacman -Qu --color=always | less
+	# read # keep terminal from exiting # edit: just use less
+	exit 0
+}
+
 case $BLOCK_BUTTON in
 	1) setsid "$TERMINAL" -e popupgrade & ;;
-	2) notify-send "$(/usr/bin/pacman -Qu)" ;;
+	2) 
+		dir="$(dirname "$0")"
+		script="$dir/pacpackages"
+		SHOW_PACKAGES=1 setsid "$TERMINAL" -e "$script"
+		;;
 	3) notify-send "🎁 Upgrade module" "📦: number of upgradable packages
 - Left click to upgrade packages
 - Middle click to show upgradable packages" ;;
 esac
 
 pacman -Qu | grep -cv "\[ignored\]" | sed "s/^/📦/;s/^📦0$//g"
+
