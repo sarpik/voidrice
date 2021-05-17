@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# requires https://github.com/nonpop/xkblayout-state
+
+case $BLOCK_BUTTON in
+	1)
+		notify-send "todo" "TODO: implement switching"
+		;;
+	3)
+		notify-send "keyboard-layout" "Current keyboard layout"
+		;;
+esac
+
+echo `xkblayout-state print "%s"`
+

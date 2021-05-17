@@ -97,6 +97,9 @@ interval=30
 command=clock time
 interval=30
 
+[keyboard-layout]
+interval=1
+
 [twitch-viewer-count]
 interval=5
 label=👀 
