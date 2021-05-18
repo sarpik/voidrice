@@ -180,6 +180,7 @@ cg() {
 # calls aliases. See https://github.com/sarpik/voidrice/blob/master/.gitconfig
 gs() { hub s $* }
 cos() { co s $* }
+cod() { co d $* }
 gso() { hub so $* }
 gd() { hub d $* }
 gds() { hub ds $* }
