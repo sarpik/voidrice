@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+#
+# the window title mess is no longer needed
+# since we inject a js script when building roam with nativefier
+# that uses a mutation observer to always update the document.title,
+# thus updating the title of the window too
+#
+# script available @ https://github.com/kiprasmel/voidrice/tree/master/.local/share/builds/fix-roam-title.js
+#
+
+WANTED_TITLE="dropdown_roam"
+
+ddspawn roam "run_directly" # && \
+# sleep 0.5 && \
+# xdotool search --name "Roam Research – A note taking tool for networked thought." set_window --name "$WANTED_TITLE" && \
+# sleep 3 && \
+# xdotool search --name "Daily Notes" set_window --name "$WANTED_TITLE"
+

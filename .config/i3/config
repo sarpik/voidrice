@@ -76,13 +76,29 @@ for_window [instance="dropdown_calc"]	border pixel 1
 for_window [class="dropdown_calc"]		border pixel 1
 for_window [title="dropdown_calc"]		border pixel 1
 
+# for the notes scratchpad
+#for_window [instance="dropdown_roam"]	resize set 400 1045
+#for_window [class="dropdown_roam"]		resize set 400 1045
+#for_window [title="dropdown_roam"]		resize set 400 1045
+#for_window [instance="dropdown_roam"]	resize set 1200 800
+#for_window [class="dropdown_roam"]		resize set 1200 800
+#for_window [title="dropdown_roam"]		resize set 1200 800
+for_window [instance="dropdown_roam"]	resize set 600 1046
+for_window [class="dropdown_roam"]		resize set 600 1046
+for_window [title="dropdown_roam"]		resize set 600 1046
+
 # finishing thoughts for general dropdowns
 for_window [instance="dropdown_*"]	move position center
-for_window [instance="dropdown_*"]	border none
 for_window [class="dropdown_*"]		move position center
-for_window [class="dropdown_*"] 	border none
 for_window [title="dropdown_*"]		move position center
+for_window [instance="dropdown_*"]	border none
+for_window [class="dropdown_*"] 	border none
 for_window [title="dropdown_*"] 	border none
+
+# overrides from generals
+# for_window [instance="dropdown_roam"]	move position 875 35
+# for_window [class="dropdown_roam"]		move position 875 35
+# for_window [title="dropdown_roam"]		move position 875 35
 
 # #---Starting External Scripts---# #
 # mpd startup
@@ -139,7 +155,8 @@ bindsym $mod+Return 		exec $term
 bindsym $mod+Shift+Return	exec --no-startup-id samedir
 
 bindsym $mod+Shift+space 	floating toggle
-bindsym $mod+space		focus mode_toggle
+# bindsym $mod+space		focus mode_toggle
+bindsym $mod+space			exec --no-startup-id ddspawn roam "run_directly"
 
 bindsym $mod+Escape		workspace prev
 #bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "$HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit"
@@ -181,7 +198,8 @@ bindsym $mod+e			exec $term -e neomutt && pkill -RTMIN+12 i3blocks
 bindsym $mod+Shift+e		exec --no-startup-id tutorialvids
 
 ##bindsym $mod+r 			exec $term -e lf
-bindsym $mod+r			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
+# bindsym $mod+r			exec $term -e roam && pkill -RTMIN+6 i3blocks
+bindsym $mod+r			exec --no-startup-id ddspawn roam "run_directly" "do_not_center"
 bindsym $mod+Shift+r		exec --no-startup-id winresize
 
 bindsym $mod+t			split toggle
@@ -211,7 +229,8 @@ bindsym $mod+Shift+p		exec --no-startup-id mpc pause
 # st:
 # bindsym $mod+a			exec --no-startup-id ddspawn calc -f mono:pixelsize=24
 # alacritty:
-bindsym $mod+a			exec --no-startup-id ddspawn calc -o font.size=14
+#bindsym $mod+a			exec --no-startup-id ddspawn calc '' '' -o font.size=14
+bindsym $mod+a			exec --no-startup-id ddspawn calc
 bindsym $mod+Shift+a		exec $term -e pulsemixer
 
 bindsym $mod+s		exec --no-startup-id $BROWSER
@@ -305,7 +324,8 @@ bindsym $mod+b			bar mode toggle
 bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
 
 ##bindsym $mod+n			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
-bindsym $mod+n			exec --no-startup-id notion-app && pkill -RTMIN+6 i3blocks
+# bindsym $mod+n			exec --no-startup-id notion-app && pkill -RTMIN+6 i3blocks
+bindsym $mod+n			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id bottomright
 #bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
 
