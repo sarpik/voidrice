@@ -60,10 +60,10 @@ for_window [title="dropdown_*"] scratchpad show
 #
 # see also ddspawn & tmuxdd
 for_window [instance="dropdown_tmuxdd"] resize set 1200 800
-for_window [instance="dropdown_tmuxdd"] border pixel 4
 for_window [class="dropdown_tmuxdd"]    resize set 1200 800
-for_window [class="dropdown_tmuxdd"]    border pixel 4
 for_window [title="dropdown_tmuxdd"]    resize set 1200 800
+for_window [instance="dropdown_tmuxdd"] border pixel 4
+for_window [class="dropdown_tmuxdd"]    border pixel 4
 for_window [title="dropdown_tmuxdd"]    border pixel 4
 # 1248 894 | 625 450
 

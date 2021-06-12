@@ -68,3 +68,4 @@ application/x-lzma=org.gnome.Nautilus.desktop
 application/x-lzma-compressed-tar=org.gnome.Nautilus.desktop
 application/x-xz=org.gnome.Nautilus.desktop
 application/x-lzip-compressed-tar=org.gnome.Nautilus.desktop
+x-scheme-handler/figma=figma-linux.desktop

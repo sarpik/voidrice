@@ -86,6 +86,9 @@ Plug 'https://github.com/wellle/tmux-complete.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 Plug 'https://github.com/simnalamburt/vim-mundo'
+" color display like #0FFFFF & hsl(120, 100%, 50%)
+Plug 'https://github.com/RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'https://github.com/justinmk/vim-sneak'
 
 Plug 'https://github.com/phaazon/hop.nvim'
 

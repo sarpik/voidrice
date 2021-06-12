@@ -52,6 +52,7 @@ b   ~/projects/biz
 bz  ~/projects/biz
 biz ~/projects/biz
 nn 	~/projects/neural-nets-from-scratch
+re	~/projects/lilreddit
 pic	~/Pictures
 # sa ~/screenshots
 vv	~/Videos
@@ -73,3 +74,4 @@ dyi ~/LARBS/do-it-yourself/
 
 lampp /opt/lampp
 ho /opt/lampp/htdocs
+
