@@ -219,7 +219,8 @@ grium() { g rium $* }
 grmbp() { hub rmbp $* }
 gl() { hub l $* }
 glg() { hub lg $* }
-gls() { hub lgs $* }
+gls() { g ls $* }
+glgs() { g lgs $* }
 glgs() { hub lgs $* }
 
 ga() { hub a $* }

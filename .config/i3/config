@@ -83,9 +83,12 @@ for_window [title="dropdown_calc"]		border pixel 1
 #for_window [instance="dropdown_roam"]	resize set 1200 800
 #for_window [class="dropdown_roam"]		resize set 1200 800
 #for_window [title="dropdown_roam"]		resize set 1200 800
-for_window [instance="dropdown_roam"]	resize set 600 1046
-for_window [class="dropdown_roam"]		resize set 600 1046
-for_window [title="dropdown_roam"]		resize set 600 1046
+#for_window [instance="dropdown_roam"]	resize set 600 1046
+#for_window [class="dropdown_roam"]		resize set 600 1046
+#for_window [title="dropdown_roam"]		resize set 600 1046
+for_window [instance="dropdown_roam"]	resize set 872 1046
+for_window [class="dropdown_roam"]		resize set 872 1046
+for_window [title="dropdown_roam"]		resize set 872 1046
 
 # finishing thoughts for general dropdowns
 for_window [instance="dropdown_*"]	move position center
@@ -130,6 +133,24 @@ bar {
 	mode dock
 	modifier None
 }
+
+# colors.
+# defaults commented out.
+# this makes the tabbed layout's border subtle, without text - less distracting.
+#
+# class                 border  backgr. text    indicator child_border
+
+#client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused          #000000 #444444 #444444 #aaaaaa #ffffff
+
+#client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.focused_inactive #000000 #444444 #444444 #484e50   #5f676a
+
+#client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.unfocused        #333333 #111111 #111111 #292d2e   #222222
+
+#client.urgent           #2f343a #900000 #ffffff #900000   #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 # polybar
 #bar {
@@ -184,6 +205,8 @@ bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec -
 # kh - kill hogs
 bindsym $mod+Ctrl+q exec --no-startup-id kh
 bindsym $mod+Ctrl+Shift+q exec --no-startup-id kh
+bindsym $mod+Ctrl+BackSpace exec --no-startup-id kh
+bindsym $mod+Ctrl+Shift+BackSpace exec --no-startup-id kh
 
 # kill all processes (waits before killing), encrypt the $HOME directory, exit i3 (& auto log off)
 #bindsym $mod+Shift+q		exec cd /; exec killall -w -i -u $USER; exec $HOME/.local/bin/tools/ecryptfs-unmount; exec i3-msg exit

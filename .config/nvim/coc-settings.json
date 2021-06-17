@@ -4,4 +4,5 @@
   "clangd.enabled": true,
   "clangd.disableDiagnostics": false,
   "clangd.semanticHighlighting": true,
+  "python.jediPath": "/home/kipras/.local/lib/python3.9/site-packages",
 }

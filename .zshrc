@@ -242,10 +242,10 @@ bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 bindkey '^[[P' delete-char
 
-### tmux
-bindkey -s '^s' 'tmux a -t 0 2>/dev/null || tmux new -s 0\n'
-bindkey -s -M viins '^s'  'tmux a -t 0 2>/dev/null || tmux new -s 0\n'
-bindkey -s -M vicmd '^s' 'tmux a -t 0 2>/dev/null || tmux new -s 0\n'
+### tmux. prefix with space to not go into history
+bindkey -s '^s' ' tmux a -t 0 2>/dev/null || tmux new -s 0\n'
+bindkey -s -M viins '^s'  ' tmux a -t 0 2>/dev/null || tmux new -s 0\n'
+bindkey -s -M vicmd '^s' ' tmux a -t 0 2>/dev/null || tmux new -s 0\n'
 
 # unbind -- https://unix.stackexchange.com/a/285210/332452
 bindkey -r "^[/"

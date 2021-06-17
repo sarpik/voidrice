@@ -89,6 +89,7 @@ Plug 'https://github.com/simnalamburt/vim-mundo'
 " color display like #0FFFFF & hsl(120, 100%, 50%)
 Plug 'https://github.com/RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " Plug 'https://github.com/justinmk/vim-sneak'
+Plug 'https://github.com/mbbill/undotree'
 
 Plug 'https://github.com/phaazon/hop.nvim'
 
@@ -747,3 +748,5 @@ hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 
+" --- UndoTree ---
+nnoremap <F5> :UndotreeToggle<CR>

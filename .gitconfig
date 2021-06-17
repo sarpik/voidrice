@@ -171,7 +171,8 @@
 	#k =
 	l = lg
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgs = lg --stat
+	ls = lg --stat
+	lgs = ls
 	lp = log --patch #--follow
 	#m = merge
 	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
