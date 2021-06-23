@@ -524,13 +524,24 @@ bindsym XF86MyComputer		exec $term -e lf
 ##bindsym XF86Back		exec
 ##bindsym XF86Forward		exec
 bindsym XF86Eject		exec --no-startup-id dmenuumount
-bindsym XF86AudioNext		exec --no-startup-id mpc next
-bindsym XF86AudioPlay		exec --no-startup-id mpc toggle
-bindsym XF86AudioPrev		exec --no-startup-id mpc prev
-bindsym XF86AudioStop		exec --no-startup-id mpc toggle
+
+#bindsym XF86AudioNext		exec --no-startup-id mpc next
+#bindsym XF86AudioPlay		exec --no-startup-id mpc toggle
+#bindsym XF86AudioPrev		exec --no-startup-id mpc prev
+#bindsym XF86AudioStop		exec --no-startup-id mpc toggle
+###bindsym XF86AudioRecord
+#bindsym XF86AudioRewind		exec --no-startup-id mpc seek -10
+#bindsym XF86AudioForward	exec --no-startup-id mpc seek +10
+
+# hell yea (works with youtube / spotify / etc)
+bindsym XF86AudioNext		exec --no-startup-id playerctl next
+bindsym XF86AudioPlay		exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPrev		exec --no-startup-id playerctl previous
+bindsym XF86AudioStop		exec --no-startup-id playerctl play-pause
 ##bindsym XF86AudioRecord
-bindsym XF86AudioRewind		exec --no-startup-id mpc seek -10
-bindsym XF86AudioForward	exec --no-startup-id mpc seek +10
+bindsym XF86AudioRewind		exec --no-startup-id playerctl position -10
+bindsym XF86AudioForward	exec --no-startup-id playerctl position +10
+
 ##bindsym XF86Phone		exec
 ##bindsym XF86Tools		exec
 bindsym XF86HomePage		exec $BROWSER https://lukesmith.xyz
